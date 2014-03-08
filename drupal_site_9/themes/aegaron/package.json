@@ -1,0 +1,9 @@
+{
+  "name": "webblocks",
+  "version": "0.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "uglify-js":"1.3.2",
+    "uglifycss":"0.0.5"
+  }
+}

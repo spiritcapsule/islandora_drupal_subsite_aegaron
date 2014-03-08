@@ -1,0 +1,22 @@
+#search-block-form {
+    
+    @extend form.form;
+    
+}
+
+.form-item, .form-actions {
+    
+    margin: 0;
+    @include -entity-form-control;
+    
+}
+
+.container-inline {
+        
+    .form-item, .form-actions {
+    
+        display: block;                 /* Override .container-inline */
+    
+    }
+    
+}

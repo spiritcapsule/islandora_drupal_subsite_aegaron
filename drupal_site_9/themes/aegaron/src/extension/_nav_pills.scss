@@ -1,0 +1,8 @@
+/**
+ * Define nav.pills based on Bootstrap adapter.
+ */
+
+nav.pills ul {
+    @extend .nav;
+    @extend .nav-pills;
+}

@@ -1,0 +1,11 @@
+/**
+ * Define guards against Bootstrapstyles overriding Drupal/WebBlocks.
+ */
+
+.form-actions {
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: transparent;
+    border-top: none;
+}

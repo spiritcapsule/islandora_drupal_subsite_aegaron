@@ -1,0 +1,20 @@
+nav.pills > ul {
+    
+    @extend .nav;               /* Bootstrap adapter */
+    @extend .nav-pills;         /* Bootstrap adapter */
+    
+}
+
+.masthead {
+    
+    margin-bottom: 2em;
+    padding-top: 10px;
+    
+    #logo {
+        
+        @extend .float-left;    /* WebBlocks */
+        margin: -10px 20px 0 0;
+        
+    }
+    
+}

@@ -1,0 +1,7 @@
+/**
+ * Define guards against Drupal base styles overriding WebBlocks definitions.
+ */
+
+div.warning, .warning {
+    background-image: none; /* drupal sets a background image on this class */
+}
