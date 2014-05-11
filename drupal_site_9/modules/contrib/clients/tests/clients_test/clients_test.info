@@ -1,0 +1,12 @@
+name = Clients Dummy Connection
+description = Provides a dummy connection type for use in tests.
+core = 7.x
+hidden = TRUE
+files[] = clients_connection_clients_dummy.inc
+
+; Information added by drupal.org packaging script on 2013-10-23
+version = "7.x-3.0-beta9"
+core = "7.x"
+project = "clients"
+datestamp = "1382525126"
+
