@@ -4,3 +4,24 @@
     @extend .hide-accessible;
 }
 
+#footer .section {
+    background: #eeeeee;
+}
+
+#footer .region-footer .block {
+    border-right: dotted 1px #444444;
+}
+
+#footer .region-footer .block:last-child {
+    border-right: none;
+}
+
+#footer .region-footer .block h2.block-title {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+#footer .region-footer .block ul li {
+    font-size: .8rem;
+}
+
