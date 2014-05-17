@@ -4,10 +4,3 @@
     @extend .hide-accessible;
 }
 
-#footer .region-footer {
-    @extend .row;
-}
-
-#footer .region-footer block {
-    @extend .panel-3;
-}
