@@ -20,7 +20,7 @@ WebBlocks.config[:src][:extensions] = ["#{rootdir}/src/extension"]
 
 # Packages compiled into WebBlocks
 WebBlocks.config[:src][:packages]  = []
-# WebBlocks.config[:src][:packages] << :jquery # already included by Drupal
+WebBlocks.config[:src][:packages] << :jquery 
 WebBlocks.config[:src][:packages] << :modernizr
 WebBlocks.config[:src][:packages] << :respond
 WebBlocks.config[:src][:packages] << :selectivizr

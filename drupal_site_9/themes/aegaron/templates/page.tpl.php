@@ -119,16 +119,26 @@
     <?php endif; ?>
 
     <?php if ($breadcrumb): ?>
-      <div id="breadcrumb"><?php print $breadcrumb; ?></div>
+      <div id="breadcrumb"><div class="container"><?php print $breadcrumb; ?></div></div>
     <?php endif; ?>
 
-    <?php print $messages; ?>
+    <?php if ($messages): ?>
+      <div id="messages"><div class="container"><?php print $messages; ?></div></div>
+    <?php endif; ?>
 
     <div id="main-wrapper">
       <div class="container">
-        <div id="main" class="clearfix">
+        <div id="main" class="clearfix row">
 
-      <div id="content" class="column"><div class="section">
+      <?php $content_panels = 12 - 3*((bool)$page['sidebar_first']) - 3*((bool)$page['sidebar_second']); ?>
+
+      <?php if ($page['sidebar_first']): ?>
+        <div id="sidebar-first" class="column sidebar panel-3"><div class="section">
+          <?php print render($page['sidebar_first']); ?>
+        </div></div> <!-- /.section, /#sidebar-first -->
+      <?php endif; ?>
+
+      <div id="content" class="column panel-<?php print $content_panels ?>"><div class="section">
         <?php if ($page['highlighted']): ?><div id="highlighted"><?php print render($page['highlighted']); ?></div><?php endif; ?>
         <a id="main-content"></a>
         <?php print render($title_prefix); ?>
@@ -141,14 +151,8 @@
         <?php print $feed_icons; ?>
       </div></div> <!-- /.section, /#content -->
 
-      <?php if ($page['sidebar_first']): ?>
-        <div id="sidebar-first" class="column sidebar"><div class="section">
-          <?php print render($page['sidebar_first']); ?>
-        </div></div> <!-- /.section, /#sidebar-first -->
-      <?php endif; ?>
-
       <?php if ($page['sidebar_second']): ?>
-        <div id="sidebar-second" class="column sidebar"><div class="section">
+        <div id="sidebar-second" class="column sidebar panel-3"><div class="section">
           <?php print render($page['sidebar_second']); ?>
         </div></div> <!-- /.section, /#sidebar-second -->
       <?php endif; ?>
@@ -156,7 +160,11 @@
     </div></div></div> <!-- /#main, /.container, /#main-wrapper -->
 
     <div id="footer"><div class="section">
-      <?php print render($page['footer']); ?>
+      <?php if ($page['footer']): ?>
+        <div class="container">
+          <?php print render($page['footer']); ?>
+        </div> <!-- /.container -->
+      <?php endif; ?>
     </div></div> <!-- /.section, /#footer -->
 
   </div></div> <!-- /#page, /#page-wrapper -->

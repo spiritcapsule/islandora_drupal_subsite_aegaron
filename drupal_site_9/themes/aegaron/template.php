@@ -13,14 +13,14 @@ if (theme_get_setting('clear_registry')) {
   drupal_theme_rebuild();
 }
 
-define('AEGARON_THEME_DIR', dirname(__FILE__));
-define('AEGARON_THEME_LIB_DIR', AEGARON_THEME_DIR.'/lib');
+define('THEME_DIR', dirname(__FILE__));
+define('THEME_LIB_DIR', THEME_DIR.'/lib');
 
-foreach(scandir(AEGARON_THEME_LIB_DIR) as $file){
+foreach(scandir(THEME_LIB_DIR) as $file){
     
     if(substr($file, 0, 1) == '.')
         continue;
     
-    include_once(AEGARON_THEME_LIB_DIR.'/'.$file);
+    include_once(THEME_LIB_DIR.'/'.$file);
     
 }

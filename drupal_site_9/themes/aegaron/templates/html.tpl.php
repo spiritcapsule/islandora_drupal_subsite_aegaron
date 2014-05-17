@@ -70,5 +70,6 @@ global $base_url;
   <?php print $page_top; ?>
   <?php print $page; ?>
   <?php print $page_bottom; ?>
+<script src="<?php echo $base_url.'/'.path_to_theme(); ?>/assets/js/script/efx.js"></script>
 </body>
 </html>
