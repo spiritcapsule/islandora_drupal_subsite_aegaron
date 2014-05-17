@@ -48,7 +48,15 @@ header {
 
 #main-wrapper {
     border-top: solid 2px #666666;
-    min-height: 333em;
+    min-height: 30em;
+
+    #messages {
+        .messages.status {
+            a {
+                color: #073198;
+            }
+        }
+    }
 }
 
 .front #main-wrapper {
