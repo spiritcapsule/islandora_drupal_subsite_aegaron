@@ -17,36 +17,44 @@ header .masthead #logo img {
 }
 
 #main-wrapper {
-  /* fallback */
-  background-color: $aegaron-background-dark;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from($aegaron-background-dark), to($aegaron-background-med));
-  background: -webkit-linear-gradient(top, $aegaron-background-med, $aegaron-background-dark);
-  background: -moz-linear-gradient(top, $aegaron-background-med, $aegaron-background-dark);
-  background: -ms-linear-gradient(top, $aegaron-background-med, $aegaron-background-dark);
-  background: -o-linear-gradient(top, $aegaron-background-med, $aegaron-background-dark);
+    /* fallback */
+    background-color: $aegaron-background-dark;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from($aegaron-background-dark), to($aegaron-background-med));
+    background: -webkit-linear-gradient(top, $aegaron-background-med, $aegaron-background-dark);
+    background: -moz-linear-gradient(top, $aegaron-background-med, $aegaron-background-dark);
+    background: -ms-linear-gradient(top, $aegaron-background-med, $aegaron-background-dark);
+    background: -o-linear-gradient(top, $aegaron-background-med, $aegaron-background-dark);
+
+    color: #cccccc;
+
+}
+
+.front #main h1.title {
+    font-size: 1.8rem;
+    font-weight: normal;
 }
 
 #footer .section {
     background: #ffffff;
     border-top: solid 2px #666666;
     padding: 1em 0;
-}
 
-#footer .region-footer .block {
-    border-right: dotted 1px #aaaaaa;
-    height: 100%;
-}
+    .region-footer .block {
+        border-right: dotted 1px #aaaaaa;
+        height: 100%;
 
-#footer .region-footer .block:last-child {
-    border-right: none;
-}
+        :last-child {
+            border-right: none;
+        }
 
-#footer .region-footer .block h2.block-title {
-    font-size: 1rem;
-    font-weight: normal;
-}
+        h2.block-title {
+            font-size: 1rem;
+            font-weight: normal;
+        }
 
-#footer .region-footer .block ul li {
-    font-size: .8rem;
+        ul li {
+            font-size: .8rem;
+            list-style-image: url(/sites/drupal_site_9/themes/aegaron/assets/img/bullet-arrow-orange-inactive.png);
+        }
+    }
 }
-
