@@ -78,6 +78,8 @@
 
     <header class="clearfix">
       <div id="header-wrapper" class="">
+        <div class="top-header">
+        </div>
         <div class="masthead">
           <div class="container">
             <div class="row">
@@ -114,7 +116,7 @@
                    </div> <!-- /.panel-6 -->
 
                    <div class="panel-3">
-                     <ul>
+                     <ul class="hide-accessible">
                        <li>Insert Search Here</li>
                      </ul>
                    </div> <!-- /.panel-3 -->

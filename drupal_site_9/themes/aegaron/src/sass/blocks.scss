@@ -9,6 +9,8 @@ body {
 }
 
 header .masthead { 
+    margin-bottom: 0;
+
     #logo img {
         width: 200px;
     }
@@ -30,6 +32,8 @@ header .masthead {
 }
 
 #main-wrapper {
+    min-height: 300px;
+
     /* fallback */
     background-color: $aegaron-background-dark;
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from($aegaron-background-dark), to($aegaron-background-med));
