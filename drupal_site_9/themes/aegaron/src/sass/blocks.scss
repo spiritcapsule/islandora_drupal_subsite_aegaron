@@ -14,11 +14,15 @@ body {
 
 #footer .section {
     background: #eeeeee;
+    display: table;
 }
 
 #footer .region-footer .block {
-    border-right: dotted 1px #444444;
+    border-right: dotted 1px #aaaaaa;
     height: 100%;
+    display: table-cell;
+    width: 25%;
+    padding: 1em;
 }
 
 #footer .region-footer .block:last-child {
