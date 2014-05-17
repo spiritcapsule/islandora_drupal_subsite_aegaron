@@ -22,15 +22,15 @@ header {
 
         .nav-browse { 
             h2 {
-                font-size: .9em;
+                font-size: .9rem;
                 font-weight: normal;
                 text-transform: uppercase;
-                margin-bottom: .1em;
+                margin-bottom: .1rem;
             }
             ul {
                 margin-left: 0;
                 li {
-                    font-size: .8em;
+                    font-size: .8rem;
                     list-style: none;
                 }
             }
@@ -69,10 +69,29 @@ header {
     font-weight: normal;
 }
 
+#main {
+    #sidebar-first {
+        .block {
+            h2 {
+                font-size: 1rem;
+            }
+
+            ul {
+                margin-left: .2rem;
+
+                li.leaf {
+                    list-style-image: none;
+                    list-style-type: none;
+                }
+            }
+        }
+    }
+}
+
 #footer .section {
     background: #ffffff;
     border-top: solid 2px #666666;
-    padding: 1em 0;
+    padding: 1rem 0;
 
     .region-footer {
         .block {
