@@ -74,6 +74,7 @@ header {
         .block {
             h2 {
                 font-size: 1rem;
+                margin-top: 1rem;
             }
 
             ul {
@@ -90,7 +91,7 @@ header {
 
 #footer .section {
     background: #ffffff;
-    border-top: solid 2px #666666;
+    border-top: ridge 3px #666666;
     padding: 1rem 0;
 
     .region-footer {
@@ -104,8 +105,12 @@ header {
             }
 
             ul li {
-                font-size: .8rem;
+                font-size: .7rem;
                 list-style-image: url(/sites/drupal_site_9/themes/aegaron/assets/img/bullet-arrow-orange-inactive.png);
+
+                a {
+                    color: #444444;
+                }
             }
         }
 

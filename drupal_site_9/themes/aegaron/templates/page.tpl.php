@@ -125,7 +125,7 @@
                      <h2>Browse</h2>
                      <ul>
                        <li><a href="http://dai.aegaron.ucla.edu/index.php/welcome/browse">Architectural Plans</a></li>
-                       <li><a href="/browse-terms">Term Glossary</a></li>
+                       <li><a href="/browse/terms">Term Glossary</a></li>
                      </ul>
                    </div> <!-- /.panel-3 -->
 
