@@ -121,7 +121,7 @@
                      </ul>
                    </div> <!-- /.panel-3 -->
 
-                   <div class="panel-3 nav">
+                   <div class="panel-3 nav-browse">
                      <h2>Browse</h2>
                      <ul>
                        <li><a href="http://dai.aegaron.ucla.edu/index.php/welcome/browse">Architectural Plans</a></li>

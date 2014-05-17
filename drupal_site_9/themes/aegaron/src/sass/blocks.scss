@@ -15,7 +15,7 @@ header .masthead {
         width: 200px;
     }
 
-    .nav { 
+    .nav-browse { 
         h2 {
             font-size: .9em;
             font-weight: normal;
@@ -32,6 +32,10 @@ header .masthead {
 }
 
 #main-wrapper {
+    border-top: solid 2px #666666;
+}
+
+.front #main-wrapper {
     min-height: 300px;
 
     /* fallback */
@@ -44,6 +48,9 @@ header .masthead {
 
     color: #cccccc;
 
+    a {
+        color: #87C7FF;
+    }
 }
 
 .front #main h1.title {
@@ -56,22 +63,23 @@ header .masthead {
     border-top: solid 2px #666666;
     padding: 1em 0;
 
-    .region-footer .block {
-        border-right: dotted 1px #aaaaaa;
-        height: 100%;
+    .region-footer
+        .block {
+            border-right: dotted 1px #aaaaaa;
+            height: 100%;
 
-        :last-child {
+            h2.block-title {
+                font-size: 1rem;
+                font-weight: normal;
+            }
+
+            ul li {
+                font-size: .8rem;
+                list-style-image: url(/sites/drupal_site_9/themes/aegaron/assets/img/bullet-arrow-orange-inactive.png);
+            }
+
+        .block:last-child {
             border-right: none;
-        }
-
-        h2.block-title {
-            font-size: 1rem;
-            font-weight: normal;
-        }
-
-        ul li {
-            font-size: .8rem;
-            list-style-image: url(/sites/drupal_site_9/themes/aegaron/assets/img/bullet-arrow-orange-inactive.png);
         }
     }
 }
