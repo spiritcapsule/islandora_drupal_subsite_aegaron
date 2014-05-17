@@ -50,6 +50,8 @@ header {
     border-top: ridge 3px #666666;
     min-height: 30em;
 
+    background-image: -webkit-linear-gradient( left, #ccc, #ddd 24.5%, #eee 24.5%, #ddd 25%, #eee 25%, #eee 100% );
+
     #messages {
         .messages.status {
             a {
