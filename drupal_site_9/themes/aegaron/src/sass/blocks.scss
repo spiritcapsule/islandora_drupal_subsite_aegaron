@@ -18,12 +18,12 @@ header .masthead #logo img {
 
 #main-wrapper {
   /* fallback */
-  background-color: #333333;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#333333), to(#555555));
-  background: -webkit-linear-gradient(top, #555555, #333333);
-  background: -moz-linear-gradient(top, #555555, #333333);
-  background: -ms-linear-gradient(top, #555555, #333333);
-  background: -o-linear-gradient(top, #555555, #333333);
+  background-color: $aegaron-background-dark;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from($aegaron-background-dark), to($aegaron-background-med));
+  background: -webkit-linear-gradient(top, $aegaron-background-med, $aegaron-background-dark);
+  background: -moz-linear-gradient(top, $aegaron-background-med, $aegaron-background-dark);
+  background: -ms-linear-gradient(top, $aegaron-background-med, $aegaron-background-dark);
+  background: -o-linear-gradient(top, $aegaron-background-med, $aegaron-background-dark);
 }
 
 #footer .section {
