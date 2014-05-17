@@ -8,21 +8,22 @@ body {
     height: 100%;
 }
 
+header .masthead #logo img {
+    width: 200px;
+}
+
 #navigation h2 {
     @extend .hide-accessible;
 }
 
 #footer .section {
-    background: #eeeeee;
-    display: table;
+    background: #ffffff;
+    padding: 1em 0;
 }
 
 #footer .region-footer .block {
     border-right: dotted 1px #aaaaaa;
     height: 100%;
-    display: table-cell;
-    width: 25%;
-    padding: 1em;
 }
 
 #footer .region-footer .block:last-child {
