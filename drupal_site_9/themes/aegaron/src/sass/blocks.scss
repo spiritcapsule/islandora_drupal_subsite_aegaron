@@ -32,6 +32,10 @@ header {
                 li {
                     font-size: .8rem;
                     list-style: none;
+
+                    a {
+                        color: #444444;
+                    }
                 }
             }
         }
@@ -44,6 +48,7 @@ header {
 
 #main-wrapper {
     border-top: solid 2px #666666;
+    min-height: 333em;
 }
 
 .front #main-wrapper {
@@ -83,6 +88,10 @@ header {
                 li.leaf {
                     list-style-image: none;
                     list-style-type: none;
+
+                    a {
+                        color: #222222;
+                    }
                 }
             }
         }
@@ -119,3 +128,4 @@ header {
         }
     }
 }
+

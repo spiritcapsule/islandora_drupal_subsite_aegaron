@@ -151,11 +151,12 @@
     <?php endif; ?>
 -->
 
-    <?php if ($messages): ?>
-      <div id="messages"><div class="container"><?php print $messages; ?></div></div>
-    <?php endif; ?>
-
     <div id="main-wrapper">
+
+      <?php if ($messages): ?>
+        <div id="messages"><div class="container"><?php print $messages; ?></div></div>
+      <?php endif; ?>
+
       <div class="container">
         <div id="main" class="clearfix row">
 
