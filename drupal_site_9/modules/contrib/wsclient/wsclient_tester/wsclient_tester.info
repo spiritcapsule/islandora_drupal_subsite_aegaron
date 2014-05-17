@@ -1,0 +1,5 @@
+name = "Web service client Tester"
+description = "Extends the webservice client UI with a form for realtime web service debugging."
+core = "7.x"
+package = Services
+dependencies[] = "wsclient_ui"

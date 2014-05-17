@@ -1,0 +1,7 @@
+This is the dev version (7.x-1.x) of wsclient from drupalcode.org
+
+Used the snapshot of this commit:
+http://drupalcode.org/project/wsclient.git/commit/658b6c7f19427c41ec764c109be59114825f867b
+
+The dev version has some commits post 7.x-1.0 that resolve errors surrounding services that does not take parameters. Several of the Aegaron SOAP methods do not require parameters.
+

@@ -1,0 +1,7 @@
+name = Web service client examples
+description = Example web services.
+package = Services
+core = 7.x
+files[] = wsclient_examples.test
+dependencies[] = wsclient_soap
+dependencies[] = wsclient_rest
