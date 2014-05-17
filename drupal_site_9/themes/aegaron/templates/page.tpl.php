@@ -79,12 +79,18 @@
       <div id="header-wrapper" class="">
         <div class="masthead">
           <div class="container">
+            <div class="row">
+              <div class="panel-4">
       <?php if ($logo): ?>
         <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
           <img src="<?php print $logo; ?>" alt="<?php print t('AEGARON - Ancient Egyptian Architecture Online'); ?>" />
         </a>
       <?php endif; ?>
+              </div> <!-- /.panel-4 -->
 
+              <div class="panel-8">
+                <div class="row right">
+                  <div class="panel-6">
       <?php if ($site_name || $site_slogan): ?>
         <div id="name-and-slogan">
           <?php if ($site_name): ?>
@@ -104,7 +110,23 @@
           <?php endif; ?>
         </div> <!-- /#name-and-slogan -->
       <?php endif; ?>
+                   </div> <!-- /.panel-6 -->
 
+                   <div class="panel-3">
+                     Insert Search Here
+                   </div> <!-- /.panel-3 -->
+
+                   <div class="panel-3">
+                     <h2>Browse</h2>
+                     <ul>
+                       <li><a href="http://dai.aegaron.ucla.edu/index.php/welcome/browse">Architectural Plans</a></li>
+                       <li><a href="/browse-terms/en">Term Glossary</a></li>
+                     </ul>
+                   </div> <!-- /.panel-3 -->
+
+                 </div> <!-- /.row.right -->
+               </div> <!-- /.panel-8 -->
+             </div> <!-- /.row -->
       <?php print render($page['header']); ?>
           </div> <!-- /.container -->
         </div> <!-- /.masthead -->
@@ -118,9 +140,11 @@
       </div></div> <!-- /.section, /#navigation -->
     <?php endif; ?>
 
+<!--
     <?php if ($breadcrumb): ?>
       <div id="breadcrumb"><div class="container"><?php print $breadcrumb; ?></div></div>
     <?php endif; ?>
+-->
 
     <?php if ($messages): ?>
       <div id="messages"><div class="container"><?php print $messages; ?></div></div>
