@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * @file
  * Default theme implementation to display a single Drupal page.
@@ -89,7 +90,7 @@
               </div> <!-- /.panel-4 -->
 
               <div class="panel-8">
-                <div class="row right">
+                <div class="row">
                   <div class="panel-6">
       <?php if ($site_name || $site_slogan): ?>
         <div id="name-and-slogan">
@@ -113,10 +114,12 @@
                    </div> <!-- /.panel-6 -->
 
                    <div class="panel-3">
-                     Insert Search Here
+                     <ul>
+                       <li>Insert Search Here</li>
+                     </ul>
                    </div> <!-- /.panel-3 -->
 
-                   <div class="panel-3">
+                   <div class="panel-3 nav">
                      <h2>Browse</h2>
                      <ul>
                        <li><a href="http://dai.aegaron.ucla.edu/index.php/welcome/browse">Architectural Plans</a></li>

@@ -8,8 +8,21 @@ body {
     height: 100%;
 }
 
-header .masthead #logo img {
-    width: 200px;
+header .masthead { 
+    #logo img {
+        width: 200px;
+    }
+
+    .nav { 
+        h2 {
+            font-size: .9em;
+            font-weight: normal;
+            text-transform: uppercase;
+        }
+        li {
+            font-size: .8em;
+        }
+    }
 }
 
 #navigation h2 {
