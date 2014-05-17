@@ -25,10 +25,14 @@ header {
                 font-size: .9em;
                 font-weight: normal;
                 text-transform: uppercase;
+                margin-bottom: .1em;
             }
-            li {
-                font-size: .8em;
-                list-style: none;
+            ul {
+                margin-left: 0;
+                li {
+                    font-size: .8em;
+                    list-style: none;
+                }
             }
         }
     }
