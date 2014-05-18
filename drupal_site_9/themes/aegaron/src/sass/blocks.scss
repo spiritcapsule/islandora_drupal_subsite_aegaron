@@ -127,33 +127,35 @@ body.sidebar-first #main-wrapper {
     }
 }
 
-#footer .section {
-    background: #ffffff;
-    border-top: ridge 3px #666666;
-    padding: 1rem 0;
+#footer {
+    .section {
+        background: #ffffff;
+        border-top: ridge 3px #666666;
+        padding: 1rem 0;
 
-    .region-footer {
-        .block {
-            border-right: dotted 1px #aaaaaa;
-            height: 100%;
+        .region-footer {
+            .block {
+                border-right: dotted 1px #aaaaaa;
+                height: 100%;
 
-            h2.block-title {
-                font-size: 1rem;
-                font-weight: normal;
-            }
+                h2.block-title {
+                    font-size: 1rem;
+                    font-weight: normal;
+                }
 
-            ul li {
-                font-size: .7rem;
-                list-style-image: url(/sites/drupal_site_9/themes/aegaron/assets/img/bullet-arrow-orange-inactive.png);
+                ul li {
+                    font-size: .7rem;
+                    list-style-image: url(/sites/drupal_site_9/themes/aegaron/assets/img/bullet-arrow-orange-inactive.png);
 
-                a {
-                    color: #444444;
+                    a {
+                        color: #444444;
+                    }
                 }
             }
-        }
 
-        .block:last-child {
-            border-right: none;
+            .block:last-child {
+                border-right: none;
+            }
         }
     }
 }
