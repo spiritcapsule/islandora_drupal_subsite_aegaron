@@ -180,7 +180,8 @@ body[class*='page-terms-21198-'] {
     .view {
         .main-image {
             width: 90%;
-            max-height: 300px;
+            height: 300px;
+            display: table;
 
             img {
                 border: solid 10px #666666;
@@ -197,7 +198,7 @@ body[class*='page-terms-21198-'] {
         .term-chart {
             table {
                 width: 100%;
-                min-height: 250px;
+                min-height: 280px;
 
                 tbody {
                     border-top: none;
