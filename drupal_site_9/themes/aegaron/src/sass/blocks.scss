@@ -153,17 +153,20 @@ body[class*='page-terms-21198-'] {
 
     .view {
         .main-image img {
-            border: solid 3px #333333;
+            border: solid 10px #666666;
         }
 
         .term-chart {
-            div[class*='panel-'] {
+            td {
                 border: solid 1px #666666;
-                padding: 1em;
+                padding: 1rem;
             }
         }
 
         .supplement-images {
+            img {
+                max-height: 90px;
+            }
         }
 
         .see-also {
@@ -175,6 +178,7 @@ body[class*='page-terms-21198-'] {
             dt {
                 font-size: .9rem;
                 text-transform: uppercase;
+                margin-bottom: 1rem;
             }
         }
     }
