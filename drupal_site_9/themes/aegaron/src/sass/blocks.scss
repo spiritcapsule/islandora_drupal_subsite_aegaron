@@ -152,13 +152,15 @@ body[class*='page-terms-21198-'] {
     }
 
     .view {
-        .main-image img {
+        .main-image {
             border: solid 10px #666666;
+            width: 100%;
         }
 
         .term-chart {
             table {
                 width: 100%;
+                min-height: 200px;
 
                 td {
                     border: solid 1px #666666;
@@ -168,8 +170,11 @@ body[class*='page-terms-21198-'] {
         }
 
         .supplement-images {
+            margin: 15px 0;
+
             img {
                 max-height: 150px;
+                margin-right: 15px;
             }
         }
 
