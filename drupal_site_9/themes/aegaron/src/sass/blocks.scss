@@ -157,15 +157,19 @@ body[class*='page-terms-21198-'] {
         }
 
         .term-chart {
-            td {
-                border: solid 1px #666666;
-                padding: 1rem;
+            table {
+                width: 100%;
+
+                td {
+                    border: solid 1px #666666;
+                    padding: 1rem;
+                }
             }
         }
 
         .supplement-images {
             img {
-                max-height: 90px;
+                max-height: 150px;
             }
         }
 
@@ -178,6 +182,9 @@ body[class*='page-terms-21198-'] {
             dt {
                 font-size: .9rem;
                 text-transform: uppercase;
+            }
+
+            dd {
                 margin-bottom: 1rem;
             }
         }
