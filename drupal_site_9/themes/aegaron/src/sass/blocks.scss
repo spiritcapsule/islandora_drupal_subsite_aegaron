@@ -50,8 +50,6 @@ header {
     border-top: ridge 3px #666666;
     min-height: 30em;
 
-    background-image: -webkit-linear-gradient( left, #ccc, #ddd 24.5%, #eee 24.5%, #ddd 25%, #eee 25%, #eee 100% );
-
     #messages {
         .messages.status {
             a {
@@ -84,6 +82,11 @@ header {
 .front #main h1.title {
     font-size: 1.8rem;
     font-weight: normal;
+}
+
+body.sidebar-first #main-wrapper {
+    background-image: -webkit-linear-gradient( left, #ccc, #ddd 24.5%, #eee 24.5%, #ddd 25%, #eee 25%, #eee 100% );
+
 }
 
 #main {
@@ -137,6 +140,42 @@ header {
 
         .block:last-child {
             border-right: none;
+        }
+    }
+}
+
+/* Display Term Detail Page  */
+
+body[class*='page-terms-21198-'] {
+    #page-title {
+        display: none;
+    }
+
+    .view {
+        .main-image img {
+            border: solid 3px #333333;
+        }
+
+        .term-chart {
+            div[class*='panel-'] {
+                border: solid 1px #666666;
+                padding: 1em;
+            }
+        }
+
+        .supplement-images {
+        }
+
+        .see-also {
+            h2 {
+                font-size: 1.5rem;
+                font-variant: small-caps ;
+            }
+
+            dt {
+                font-size: .9rem;
+                text-transform: uppercase;
+            }
         }
     }
 }
