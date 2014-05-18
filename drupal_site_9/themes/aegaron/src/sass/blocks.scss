@@ -185,12 +185,19 @@ body[class*='page-terms-21198-'] {
             img {
                 border: solid 10px #666666;
             }
+
+            .missing-image {
+                display: table-cell;
+                text-align: center;
+                vertical-align: middle;
+                min-height: 250px;
+            }
         }
 
         .term-chart {
             table {
                 width: 100%;
-                min-height: 200px;
+                min-height: 250px;
 
                 tbody {
                     border-top: none;
