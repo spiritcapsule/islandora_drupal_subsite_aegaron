@@ -1,0 +1,251 @@
+<?php
+
+/**
+ * @file
+ * Main view template.
+ *
+ * Variables available:
+ * - $classes_array: An array of classes determined in
+ *   template_preprocess_views_view(). Default classes are:
+ *     .view
+ *     .view-[css_name]
+ *     .view-id-[view_name]
+ *     .view-display-id-[display_name]
+ *     .view-dom-id-[dom_id]
+ * - $classes: A string version of $classes_array for use in the class attribute
+ * - $css_name: A css-safe version of the view name.
+ * - $css_class: The user-specified classes names, if any
+ * - $header: The view header
+ * - $footer: The view footer
+ * - $rows: The results of the view query, if any
+ * - $empty: The empty text to display if the view is empty
+ * - $pager: The pager next/prev links to display, if any
+ * - $exposed: Exposed widget form/info to display
+ * - $feed_icon: Feed icon to display, if any
+ * - $more: A link to view more, if any
+ *
+ * @ingroup views_templates
+ */
+
+  // load the service
+  $service = wsclient_service_load('aegaron_dev_soap_service');
+  $queryarkid = str_replace('-','/',arg(1));
+  $params = array('arkid' => $queryarkid);
+  $result = $service->getTerm($params);
+  $xmlstr = "<<<XML\n" . stripslashes($result->return) . "XML;";
+  $xml = new SimpleXMLElement($result->return);
+
+  // push all terms into an arry
+  $terms = array(
+    'preferred-en' => array(),
+    'preferred-de' => array(),
+    'preferred-ar' => array(),
+    'alternate-en' => array(),
+    'alternate-de' => array(),
+    'alternate-ar' => array(),
+  );
+
+  foreach ($xml->title as $term) {
+    $lang = 'lang';
+    $language = (string)$term->attributes()->$lang;
+    array_push($terms['preferred-'.$language],(string)$term);
+    $language = '';
+  }
+
+  foreach ($xml->alttitle as $term) {
+    $lang = 'lang';
+    $pref = 'preferred';
+    $term_status = 'alternate';
+    $language = (string)$term->attributes()->$lang;
+    $term_status = (((string)$term->attributes()->$pref == 'true')? 'preferred' : 'alternate');
+    array_push($terms[$term_status.'-'.$language],(string)$term);
+    $language = '';
+  }
+
+  // push images into an array
+  $images = array();
+
+  foreach ($xml->images->image as $image) {
+    $url = parse_url($image);
+    $file = explode('_',end(explode('/',$url['path'])));
+    $fileid = (string)((int)$file[1]+1);
+    $imageurl = 'http://digital2.library.ucla.edu/imageResize.do?contentFileId='.$fileid.'&scaleFactor=0.6';
+    array_push($images,$imageurl);
+
+  }
+
+?>
+<div class="<?php print $classes; ?>">
+  <?php if ($header): ?>
+    <div class="view-header">
+      <?php print $header; ?>
+    </div>
+  <?php endif; ?>
+
+  <h1 class="hide-accessible"><?php print((string)$terms['preferred-en'][0]); ?></h1>
+
+  <div class="container">
+    <div class="row">
+      <div class="panel-6">
+        <div class="main-image">
+          <?php if (isset($images[0])): ?>
+            <img src="<?php print($images[0]); ?>" alt="illustration of term" />
+          <?php else : ?>
+            <div class="missing-image">No Image Available</div>
+          <?php endif; ?>
+        </div> <!-- /.main-image -->
+      </div> <!-- /.panel-6 -->
+      <div class="panel-6 term-chart">
+        <table>
+        <tr class="head">
+          <th scope="col">
+            TERM
+          </th>
+          <th scope="col">
+            SYNONYMS
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <?php foreach ($terms['preferred-en'] as $key => $term): ?>
+              <?php echo ($key != 0 ? '<br/>' : ''); ?>
+              <?php print($term); ?>
+            <?php endforeach; ?>
+          </td>
+          <td>
+            <?php foreach ($terms['alternate-en'] as $key => $term): ?>
+              <?php echo ($key != 0 ? '<br/>' : ''); ?>
+              <?php print($term); ?>
+            <?php endforeach; ?>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <?php foreach ($terms['preferred-de'] as $key => $term): ?>
+              <?php echo ($key != 0 ? '<br/>' : ''); ?>
+              <?php print($term); ?>
+            <?php endforeach; ?>
+          </td>
+          <td>
+            <?php foreach ($terms['alternate-de'] as $key => $term): ?>
+              <?php echo ($key != 0 ? '<br/>' : ''); ?>
+              <?php print($term); ?>
+            <?php endforeach; ?>
+          </td>
+        </tr>
+        <tr>
+          <td lang="ar" dir="rtl">
+            <?php foreach ($terms['preferred-ar'] as $key => $term): ?>
+              <?php echo ($key != 0 ? '<br/>' : ''); ?>
+              <?php print($term); ?>
+            <?php endforeach; ?>
+          </td>
+          <td lang="ar" dir="rtl">
+            <?php foreach ($terms['alternate-ar'] as $key => $term): ?>
+              <?php echo ($key != 0 ? '<br/>' : ''); ?>
+              <?php print($term); ?>
+            <?php endforeach; ?>
+          </td>
+        </tr>
+        </table>
+      </div> <!-- /.panel-6 -->
+    </div> <!-- /.row -->
+    <div class="supplement-images">
+      <?php foreach ($images as $key => $image): ?>
+        <?php if ($key > 0): ?>
+          <img src="<?php print($image); ?>" alt="" /> 
+        <?php endif; ?>       
+      <?php endforeach; ?>
+    </div>
+    <div class="see-also">
+      <h2>See Also:</h2>
+      <dl>
+        <dt>Broader Terms</dt>
+          <dd>
+            <?php
+              $i = 0;
+              $count_of_terms = 0;
+              foreach ($xml->relationships->relationship as $key => $relationship) {
+                $typeattr = 'type';
+                $lang = 'lang';
+                $type = (string)$relationship->attributes()->$typeattr;                $language = (string)$relationship->attributes()->$lang;
+                if (isset($type) && $type == 'parent') {
+		  if ($i > 0) {
+                    echo (', ');
+                  }
+                  print((string)$relationship);
+                  $count_of_terms++;
+                }
+                $i++;
+              }
+              if ($count_of_terms < 1) {
+                echo ('(None)');
+              }
+            ?>
+          </dd>
+        <dt>Narrower Terms</dt>
+          <dd>
+            <?php
+              $i = 0;
+              $count_of_terms = 0;
+              foreach ($xml->relationships->relationship as $key => $relationship) {
+                $typeattr = 'type';
+                $lang = 'lang';
+                $type = (string)$relationship->attributes()->$typeattr;                $language = (string)$relationship->attributes()->$lang;
+                if (isset($type) && $type == 'child') {
+                  if ($i > 0) {
+                    echo (', ');
+                  }
+                  print((string)$relationship);
+                  $count_of_terms++;
+                }
+                $i++;
+              }
+              if ($count_of_terms < 1) {
+                echo ('(None)');
+              }
+            ?>
+          </dd>
+        <dt>Getty Thesaurus of Art &amp; Architecture<br/>
+            Related Links</dt>
+          <?php
+            $attr = 'url';
+            $aaturl = (string)$xml->aat->attributes()->$attr;
+          ?>
+          <dd>
+            <?php if (isset($aaturl)): ?>
+              <a href="<?php print($aaturl); ?>" target="_blank"><?php print((string)$xml->aat); ?><span class="hide-accessible"> opens in new window</span></a>
+            <?php else: ?>
+              <?php print((string)$xml->aat); ?>
+            <?php endif; ?>
+          </dd>
+      </dl>
+    </div>
+  </div> <!-- /.container -->
+
+  <?php foreach ($xml->category as $i => $category ): ?>
+    <?php 
+      $cat = 'classification';
+      $classification = (string)$category->attributes()->$cat;
+      $id = 'id-'.strtolower(preg_replace('/[^a-zA-Z0-9-]+/', '-', $classification));
+    ?>
+    <div id="<?php print($id); ?>">
+      <?php print($classification); ?>
+      <ul>
+      <?php foreach ($category->term->preferred as $j => $term): ?>
+        <?php 
+          $id = 'arkid';
+          $arkid = (string)$term->attributes()->$id;
+          $link = 'http://digital2.library.ucla.edu/viewItem.do?ark='.$arkid;
+        ?>
+        <li>
+          <a href="<?php print($link); ?>"><?php print((string)$term); ?></a>
+        </li>
+      <?php endforeach; ?>
+      </ul>
+    </div>
+  <?php endforeach; ?> 
+
+  </div> <!-- /#term-detail -->
+
+</div><?php /* class view */ ?>

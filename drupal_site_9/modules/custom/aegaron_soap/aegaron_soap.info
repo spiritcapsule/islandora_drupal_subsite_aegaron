@@ -1,0 +1,3 @@
+name = Aegaron SOAP
+description = Connects to the SOAP Web Service provided by the UCLA Digital Library
+core = 7.x
