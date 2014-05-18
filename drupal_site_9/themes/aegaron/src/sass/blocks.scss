@@ -180,7 +180,7 @@ body[class*='page-terms-21198-'] {
     .view {
         .main-image {
             border: solid 10px #666666;
-            width: 100%;
+            width: 90%;
             min-height: 300px;
         }
 
@@ -188,6 +188,10 @@ body[class*='page-terms-21198-'] {
             table {
                 width: 100%;
                 min-height: 300px;
+
+                tr.head {
+                    border-top: none;
+                }
 
                 th {
                     border-top: none;
