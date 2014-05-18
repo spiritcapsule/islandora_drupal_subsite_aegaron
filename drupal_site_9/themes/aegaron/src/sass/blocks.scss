@@ -179,15 +179,18 @@ body[class*='page-terms-21198-'] {
 
     .view {
         .main-image {
-            border: solid 10px #666666;
             width: 90%;
-            min-height: 300px;
+            max-height: 300px;
+
+            img {
+                border: solid 10px #666666;
+            }
         }
 
         .term-chart {
             table {
                 width: 100%;
-                min-height: 300px;
+                min-height: 200px;
 
                 tbody {
                     border-top: none;
