@@ -182,27 +182,27 @@ body[class*='page-terms-21198-'] {
     .view {
         .main-image {
             width: 90%;
-            height: 300px;
+            /*height: 300px;*/
             display: table;
 
             img {
                 border: solid 10px #666666;
-                max-height: 300px;
-                max-width: 100%;
+                max-height: 500px;
+                max-width: 500px;
             }
 
             .missing-image {
                 display: table-cell;
                 text-align: center;
                 vertical-align: middle;
-                min-height: 250px;
+                min-height: 300px;
             }
         }
 
         .term-chart {
             table {
                 width: 100%;
-                min-height: 280px;
+                min-height: 300px;
 
                 tbody {
                     border-top: none;
@@ -224,7 +224,8 @@ body[class*='page-terms-21198-'] {
             margin: 15px 0;
 
             img {
-                max-height: 150px;
+                border: solid 10px #666666;
+                max-height: 500px;
                 margin-right: 15px;
             }
         }
