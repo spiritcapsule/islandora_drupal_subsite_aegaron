@@ -249,3 +249,64 @@ body[class*='page-terms-21198-'] {
     }
 }
 
+/* Search Terms */
+
+body.page-search-terms {
+
+    #main-wrapper {
+
+        /* fallback */
+        background-color: $aegaron-background-med-light;
+        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from($aegaron-background-med-light), to($aegaron-background-med-light));
+        background: -webkit-linear-gradient(top, $aegaron-background-light, $aegaron-background-med-light);
+        background: -moz-linear-gradient(top, $aegaron-background-light, $aegaron-background-med-light);
+        background: -ms-linear-gradient(top, $aegaron-background-light, $aegaron-background-med-light);
+        background: -o-linear-gradient(top, $aegaron-background-light, $aegaron-background-med-light);
+
+        .view {
+
+            .views-exposed-form {
+                margin-bottom: 1em;
+
+                #edit-tid-wrapper {
+                    padding: .5em 0 0 0;
+
+                    label {
+                        @extend .hide-accessible
+                    }
+
+                    .form-item-tid #edit-tid {
+                        margin-right: 0;
+                        margin-bottom: 0;
+                        height: 2em;
+                        padding: 1em;
+                        font-size: 1em;
+                        line-height: 1em;
+                        -webkit-border-radius: 0;
+                        -moz-border-radius: 0;
+                        border-radius: 0;
+                        width: 20em;
+                        background-position: 100% 10px;
+                    }
+                }
+
+                .views-submit-button {
+                    padding: 0;
+
+                    .form-submit {
+                        margin-top: 0;
+                        margin-bottom: 0;
+                        height: 2em;
+                        padding: 1em;
+                        font-size: 1em;
+                        line-height: 1em;
+                        text-transform: uppercase;
+                        background: $aegaron-redorange-dark;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+}
+
