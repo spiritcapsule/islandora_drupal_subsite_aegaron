@@ -292,7 +292,7 @@ body.page-search-terms {
 
 
                     .form-item-tid #edit-tid.throbbing {
-                        background-position: 99% -13px
+                        background-position: 99% -13px;
                     }
                 }
 
@@ -309,8 +309,16 @@ body.page-search-terms {
                         text-transform: uppercase;
                         background: $aegaron-redorange-dark;
                         color: #fff;
-                        border: solid 1px #ccc;
+                        border: solid 1px #999;
+                        border-bottom: solid 1px #ccc;
                         border-left: 0;
+                    }
+
+                    .form-submit:hover,
+                    .form-submit:focus,
+                    .form-submit:active {
+                        background: $aegaron-redorange;
+                        color: #000;
                     }
                 }
             }
