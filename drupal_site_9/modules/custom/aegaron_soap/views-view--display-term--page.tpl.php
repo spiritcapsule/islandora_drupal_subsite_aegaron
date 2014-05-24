@@ -27,6 +27,29 @@
  * @ingroup views_templates
  */
 
+$term_lookup = array(
+array('ambulatory temple','21198-zz002hvpv3'),
+array('pillar','21198-zz002hw4b2'),
+array('polygonal pillar','21198-zz002hwb8x'),
+array('shaft','21198-zz002hw020'),
+array('abacus','21198-zz002hvpzn'),
+array('architrave','21198-zz002hvqbt'),
+array('torus','21198-zz002hw9k3'),
+array('cavetto cornice','21198-zz002hvz85'),
+array('temple','21198-zz002hw9h2'),
+array('Tempel, der (m.)','21198-zz002hw9h2'),
+array('support','21198-zz002hw8vr'),
+array('Stütze, die (f.)','21198-zz002hw8vr'),
+array('column','21198-zz002hw12g'),
+array('Säule, die (f.)','21198-zz002hw12g'),
+array('Pfeiler, der (m.)','21198-zz002hw4b2'),
+array('capital','21198-zz002hvrgc'),
+array('Kapitell, das (n.)','21198-zz002hvrgc'),
+array('stone masonry','21198-zz002hw8r6'),
+array('entablature','21198-zz002hw0qt'),
+array('Gebälk, das (n.)','21198-zz002hw0qt'),
+);
+
   // load the service
   $service = wsclient_service_load('aegaron_dev_soap_service');
   $queryarkid = str_replace('-','/',arg(1));
@@ -35,7 +58,7 @@
   $xmlstr = "<<<XML\n" . stripslashes($result->return) . "XML;";
   $xml = new SimpleXMLElement($result->return);
 
-  // push all terms into an arry
+  // push all terms into an array
   $terms = array(
     'preferred-en' => array(),
     'preferred-de' => array(),
@@ -62,17 +85,79 @@
     $language = '';
   }
 
+  $i = 1;
+  $relations = array();
+
+  foreach ($xml->relationships->relationship as $key => $relationship) {
+    $rel = (string)$relationship;
+    $attr = 'type';
+    $type = (string)$relationship->attributes()->$attr;
+    $attr = 'lang';
+    $lang = (string)$relationship->attributes()->$attr;
+    $attr = 'arkid';
+    $arkid = (string)$relationship->attributes()->$attr;
+    $order = '';
+    // TODO: remove condition when soap fixed
+    if ($type == 'parent' || $type == 'child') {
+      $arkid = ''; // soap returning wrong arkid
+    }
+    if (isset($arkid)) {
+      $parts = explode(':',$arkid);
+      if (count($parts) > 1) {
+        $order = $parts[0];
+        $arkid = $parts[1];
+      }
+    } 
+    $local = searchForId($rel,$term_lookup);
+    if ($local) {
+      $arkid = $local;
+      $order = '';
+    }
+    if (isset($arkid)) {
+      $link = '/terms/'.str_replace('/','-',$arkid);
+    }
+    $relations[$i] = array(
+      'type' => $type,
+      'lang' => $lang,
+      'arkid' => $arkid,
+      'link' => $link,
+      'rel' => $rel,
+      'order' => $order,
+    );
+    $i++;
+  }
+
   // push images into an array
   $images = array();
 
+  $i = 1;
   foreach ($xml->images->image as $image) {
-    $url = parse_url($image);
-    $file = explode('_',end(explode('/',$url['path'])));
-    $fileid = (string)((int)$file[1]+1);
-    $imageurl = 'http://digital2.library.ucla.edu/imageResize.do?contentFileId='.$fileid.'&scaleFactor=0.6';
-    array_push($images,$imageurl);
-
+    $imageurl = (string)$image;
+    $linkurl = '';
+    foreach ($relations as $rel) {
+      if ($rel['type'] == 'plan' && $rel['order'] == $i) {
+        $arkid = $rel['arkid'];
+        $linkurl = 'http://dai.aegaron.ucla.edu/index.php/welcome/drawing/'.trim(str_replace('/','_',$arkid));
+      }
+    }
+    $images[$i] = array(
+      'imageurl' => $imageurl,
+      'linkurl' => $linkurl,
+    );
+    $i++;
   }
+
+//  foreach ($terms as $term) {
+//    if ($term) {
+//      $extraimg = searchForISTthumb($term[0],$term_lookup);
+//      if ($extraimg) {
+//        foreach ($extraimg as $plannum) {
+//          $imageurl = 'http://digital2.library.ucla.edu/dlcontent/aegaron/nails/'.$plannum.'.jpg';
+//          array_push($images,$imageurl);
+//        }
+//      }
+//    }
+//  }
 
 ?>
 <div class="<?php print $classes; ?>">
@@ -88,8 +173,12 @@
     <div class="row">
       <div class="panel-6">
         <div class="main-image">
-          <?php if (isset($images[0])): ?>
-            <img src="<?php print($images[0]); ?>" alt="illustration of term" />
+          <?php if (isset($images[1])): ?>
+            <?php if (isset($images[1]['linkurl']) && $images[1]['linkurl'] != ''): ?>
+              <a href="<?php print($images[1]['linkurl']); ?>"><img src="<?php print($images[1]['imageurl']); ?>" alt="view related plan" /></a>
+            <?php else : ?>
+              <img src="<?php print($images[1]['imageurl']); ?>" alt="view related plan" />
+            <?php endif; ?>
           <?php else : ?>
             <div class="missing-image">No Image Available</div>
           <?php endif; ?>
@@ -152,8 +241,12 @@
     </div> <!-- /.row -->
     <div class="supplement-images">
       <?php foreach ($images as $key => $image): ?>
-        <?php if ($key > 0): ?>
-          <img src="<?php print($image); ?>" alt="" /> 
+        <?php if ($key > 1): ?>
+          <?php if (isset($image['linkurl']) && $image['linkurl'] != ''): ?>
+            <a href="<?php print($image['linkurl']); ?>"><img src="<?php print($image['imageurl']); ?>" alt="view related plan" /></a>
+          <?php else : ?>
+            <img src="<?php print($image['imageurl']); ?>" alt="view related plan" />
+          <?php endif; ?>
         <?php endif; ?>       
       <?php endforeach; ?>
     </div>
@@ -163,40 +256,44 @@
         <dt>Broader Terms</dt>
           <dd>
             <?php
-              $i = 0;
+              // display broader terms
+              $i = 1;
               $count_of_terms = 0;
-              foreach ($xml->relationships->relationship as $key => $relationship) {
-                $typeattr = 'type';
-                $lang = 'lang';
-                $type = (string)$relationship->attributes()->$typeattr;                $language = (string)$relationship->attributes()->$lang;
-                if (isset($type) && $type == 'parent') {
-		  if ($i > 0) {
+              foreach ($relations as $key => $relationship) {
+                if (isset($relationship['type']) && $relationship['type'] == 'parent') {
+                  if ($i > 1) {
                     echo (', ');
                   }
-                  print((string)$relationship);
+                  if (isset($relationship['link']) && $relationship['link'] != '') {
+                    echo ('<a href="'.$relationship['link'].'">'.$relationship['rel'].'</a>');
+                  } else {
+                    echo ($relationship['rel']);
+                  }
                   $count_of_terms++;
                 }
                 $i++;
               }
               if ($count_of_terms < 1) {
                 echo ('(None)');
-              }
+              }              
             ?>
           </dd>
         <dt>Narrower Terms</dt>
           <dd>
             <?php
-              $i = 0;
+              // display narrower terms
+              $i = 1;
               $count_of_terms = 0;
-              foreach ($xml->relationships->relationship as $key => $relationship) {
-                $typeattr = 'type';
-                $lang = 'lang';
-                $type = (string)$relationship->attributes()->$typeattr;                $language = (string)$relationship->attributes()->$lang;
-                if (isset($type) && $type == 'child') {
-                  if ($i > 0) {
+              foreach ($relations as $key => $relationship) {
+                if (isset($relationship['type']) && $relationship['type'] == 'child') {
+                  if ($i > 1) {
                     echo (', ');
                   }
-                  print((string)$relationship);
+                  if (isset($relationship['link']) && $relationship['link'] != '') {
+                    echo ('<a href="'.$relationship['link'].'">'.$relationship['rel'].'</a>');
+                  } else {
+                    echo ($relationship['rel']);
+                  }
                   $count_of_terms++;
                 }
                 $i++;
@@ -249,3 +346,33 @@
   </div> <!-- /#term-detail -->
 
 </div><?php /* class view */ ?>
+
+<?php
+function searchForId($str,$term_lookup) {
+   foreach ($term_lookup as $key => $val) {
+       if ($val[0] === $str) {
+           return $val[1];
+       }
+   }
+   return null;
+}
+
+function searchForISTthumb($str,$term_lookup) {
+   $imgs = array();
+   foreach ($term_lookup as $key => $val) {
+       if ($val[0] === $str) {
+           foreach ($val as $key2 => $val2) {
+               if ($key2 > 1) {
+                   array_push($imgs,$val[$key2]);
+               }
+           }
+       }
+   }
+   if ($imgs) {
+       return $imgs;
+   } else {
+       return null;
+   }
+}
+
+?>

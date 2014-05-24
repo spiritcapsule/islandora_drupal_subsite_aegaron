@@ -33,6 +33,7 @@ function aegaron_soap_theme($existing, $type, $theme, $path) {
     'arguments' => array('view' => NULL),
     'path' => drupal_get_path('module', 'aegaron_soap'),
   );
+
   $themes['views_view__browse_terms__page_1'] = array(
     'template' => 'views-view--browse-terms--page-1',
     'original hook' => 'views_view',
@@ -43,6 +44,7 @@ function aegaron_soap_theme($existing, $type, $theme, $path) {
     'arguments' => array('view' => NULL),
     'path' => drupal_get_path('module', 'aegaron_soap'),
   );
+
   $themes['views_view__browse_terms__page_2'] = array(
     'template' => 'views-view--browse-terms--page-2',
     'original hook' => 'views_view',
@@ -53,6 +55,7 @@ function aegaron_soap_theme($existing, $type, $theme, $path) {
     'arguments' => array('view' => NULL),
     'path' => drupal_get_path('module', 'aegaron_soap'),
   );
+
   $themes['views_view__browse_terms__page_3'] = array(
     'template' => 'views-view--browse-terms--page-3',
     'original hook' => 'views_view',
@@ -63,6 +66,19 @@ function aegaron_soap_theme($existing, $type, $theme, $path) {
     'arguments' => array('view' => NULL),
     'path' => drupal_get_path('module', 'aegaron_soap'),
   );
+
+  $themes['views_view__browse_terms__page_4'] = array(
+    'template' => 'views-view--browse-terms--page-4',
+    'original hook' => 'views_view',
+    'preprocess functions' => array(
+      'template_preprocess',
+      'template_preprocess_views_view',
+      'aegaron_soap_preprocess_views_view__browse_terms__page_4',
+    ),
+    'arguments' => array('view' => NULL),
+    'path' => drupal_get_path('module', 'aegaron_soap'),
+  );
+
   $themes['views_view__browse_terms__block_1'] = array(
     'template' => 'views-view--browse-terms--block-1',
     'original hook' => 'views_view',
@@ -73,6 +89,7 @@ function aegaron_soap_theme($existing, $type, $theme, $path) {
     'arguments' => array('view' => NULL),
     'path' => drupal_get_path('module', 'aegaron_soap'),
   );
+
   $themes['views_view__display_term__page'] = array(
     'template' => 'views-view--display-term--page',
     'original hook' => 'views_view',
@@ -83,5 +100,94 @@ function aegaron_soap_theme($existing, $type, $theme, $path) {
     'arguments' => array('view' => NULL),
     'path' => drupal_get_path('module', 'aegaron_soap'),
   );
+
+  $themes['views_view__search_terms__page'] = array(
+    'template' => 'views-view--search-terms--page',
+    'original hook' => 'views_view',
+    'preprocess functions' => array(
+      'template_preprocess',
+      'template_preprocess_views_view',
+    ),
+    'arguments' => array('view' => NULL),
+    'path' => drupal_get_path('module', 'aegaron_soap'),
+  );
+
   return $themes;
 }
+
+function aegaron_soap_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'views_exposed_form') {
+    if ($form['#id'] == 'views-exposed-form-search-terms-page') {
+      $form['tid']['#attributes']['class'] = array('auto_submit');
+      drupal_add_js(drupal_get_path('module','aegaron_soap') . '/aegaron_soap_autocomplete.js', array('group' => JS_THEME));
+      $form['submit']['#value'] = 'Search';
+      //$form['submit']['#type'] = 'image';
+      //$form['submit']['#alt'] = 'Search';
+      //$form['submit']['#src'] = drupal_get_path('theme','aegaron') . "/assets/img/magglass.png";
+kpr($form);
+    }
+  }
+}
+
+function aegaron_soap_preprocess_views_view__browse_terms__page_4() {
+
+   $flushquery = db_query('SELECT t.tid FROM {taxonomy_term_data} t WHERE t.vid = 2')->fetchCol();
+    foreach ($flushquery as $tid) {
+      taxonomy_term_delete($tid);
+    }
+
+  $service = wsclient_service_load('aegaron_dev_soap_service_2');
+  $result = $service->listAllTerms();
+  $xml = new SimpleXMLElement($result->return);
+
+  $terms = array();
+  $addterm = new stdClass();
+
+  foreach ($xml->term as $j => $item) {
+    foreach ($item->title as $term) {
+      if (is_null(existsInArray((string)$term,$terms))) {
+        $attr = 'lang';
+        $lang = (string)$term->attributes()->$attr;
+        array_push($terms, array(
+          'name' => (string)$term,
+          'field_lang' => $lang,
+        ));
+        $addterm->tid = '';
+        $addterm->vid = 2;
+        $addterm->name = (string)$term;
+        $addterm->parent = 0;
+        $addterm->field_lang[LANGUAGE_NONE][0]['value'] = $lang;
+        $test = taxonomy_term_save($addterm);
+kpr($addterm);
+      }
+    }
+
+    foreach ($item->alttitle as $term) {
+      if (is_null(existsInArray((string)$term,$terms))) {
+        $attr = 'lang';
+        $lang = (string)$term->attributes()->$attr;
+        array_push($terms, array(
+          'name' => (string)$term,
+          'field_lang' => $lang,
+        ));
+        $addterm->tid = '';
+        $addterm->vid = 2;
+        $addterm->name = (string)$term;
+        $addterm->parent = 0;
+        $addterm->field_lang[LANGUAGE_NONE][0]['value'] = $lang;
+        $test = taxonomy_term_save($addterm);
+kpr($addterm);
+      }
+    }
+  }
+}
+
+function existsInArray($str, $array) {
+   foreach ($array as $key => $val) {
+       if ($val['name'] === $str) {
+           return $key;
+       }
+   }
+   return null;
+}
+
