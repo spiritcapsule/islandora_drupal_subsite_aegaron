@@ -286,7 +286,13 @@ body.page-search-terms {
                         -moz-border-radius: 0;
                         border-radius: 0;
                         width: 20em;
-                        background-position: 100% 10px;
+                        background-position: 99% 10px;
+                        border-right: 0;
+                    }
+
+
+                    .form-item-tid #edit-tid.throbbing {
+                        background-position: 99% -13px
                     }
                 }
 
@@ -304,6 +310,7 @@ body.page-search-terms {
                         background: $aegaron-redorange-dark;
                         color: #fff;
                         border: solid 1px #ccc;
+                        border-left: 0;
                     }
                 }
             }
