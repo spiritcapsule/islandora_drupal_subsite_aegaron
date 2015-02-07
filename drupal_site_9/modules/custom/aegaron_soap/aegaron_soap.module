@@ -5,6 +5,18 @@
  */
 
 /**
+ * Implements hook_menu().
+ */
+function aegaron_soap_menu() {
+  $items['search/terms/json'] = array(
+    'access callback'   => true, // available to all
+    'page callback'     => 'aegaron_soap_search_terms_json_object',
+    'delivery callback' => 'drupal_json_output' 
+  );
+  return $items;
+}
+
+/**
  * Implements hook_default_wsclient_service().
  */
 function aegaron_soap_default_wsclient_service() {
@@ -107,6 +119,7 @@ function aegaron_soap_theme($existing, $type, $theme, $path) {
     'preprocess functions' => array(
       'template_preprocess',
       'template_preprocess_views_view',
+      'aegaron_soap_preprocess_views_view__search_terms__page',
     ),
     'arguments' => array('view' => NULL),
     'path' => drupal_get_path('module', 'aegaron_soap'),
@@ -124,7 +137,7 @@ function aegaron_soap_form_alter(&$form, &$form_state, $form_id) {
       //$form['submit']['#type'] = 'image';
       //$form['submit']['#alt'] = 'Search';
       //$form['submit']['#src'] = drupal_get_path('theme','aegaron') . "/assets/img/magglass.png";
-kpr($form);
+// kpr($form);
     }
   }
 }
@@ -136,7 +149,7 @@ function aegaron_soap_preprocess_views_view__browse_terms__page_4() {
       taxonomy_term_delete($tid);
     }
 
-  $service = wsclient_service_load('aegaron_dev_soap_service_2');
+  $service = wsclient_service_load('dev_aegaron_soap_service');
   $result = $service->listAllTerms();
   $xml = new SimpleXMLElement($result->return);
 
@@ -158,7 +171,7 @@ function aegaron_soap_preprocess_views_view__browse_terms__page_4() {
         $addterm->parent = 0;
         $addterm->field_lang[LANGUAGE_NONE][0]['value'] = $lang;
         $test = taxonomy_term_save($addterm);
-kpr($addterm);
+// kpr($addterm);
       }
     }
 
@@ -176,18 +189,36 @@ kpr($addterm);
         $addterm->parent = 0;
         $addterm->field_lang[LANGUAGE_NONE][0]['value'] = $lang;
         $test = taxonomy_term_save($addterm);
-kpr($addterm);
+// kpr($addterm);
       }
     }
   }
 }
 
+function aegaron_soap_preprocess_views_view__search_terms__page() {
+}
+
+function aegaron_soap_search_terms_json_object() {
+  $terms = array();
+  $i = 0;
+  $vocab = db_query("SELECT tid, name FROM {taxonomy_term_data} WHERE vid = 2 ORDER BY name asc");
+  if ($vocab) {
+    while ($row = $vocab->fetchAssoc()) {
+      $terms[$i]['tid'] = $row['tid'];
+      $terms[$i]['name'] = $row['name'];
+      $i++;
+    }
+    $json_terms = drupal_json_output($terms);
+    return $json_terms;
+  }
+}
+
 function existsInArray($str, $array) {
-   foreach ($array as $key => $val) {
-       if ($val['name'] === $str) {
-           return $key;
-       }
-   }
-   return null;
+  foreach ($array as $key => $val) {
+    if ($val['name'] === $str) {
+      return $key;
+    }
+  }
+  return null;
 }
 
