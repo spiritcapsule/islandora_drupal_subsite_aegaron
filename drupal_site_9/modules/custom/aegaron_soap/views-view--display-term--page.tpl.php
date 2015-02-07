@@ -98,9 +98,9 @@ array('Gebälk, das (n.)','21198-zz002hw0qt'),
     $arkid = (string)$relationship->attributes()->$attr;
     $order = '';
     // TODO: remove condition when soap fixed
-    if ($type == 'parent' || $type == 'child') {
-      $arkid = ''; // soap returning wrong arkid
-    }
+//    if ($type == 'parent' || $type == 'child') {
+//      $arkid = ''; // soap returning wrong arkid
+//    }
     if (isset($arkid)) {
       $parts = explode(':',$arkid);
       if (count($parts) > 1) {
