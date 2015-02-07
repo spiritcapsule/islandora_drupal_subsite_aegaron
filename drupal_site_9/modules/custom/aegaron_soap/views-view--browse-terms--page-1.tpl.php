@@ -55,11 +55,11 @@
     <?php 
       $cat = 'classification';
       $classification = (string)$category->attributes()->$cat;
-      $id = 'id-'.strtolower(preg_replace('/[^a-zA-Z0-9-]+/', '-', $classification));
+      $catid = 'id-'.strtolower(preg_replace('/[^a-zA-Z0-9-]+/', '-', $classification));
     ?>
-    <div id="<?php print($id); ?>">
+    <div class="category" id="<?php print($catid); ?>">
       <?php print($classification); ?>
-      <ul>
+      <ul class="term-list">
       <?php foreach ($category->term->preferred as $j => $term): ?>
         <?php 
           $id = 'arkid';

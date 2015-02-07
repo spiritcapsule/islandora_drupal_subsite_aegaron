@@ -26,10 +26,12 @@
  *
  * @ingroup views_templates
  */
+
   $service = wsclient_service_load('dev_aegaron_soap_service');
   $result = $service->listAllEnglishTerms();
   $xmlstr = "<<<XML\n" . stripslashes($result->return) . "XML;";
   $xml = new SimpleXMLElement($result->return);
+
 ?>
 <div class="<?php print $classes; ?>">
   <?php print render($title_prefix); ?>
@@ -56,9 +58,9 @@
           $cat = 'classification';
           $classification = (string)$category->attributes()->$cat;
           $link = '';
-          $id = 'id-'.strtolower(preg_replace('/[^a-zA-Z0-9-]+/', '-', $classification));
+          $catid = 'id-'.strtolower(preg_replace('/[^a-zA-Z0-9-]+/', '-', $classification));
         ?>
-        <a href="#" data-target="<?php print($id) ?>"><?php print($classification) ?></a>
+        <a href="#" data-target="<?php print($catid) ?>"><?php print($classification) ?></a>
       </li>
     <?php endforeach; ?>
   </ul>
