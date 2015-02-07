@@ -51,7 +51,7 @@ array('Gebälk, das (n.)','21198-zz002hw0qt'),
 );
 
   // load the service
-  $service = wsclient_service_load('aegaron_dev_soap_service');
+  $service = wsclient_service_load('dev_aegaron_soap_service');
   $queryarkid = str_replace('-','/',arg(1));
   $params = array('arkid' => $queryarkid);
   $result = $service->getTerm($params);

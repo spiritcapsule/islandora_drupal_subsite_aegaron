@@ -29,7 +29,7 @@
 
   if (isset($_GET['tid'])) {
     $tid = $_GET['tid'];
-    $service = wsclient_service_load('aegaron_dev_soap_service');
+    $service = wsclient_service_load('dev_aegaron_soap_service');
     $params = array(
       'keyword' => $tid,
     );
@@ -73,4 +73,23 @@
   </div>
 
 </div><?php /* class view */ ?>
+
+<script type="text/javascript">
+(function(){
+$.getJSON( "/search/terms/json", function( data ) {
+  var items = [];
+  $.each( data, function( i, row ) {
+console.log(row);
+    $.each( row, function(j, term) {
+      items.push( "<li id='" + j + "'>" + term + "</li>" );
+    });
+  });
+ 
+  $( "<ul/>", {
+    "class": "my-new-list",
+    html: items.join( "" )
+  }).appendTo( "body" );
+});
+})();
+</script>
 
