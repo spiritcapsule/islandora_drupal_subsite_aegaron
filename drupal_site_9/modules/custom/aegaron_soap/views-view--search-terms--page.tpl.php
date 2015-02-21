@@ -76,6 +76,7 @@
 
 <script type="text/javascript">
 (function(){
+/*
 $.getJSON( "/search/terms/json", function( data ) {
   var items = [];
   $.each( data, function( i, row ) {
@@ -90,6 +91,7 @@ console.log(row);
     html: items.join( "" )
   }).appendTo( "body" );
 });
+*/
 })();
 </script>
 

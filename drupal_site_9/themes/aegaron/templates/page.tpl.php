@@ -115,17 +115,19 @@
       <?php endif; ?>
                    </div> <!-- /.panel-6 -->
 
-                   <div class="panel-3">
-                     <ul class="hide-accessible">
-                       <li>Insert Search Here</li>
+                   <div class="panel-3 nav-browse">
+                     <h2>Search</h2>
+                     <ul>
+                       <li><a href="http://dai.aegaron.ucla.edu/index.php/welcome/search"><span class="hide-accessible">Search </span>Architectural Plans</a></li>
+                       <li><a href="/search/terms"><span class="hide-accessible">Search </span>Term Glossary</a></li>
                      </ul>
                    </div> <!-- /.panel-3 -->
 
                    <div class="panel-3 nav-browse">
                      <h2>Browse</h2>
                      <ul>
-                       <li><a href="http://dai.aegaron.ucla.edu/index.php/welcome/browse">Architectural Plans</a></li>
-                       <li><a href="/browse/terms">Term Glossary</a></li>
+                       <li><a href="http://dai.aegaron.ucla.edu/index.php/welcome/browse"><span class="hide-accessible">Browse </span>Architectural Plans</a></li>
+                       <li><a href="/browse/terms"><span class="hide-accessible">Browse </span>Term Glossary</a></li>
                      </ul>
                    </div> <!-- /.panel-3 -->
 
