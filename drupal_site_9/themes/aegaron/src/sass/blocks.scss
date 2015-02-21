@@ -39,6 +39,10 @@ header {
                 }
             }
         }
+
+        .nav-search {
+            @extend .nav-browse;
+        }
     }
 }
 
