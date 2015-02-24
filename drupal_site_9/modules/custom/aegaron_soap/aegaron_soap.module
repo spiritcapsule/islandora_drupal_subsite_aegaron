@@ -13,6 +13,7 @@ function aegaron_soap_menu() {
     'page callback'     => 'aegaron_soap_search_terms_json_object',
     'delivery callback' => 'drupal_json_output' 
   );
+
   return $items;
 }
 
@@ -120,6 +121,28 @@ function aegaron_soap_theme($existing, $type, $theme, $path) {
       'template_preprocess',
       'template_preprocess_views_view',
       'aegaron_soap_preprocess_views_view__search_terms__page',
+    ),
+    'arguments' => array('view' => NULL),
+    'path' => drupal_get_path('module', 'aegaron_soap'),
+  );
+
+  $themes['views_view__browse_drawings__block'] = array(
+    'template' => 'views-view--browse-drawings--block',
+    'original hook' => 'views_view',
+    'preprocess functions' => array(
+      'template_preprocess',
+      'template_preprocess_views_view',
+    ),
+    'arguments' => array('view' => NULL),
+    'path' => drupal_get_path('module', 'aegaron_soap'),
+  );
+
+  $themes['views_view__browse_drawings__block_1'] = array(
+    'template' => 'views-view--browse-drawings--block-1',
+    'original hook' => 'views_view',
+    'preprocess functions' => array(
+      'template_preprocess',
+      'template_preprocess_views_view',
     ),
     'arguments' => array('view' => NULL),
     'path' => drupal_get_path('module', 'aegaron_soap'),
