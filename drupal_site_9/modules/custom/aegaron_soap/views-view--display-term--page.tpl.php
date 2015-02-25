@@ -270,8 +270,8 @@ array('Gebälk, das (n.)','21198-zz002hw0qt'),
                     echo ($relationship['rel']);
                   }
                   $count_of_terms++;
+                  $i++;
                 }
-                $i++;
               }
               if ($count_of_terms < 1) {
                 echo ('(None)');
@@ -295,8 +295,8 @@ array('Gebälk, das (n.)','21198-zz002hw0qt'),
                     echo ($relationship['rel']);
                   }
                   $count_of_terms++;
+                  $i++;
                 }
-                $i++;
               }
               if ($count_of_terms < 1) {
                 echo ('(None)');
