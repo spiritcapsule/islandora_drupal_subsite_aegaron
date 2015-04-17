@@ -1,0 +1,85 @@
+<?php
+
+/**
+ * @file
+ * The map viewer shows a multi-map display in a block.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function map_viewer_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#map_viewer':
+      return t('<p>The map viewer creates a multi-map display that can be inserted into a block.</p>');
+      break;
+  }
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function map_viewer_block_info() {
+  $blocks['map_viewer'] = array(
+    'info' => t('Map Viewer'),
+    // Drupal default: DRUPAL_CACHE_PER_ROLE
+    // TODO - try with various caching options
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  return $blocks;
+}
+
+function map_viewer_block_view($delta = '') {
+  switch ($delta) {
+    case 'map_viewer':
+      $block['subject'] = t('Map Viewer');
+      if (user_access('access content')) {
+        $block['content'] = map_viewer_contents();
+      }
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Pulling in js and css.
+ */
+function map_viewer_files() {
+  // map_viewer css
+  drupal_add_css(drupal_get_path('module', 'map_viewer') . '/map_viewer.css');
+
+  // jquery
+  // we need jquery-1.11.0.min.js for map to appear.
+  // TODO - make local
+  drupal_add_js('http://code.jquery.com/jquery-1.11.0.min.js', 'external');
+
+  // bootstrap
+  // TODO - what is this for?
+  drupal_add_css('http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', 'external');
+
+  // open layers
+  // TODO - make local
+  drupal_add_js('http://ol3js.org/en/master/build/ol.js', 'external');
+
+  // map_viewer header file
+  drupal_add_js(drupal_get_path('module', 'map_viewer') . '/map_viewer.header.js');
+}
+
+/**
+ * Custom content function.
+ *
+ * Pulls all local and external css and js.
+ * Sets maps 1, 2, and 3, drop-downs and controls for page.
+ * Pulls data from soap service.
+ *
+ * @return
+ *   A multi-map display.
+ */
+function map_viewer_contents(){
+  map_viewer_files();
+  $str = file_get_contents(drupal_get_path('module', 'map_viewer') . '/map_viewer.body.inc');
+  $mycontent = array('#markup' => $str,);
+  return $mycontent;
+}
+
+

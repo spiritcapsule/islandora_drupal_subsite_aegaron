@@ -1,0 +1,4 @@
+name = Map Viewer
+description = "The map viewer is a custom module that shows a multi-map display in a block."
+core = 7.x
+
