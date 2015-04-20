@@ -54,20 +54,7 @@ header {
     border-top: ridge 3px #666666;
     min-height: 30em;
 
-    #messages {
-        .messages.status {
-            a {
-                color: #073198;
-            }
-        }
-    }
-}
-
-.front #main-wrapper {
-    min-height: 500px;
-
     /* fallback */
-    background-image: url($bgimg);
     background-color: $aegaron-background-dark;
     background: url($bgimg), -webkit-gradient(linear, 0% 0%, 0% 100%, from($aegaron-background-dark), to($aegaron-background-med-dark));
     background: url($bgimg), -webkit-linear-gradient(top, $aegaron-background-med-dark, $aegaron-background-dark);
@@ -81,6 +68,19 @@ header {
     a {
         color: #87C7FF;
     }
+
+    #messages {
+        .messages.status {
+            a {
+                color: #073198;
+            }
+        }
+    }
+}
+
+.front #main-wrapper {
+    min-height: 500px;
+    background-image: url($bgimg);
 }
 
 .front #main h1.title {
