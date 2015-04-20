@@ -50,6 +50,17 @@ header {
     @extend .hide-accessible;
 }
 
+.tabs ul.primary {
+    li a {
+        background: #87c7ff;
+        color: #222222;
+    }
+
+    li.active a {
+        background: #eeeeee;
+    }
+}
+
 #main-wrapper {
     border-top: ridge 3px #666666;
     min-height: 30em;
@@ -193,12 +204,11 @@ body[class*='page-terms-21198-'] {
         background: -ms-linear-gradient(top, $aegaron-background-light, $aegaron-background-med-light);
         background: -o-linear-gradient(top, $aegaron-background-light, $aegaron-background-med-light);
 
-    }
+        color: #222222;
 
-    color: #222222;
-
-    a {
-        color: #073198;
+        a {
+            color: #073198;
+        }
     }
 
     .view {
