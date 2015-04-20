@@ -115,7 +115,7 @@ body.sidebar-first #main-wrapper {
     color: #222222;
 
     a {
-        color: 3333CC;
+        color: #073198;
     }
 }
 
@@ -193,6 +193,12 @@ body[class*='page-terms-21198-'] {
         background: -ms-linear-gradient(top, $aegaron-background-light, $aegaron-background-med-light);
         background: -o-linear-gradient(top, $aegaron-background-light, $aegaron-background-med-light);
 
+    }
+
+    color: #222222;
+
+    a {
+        color: #073198;
     }
 
     .view {
@@ -278,6 +284,12 @@ body.page-search-terms {
         background: -moz-linear-gradient(top, $aegaron-background-light, $aegaron-background-med-light);
         background: -ms-linear-gradient(top, $aegaron-background-light, $aegaron-background-med-light);
         background: -o-linear-gradient(top, $aegaron-background-light, $aegaron-background-med-light);
+
+        color: #222222;
+
+        a {
+            color: #073198;
+        }
 
         .view {
 
