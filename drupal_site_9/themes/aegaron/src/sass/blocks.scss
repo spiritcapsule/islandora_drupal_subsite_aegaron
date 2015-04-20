@@ -112,6 +112,11 @@ body.sidebar-first #main-wrapper {
     background-image: -ms-linear-gradient( left, #ccc, #ddd 24.5%, #eee 24.5%, #ddd 25%, #eee 25%, #eee 100% );
     background-image: -o-linear-gradient( left, #ccc, #ddd 24.5%, #eee 24.5%, #ddd 25%, #eee 25%, #eee 100% );
 
+    color: #222222;
+
+    a {
+        color: 3333CC;
+    }
 }
 
 #main {
