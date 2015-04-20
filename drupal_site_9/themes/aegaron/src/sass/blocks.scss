@@ -364,3 +364,27 @@ body.page-search-terms {
     }
 }
 
+/* Browse Drawings */
+#block-views-browse-drawings-block {
+    float: left;
+    width: 45%;
+    margin-right: 2em;
+}
+
+#block-views-browse-drawings-block-1 {
+    float: left;
+    width: 45%;
+}
+
+@media screen and (max-width: 600px) {
+    #block-views-browse-drawings-block {
+        float: none;
+        width: 100%;
+        margin-right: 0;
+    }
+
+    #block-views-browse-drawings-block-1 {
+        float: none;
+        width: 100%;
+    }    
+}
