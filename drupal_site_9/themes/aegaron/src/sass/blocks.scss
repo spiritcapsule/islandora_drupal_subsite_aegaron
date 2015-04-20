@@ -56,11 +56,11 @@ header {
 
     /* fallback */
     background-color: $aegaron-background-dark;
-    background: url($bgimg), -webkit-gradient(linear, 0% 0%, 0% 100%, from($aegaron-background-dark), to($aegaron-background-med-dark));
-    background: url($bgimg), -webkit-linear-gradient(top, $aegaron-background-med-dark, $aegaron-background-dark);
-    background: url($bgimg), -moz-linear-gradient(top, $aegaron-background-med-dark, $aegaron-background-dark);
-    background: url($bgimg), -ms-linear-gradient(top, $aegaron-background-med-dark, $aegaron-background-dark);
-    background: url($bgimg), -o-linear-gradient(top, $aegaron-background-med-dark, $aegaron-background-dark);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from($aegaron-background-dark), to($aegaron-background-med-dark));
+    background: -webkit-linear-gradient(top, $aegaron-background-med-dark, $aegaron-background-dark);
+    background: -moz-linear-gradient(top, $aegaron-background-med-dark, $aegaron-background-dark);
+    background: -ms-linear-gradient(top, $aegaron-background-med-dark, $aegaron-background-dark);
+    background: -o-linear-gradient(top, $aegaron-background-med-dark, $aegaron-background-dark);
     background-repeat: no-repeat;
 
     color: #cccccc;
@@ -81,6 +81,13 @@ header {
 .front #main-wrapper {
     min-height: 500px;
     background-image: url($bgimg);
+    background-color: $aegaron-background-dark;
+    background: url($bgimg), -webkit-gradient(linear, 0% 0%, 0% 100%, from($aegaron-background-dark), to($aegaron-background-med-dark));
+    background: url($bgimg), -webkit-linear-gradient(top, $aegaron-background-med-dark, $aegaron-background-dark);
+    background: url($bgimg), -moz-linear-gradient(top, $aegaron-background-med-dark, $aegaron-background-dark);
+    background: url($bgimg), -ms-linear-gradient(top, $aegaron-background-med-dark, $aegaron-background-dark);
+    background: url($bgimg), -o-linear-gradient(top, $aegaron-background-med-dark, $aegaron-background-dark);
+    background-repeat: no-repeat;
 }
 
 .front #main h1.title {
