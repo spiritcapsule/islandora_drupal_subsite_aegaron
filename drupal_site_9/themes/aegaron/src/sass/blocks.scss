@@ -388,3 +388,17 @@ body.page-search-terms {
         width: 100%;
     }    
 }
+
+/* Search Drawings */
+.view-search-drawings {
+
+    ul.searchdrawings {
+        list-style: none;
+
+        li {
+            width: 24%;
+            padding: 10px;
+            float: left;
+        }
+    }
+}
