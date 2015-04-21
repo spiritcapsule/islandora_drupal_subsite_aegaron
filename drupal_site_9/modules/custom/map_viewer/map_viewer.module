@@ -59,7 +59,7 @@ function map_viewer_files() {
 
   // open layers
   // TODO - make local
-  drupal_add_js('http://ol3js.org/en/master/build/ol.js', 'external');
+  drupal_add_js('http://openlayers.org/en/v3.4.0/build/ol.js', 'external');
 
   // map_viewer header file
   drupal_add_js(drupal_get_path('module', 'map_viewer') . '/map_viewer.header.js');
