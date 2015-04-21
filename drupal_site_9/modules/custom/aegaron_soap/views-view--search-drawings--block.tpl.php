@@ -65,9 +65,13 @@
   <ul id="searchdrawings">
     <?php foreach ($drawings as $drawing): ?>
         <li><a href="http://dai.aegaron.ucla.edu/index.php/welcome/drawing/<?php print str_replace('/','_',$drawing->id) ?>" target="_blank" style="max-height:200px;overflow:hidden;margin:0px;">
+          <figure>
             <img src="<?php print $drawing->thumbnailUrl ?>" alt="">
-            <span class="plantitle"><?php print $drawing->place ?>, <?php print $drawing->planTitle ?></span>
-            <span class="state"><?php print $drawing->state ?></span>
+            <figcaption>
+              <span class="plantitle"><?php print $drawing->place ?>, <?php print $drawing->planTitle ?></span>
+              <span class="state"><?php print $drawing->state ?></span>
+            </figcaption>
+          </figure>
         </a></li>
     <?php endforeach; ?>
   </ul>
