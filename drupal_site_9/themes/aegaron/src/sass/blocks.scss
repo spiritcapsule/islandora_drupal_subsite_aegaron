@@ -394,7 +394,7 @@ body.page-search-terms {
 
     ul#searchdrawings {
         list-style: none;
-        margin: 0 -10px;
+        margin: 0 -2.5%;
         padding: 0;
         box-sizing: border-box;
 
@@ -405,19 +405,22 @@ body.page-search-terms {
         }
 
         li {
-            width: 22%;
-            padding: 10px;
+            width: 20%;
+            padding: 1.5% 2.5%;
             float: left;
-            max-height: 200px;
             overflow: hidden;
+            height: 17em;
 
             figure {
                 margin: 0;
                 padding: 0;
 
                 .image {
+                    height: 180px;
+                    width: 250px;
                     max-height: 200px;
                     overflow: hidden;
+                    display: inline-block;
                 }
 
                 figcaption {
