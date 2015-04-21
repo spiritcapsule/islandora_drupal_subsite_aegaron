@@ -396,7 +396,7 @@ body.page-search-terms {
         list-style: none;
 
         li {
-            width: 24%;
+            width: 22%;
             padding: 10px;
             float: left;
             max-height: 200px;
@@ -406,7 +406,13 @@ body.page-search-terms {
                 margin: 0;
                 padding: 0;
 
+                .image {
+                    max-height: 200px;
+                    overflow: hidden;
+                }
+
                 figcaption {
+                    min-height: 3em;
 
                     .plantitle {
                         display: block;
