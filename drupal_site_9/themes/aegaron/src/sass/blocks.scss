@@ -394,6 +394,15 @@ body.page-search-terms {
 
     ul#searchdrawings {
         list-style: none;
+        margin: 0 -10px;
+        padding: 0;
+        box-sizing: border-box;
+
+        &:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
 
         li {
             width: 22%;
