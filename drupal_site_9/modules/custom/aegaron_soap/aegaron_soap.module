@@ -159,6 +159,17 @@ function aegaron_soap_theme($existing, $type, $theme, $path) {
     'path' => drupal_get_path('module', 'aegaron_soap'),
   );
 
+  $themes['views_view__search_drawings__page'] = array(
+    'template' => 'views-view--search-drawings--page',
+    'original hook' => 'views_view',
+    'preprocess functions' => array(
+      'template_preprocess',
+      'template_preprocess_views_view',
+    ),
+    'arguments' => array('view' => NULL),
+    'path' => drupal_get_path('module', 'aegaron_soap'),
+  );
+
   return $themes;
 }
 
