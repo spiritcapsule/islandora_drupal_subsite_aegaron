@@ -464,3 +464,16 @@ body.page-search-terms {
         }
     }
 }
+
+@media (max-width: 600px) {
+
+    .view-search-drawings {
+
+        ul#searchdrawings {
+
+            li {
+                width: 90%;
+            }
+        }
+    }
+}
