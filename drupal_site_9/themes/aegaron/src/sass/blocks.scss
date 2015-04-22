@@ -409,7 +409,7 @@ body.page-search-terms {
             padding: 1.5% 2.5%;
             float: left;
             overflow: hidden;
-            height: 17em;
+            height: 19em;
             box-sizing: border-box;
             display: inline-block;
 
@@ -419,10 +419,15 @@ body.page-search-terms {
 
                 .image {
                     height: 180px;
-                    width: 250px;
+                    width: 100%;
                     max-height: 200px;
                     overflow: hidden;
                     display: inline-block;
+
+                    img {
+                        width: 100%;
+                        height: auto;
+                    }
                 }
 
                 figcaption {
