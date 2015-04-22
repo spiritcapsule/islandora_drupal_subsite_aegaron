@@ -186,7 +186,7 @@ function aegaron_soap_form_alter(&$form, &$form_state, $form_id) {
     }
     if ($form['#id'] == 'views-exposed-form-search-drawings-page') {
       $form['submit']['#value'] = 'Search';
-      $form['listall']['#markup'] = '<span class="listall"><a href="/search/plans">Show All Drawings</a></span>'
+      $form['listall']['#markup'] = '<span class="listall"><a href="/search/plans">Show All Drawings</a></span>';
     }
   }
 }
