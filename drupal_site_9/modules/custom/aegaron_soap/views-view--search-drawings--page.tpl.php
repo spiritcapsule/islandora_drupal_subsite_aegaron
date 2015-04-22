@@ -29,7 +29,7 @@
 
   $service = wsclient_service_load('dev_aegaron_soap_service');
   $params = array();
-  $op = "listall";
+  $op = 'listall';
 
   if (isset($_GET['keys'])) {
     $keyword = $_GET['keys'];
@@ -43,7 +43,12 @@
     $result = $service->listAllDrawings();
   }
 
-  $drawings = $result->return;
+  if (isset($result->return)) {
+    $drawings = $result->return;
+  } else {
+    $drawings = array();
+  }
+
 //  $places = array();
 
 //  foreach ($drawings as $drawing) {
@@ -77,7 +82,8 @@
   <?php endif; ?>
 
   <ul id="searchdrawings">
-    <?php foreach ($drawings as $drawing): ?>
+    <?php if(!empty($drawings)): ?>
+      <?php foreach ($drawings as $drawing): ?>
         <li><a href="http://dai.aegaron.ucla.edu/index.php/welcome/drawing/<?php print str_replace('/','_',$drawing->id) ?>" target="_blank">
           <figure>
             <span class="image">
@@ -89,7 +95,10 @@
             </figcaption>
           </figure>
         </a></li>
-    <?php endforeach; ?>
+      <?php endforeach; ?>
+    <?php else: ?>
+      <li>No Results Found</li>
+    <?php endif; ?>
   </ul>
 
 </div><?php /* class view */ ?>
