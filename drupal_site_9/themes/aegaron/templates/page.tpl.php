@@ -118,7 +118,7 @@
                    <div class="panel-3 nav-browse">
                      <h2>Search</h2>
                      <ul>
-                       <li><a href="http://dai.aegaron.ucla.edu/index.php/welcome/search"><span class="hide-accessible">Search </span>Architectural Plans</a></li>
+                       <li><a href="/search/plans"><span class="hide-accessible">Search </span>Architectural Plans</a></li>
                        <li><a href="/search/terms"><span class="hide-accessible">Search </span>Term Glossary</a></li>
                      </ul>
                    </div> <!-- /.panel-3 -->
