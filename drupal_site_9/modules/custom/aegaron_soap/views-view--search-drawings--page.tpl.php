@@ -28,9 +28,23 @@
  */
 
   $service = wsclient_service_load('dev_aegaron_soap_service');
-  $result = $service->listAllDrawings();
+  $params = array();
+  $op = "listall";
+
+  if (isset($_GET['keys'])) {
+    $keyword = $_GET['keys'];
+    $params['keyword'] = $keyword;
+    $op = 'search';
+  }
+
+  if ($op == 'search') {
+    $result = $service->searchDrawing($params);
+  } else {
+    $result = $service->listAllDrawings();
+  }
+
   $drawings = $result->return;
-  $places = array();
+//  $places = array();
 
 //  foreach ($drawings as $drawing) {
 //    if (!array_key_exists($drawing->place,$places)) {
@@ -39,7 +53,7 @@
 //      $places[$drawing->place] = $places[$drawing->place] + 1;
 //    }
 //  }
-  uksort($places, "strnatcasecmp");
+//  uksort($places, "strnatcasecmp");
 
 //kpr($drawings);
 //kpr($places);
