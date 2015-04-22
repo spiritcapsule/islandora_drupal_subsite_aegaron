@@ -438,3 +438,29 @@ body.page-search-terms {
         }
     }
 }
+
+@media (max-width: 1200px) {
+
+    .view-search-drawings {
+
+        ul#searchdrawings {
+
+            li {
+                width: 30%;
+            }
+        }
+    }
+}
+
+@media (max-width: 800px) {
+
+    .view-search-drawings {
+
+        ul#searchdrawings {
+
+            li {
+                width: 45%;
+            }
+        }
+    }
+}
