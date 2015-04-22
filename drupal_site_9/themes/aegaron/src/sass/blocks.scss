@@ -392,6 +392,63 @@ body.page-search-terms {
 /* Search Drawings */
 .view-search-drawings {
 
+    .views-exposed-form {
+        margin-bottom: 1em;
+
+        #edit-keys-wrapper {
+            padding: 0;
+
+            label {
+                @extend .hide-accessible
+            }
+
+            .form-item-keys #edit-keys {
+                margin-right: 0;
+                margin-bottom: 0;
+                height: 2em;
+                padding: .5em;
+                font-size: 1em;
+                line-height: 1em;
+                -webkit-border-radius: 0;
+                -moz-border-radius: 0;
+                border-radius: 0;
+                width: 20em;
+                background-position: 99% 8px;
+                border-right: 0;
+            }
+
+            .form-item-keys #edit-keys.throbbing {
+                background-position: 99% -12px;
+            }
+        }
+
+        .views-submit-button {
+            padding: 0;
+
+            .form-submit {
+                margin-top: 0;
+                margin-bottom: 0;
+                height: 2em;
+                padding: .5em;
+                font-size: 1em;
+                line-height: 1em;
+                text-transform: uppercase;
+                background: $aegaron-redorange-dark;
+                color: #fff;
+                border: solid 1px #999;
+                border-bottom: solid 1px #ccc;
+                border-left: 0;
+            }
+
+            .form-submit:hover,
+            .form-submit:focus,
+            .form-submit:active {
+                background: $aegaron-redorange;
+                color: #000;
+            }
+        }
+    }
+
     ul#searchdrawings {
         list-style: none;
         margin: 0 -2.5%;

@@ -184,6 +184,9 @@ function aegaron_soap_form_alter(&$form, &$form_state, $form_id) {
       //$form['submit']['#src'] = drupal_get_path('theme','aegaron') . "/assets/img/magglass.png";
 // kpr($form);
     }
+    if ($form['#id'] == 'views-exposed-form-search-drawings-page') {
+      $form['submit']['#value'] = 'Search';
+    }
   }
 }
 
