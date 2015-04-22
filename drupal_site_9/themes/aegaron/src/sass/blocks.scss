@@ -410,6 +410,8 @@ body.page-search-terms {
             float: left;
             overflow: hidden;
             height: 17em;
+            box-sizing: border-box;
+            display: inline-block;
 
             figure {
                 margin: 0;
@@ -439,6 +441,19 @@ body.page-search-terms {
     }
 }
 
+@media (max-width: 1600px) {
+
+    .view-search-drawings {
+
+        ul#searchdrawings {
+
+            li {
+                width: 25%;
+            }
+        }
+    }
+}
+
 @media (max-width: 1200px) {
 
     .view-search-drawings {
@@ -446,7 +461,7 @@ body.page-search-terms {
         ul#searchdrawings {
 
             li {
-                width: 28%;
+                width: 33%;
             }
         }
     }
@@ -459,7 +474,7 @@ body.page-search-terms {
         ul#searchdrawings {
 
             li {
-                width: 45%;
+                width: 50%;
             }
         }
     }
@@ -472,7 +487,7 @@ body.page-search-terms {
         ul#searchdrawings {
 
             li {
-                width: 90%;
+                width: 100%;
             }
         }
     }
