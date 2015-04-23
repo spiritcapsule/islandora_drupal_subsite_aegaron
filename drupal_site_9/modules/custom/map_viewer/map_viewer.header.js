@@ -13,7 +13,7 @@ var aegaron =
 	syncmaps: 		true,
 	mosaicData: 		'',
 	layer1: 		'',
-	mapViewerHTMLFile: 	'map-test',
+	mapViewerHTMLFile: 	location.protocol + '//' + location.host + location.pathname,
 	arcgisserverurl: 	'http://marinus.library.ucla.edu:6080/arcgis/rest/services/AEGARON/Georeferenced',
 	satlayers: 		new ol.layer.Tile({
 					mapid: 1,
