@@ -92,44 +92,22 @@
               </div> <!-- /.panel-4 -->
 
               <div class="panel-8">
-                <div class="row">
-                  <div class="panel-6">
-      <?php if ($site_name || $site_slogan): ?>
-        <div id="name-and-slogan">
-          <?php if ($site_name): ?>
-            <?php if ($title): ?>
-              <div id="site-name"><strong>
-                <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"><span><?php print $site_name; ?></span></a>
-              </strong></div>
-            <?php else: /* Use h1 when the content title is empty */ ?>
-              <h1 id="site-name">
-                <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"><span><?php print $site_name; ?></span></a>
-              </h1>
-            <?php endif; ?>
-          <?php endif; ?>
-
-          <?php if ($site_slogan): ?>
-            <div id="site-slogan"><?php print $site_slogan; ?></div>
-          <?php endif; ?>
-        </div> <!-- /#name-and-slogan -->
-      <?php endif; ?>
-                   </div> <!-- /.panel-6 -->
-
-                   <div class="panel-3 nav-browse">
+                <div class="row no-collapse">
+                   <div class="panel-6 nav-browse">
                      <h2>Search</h2>
                      <ul>
                        <li><a href="/search/plans"><span class="hide-accessible">Search </span>Architectural Plans</a></li>
                        <li><a href="/search/terms"><span class="hide-accessible">Search </span>Term Glossary</a></li>
                      </ul>
-                   </div> <!-- /.panel-3 -->
+                   </div> <!-- /.panel-6 -->
 
-                   <div class="panel-3 nav-browse">
+                   <div class="panel-6 nav-browse">
                      <h2>Browse</h2>
                      <ul>
                        <li><a href="/browse/plans"><span class="hide-accessible">Browse </span>Architectural Plans</a></li>
                        <li><a href="/browse/terms"><span class="hide-accessible">Browse </span>Term Glossary</a></li>
                      </ul>
-                   </div> <!-- /.panel-3 -->
+                   </div> <!-- /.panel-6 -->
 
                  </div> <!-- /.row.right -->
                </div> <!-- /.panel-8 -->
