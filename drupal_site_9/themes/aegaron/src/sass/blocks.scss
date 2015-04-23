@@ -61,12 +61,20 @@ header {
 
             #logo {
                 text-align: center;
+                margin: auto;
             }
 
             .top-nav {
                 padding-top: 1em;
                 float: none;
-                text-align: center;
+
+                .nav-browse {
+                    float: right;
+                }
+
+		.nav-search {
+                    float: left;
+                }
             }
         }
     }
