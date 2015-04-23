@@ -92,24 +92,24 @@
               </div> <!-- /.panel-4 -->
 
               <div class="panel-8">
-                <div class="row no-collapse">
-                   <div class="panel-6 nav-browse">
+                <div class="top-nav">
+                   <div class="nav-search">
                      <h2>Search</h2>
                      <ul>
                        <li><a href="/search/plans"><span class="hide-accessible">Search </span>Architectural Plans</a></li>
                        <li><a href="/search/terms"><span class="hide-accessible">Search </span>Term Glossary</a></li>
                      </ul>
-                   </div> <!-- /.panel-6 -->
+                   </div> <!-- /.nav-search -->
 
-                   <div class="panel-6 nav-browse">
+                   <div class="nav-browse">
                      <h2>Browse</h2>
                      <ul>
                        <li><a href="/browse/plans"><span class="hide-accessible">Browse </span>Architectural Plans</a></li>
                        <li><a href="/browse/terms"><span class="hide-accessible">Browse </span>Term Glossary</a></li>
                      </ul>
-                   </div> <!-- /.panel-6 -->
+                   </div> <!-- /.nav-browse -->
 
-                 </div> <!-- /.row.right -->
+                 </div> <!-- /.top-nav -->
                </div> <!-- /.panel-8 -->
              </div> <!-- /.row -->
       <?php print render($page['header']); ?>

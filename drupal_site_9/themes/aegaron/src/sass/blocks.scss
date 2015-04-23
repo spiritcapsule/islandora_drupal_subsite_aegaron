@@ -20,7 +20,14 @@ header {
             width: 200px;
         }
 
+        .top-nav {
+            float: right;
+        }
+
         .nav-browse { 
+            float: right;
+            padding: 0 2em;
+
             h2 {
                 font-size: .9rem;
                 font-weight: normal;
@@ -42,6 +49,25 @@ header {
 
         .nav-search {
             @extend .nav-browse;
+        }
+    }
+}
+
+@media (max-width: $breakpoint-small) {
+
+    header {
+
+        .masthead {
+
+            #logo {
+                text-align: center;
+            }
+
+            .top-nav {
+                padding-top: 1em;
+                float: none;
+                text-align: center;
+            }
         }
     }
 }
