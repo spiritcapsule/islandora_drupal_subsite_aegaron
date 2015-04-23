@@ -62,6 +62,7 @@ header {
             #logo {
                 text-align: center;
                 margin: auto;
+                width: 100%;
             }
 
             .top-nav {
@@ -69,11 +70,13 @@ header {
                 float: none;
 
                 .nav-browse {
-                    float: right;
+                    float: left;
+                    padding-top: 1em;
                 }
 
 		.nav-search {
-                    float: left;
+                    float: right;
+                    padding-top: 1em;
                 }
             }
         }
