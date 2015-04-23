@@ -137,7 +137,7 @@ array('Gebälk, das (n.)','21198-zz002hw0qt'),
     foreach ($relations as $rel) {
       if ($rel['type'] == 'plan' && $rel['order'] == $i) {
         $arkid = $rel['arkid'];
-        $linkurl = 'http://dai.aegaron.ucla.edu/index.php/welcome/drawing/'.trim(str_replace('/','_',$arkid));
+        $linkurl = '/drawing/'.trim(str_replace('/','_',$arkid));
       }
     }
     $images[$i] = array(

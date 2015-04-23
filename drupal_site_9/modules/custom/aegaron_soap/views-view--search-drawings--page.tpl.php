@@ -84,7 +84,7 @@
   <ul id="searchdrawings">
     <?php if(!empty($drawings)): ?>
       <?php foreach ($drawings as $drawing): ?>
-        <li><a href="http://dai.aegaron.ucla.edu/index.php/welcome/drawing/<?php print str_replace('/','_',$drawing->id) ?>" target="_blank">
+        <li><a href="/drawing/<?php print str_replace('/','_',$drawing->id) ?>" target="_blank">
           <figure>
             <span class="image">
               <img src="<?php print $drawing->thumbnailUrl ?>" alt="">

@@ -69,7 +69,7 @@
         <ul id="<?php print 'id-'.$place ?>">
           <?php foreach ($drawings as $drawing): ?>
             <?php if($drawing->place == $place): ?>
-              <li><a href="http://dai.aegaron.ucla.edu/index.php/welcome/drawing/<?php print str_replace('/','_',$drawing->id) ?>" target="_blank"><?php print $drawing->place ?>, <?php print $drawing->planTitle ?>, <?php print $drawing->view ?>, <?php print $drawing->state ?>, <?php print $drawing->drawing ?></a></li>
+              <li><a href="/drawing/<?php print str_replace('/','_',$drawing->id) ?>" target="_blank"><?php print $drawing->place ?>, <?php print $drawing->planTitle ?>, <?php print $drawing->view ?>, <?php print $drawing->state ?>, <?php print $drawing->drawing ?></a></li>
             <?php endif; ?>
           <?php endforeach; ?>
         </ul>

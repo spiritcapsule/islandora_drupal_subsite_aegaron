@@ -87,7 +87,7 @@
               <?php $periods = explode("/",$drawing->period); ?>
               <?php foreach ($periods as $curperiod): ?>
                 <?php if($curperiod == $period): ?>
-                  <li><a href="http://dai.aegaron.ucla.edu/index.php/welcome/drawing/<?php print str_replace('/','_',$drawing->id) ?>" target="_blank"><?php print $drawing->place ?>, <?php print $drawing->planTitle ?>, <?php print $drawing->view ?>, <?php print $drawing->state ?>, <?php print $drawing->drawing ?></a></li>
+                  <li><a href="/drawing/<?php print str_replace('/','_',$drawing->id) ?>" target="_blank"><?php print $drawing->place ?>, <?php print $drawing->planTitle ?>, <?php print $drawing->view ?>, <?php print $drawing->state ?>, <?php print $drawing->drawing ?></a></li>
                 <?php endif; ?>
               <?php endforeach; ?>
             <?php endforeach; ?>
