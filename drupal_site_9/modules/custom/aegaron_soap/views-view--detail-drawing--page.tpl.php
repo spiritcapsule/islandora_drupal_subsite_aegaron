@@ -50,9 +50,17 @@ if (isset($result->return)) {
     }
   }
 
+  foreach($itemdata->subject as $tempdata) {
+    if (isset($tempdata->place)) {
+      $place = (string)$tempdata->place;
+    } else {
+      $place = '';
+    }
+  }
+
   foreach($itemdata->altTitle as $tempdata) {
     if (isset($tempdata->planTitle)) {
-      $title = '<h1>'.(string)$tempdata->planTitle.'</h1>';
+      $title = '<h1>'.$place.', '.(string)$tempdata->planTitle.'</h1>';
     }
   }
 
