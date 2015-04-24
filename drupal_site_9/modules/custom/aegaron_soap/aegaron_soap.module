@@ -14,6 +14,12 @@ function aegaron_soap_menu() {
     'delivery callback' => 'drupal_json_output' 
   );
 
+  $items['drawings/json'] = array(
+    'access callback'   => true, // available to all
+    'page callback'     => 'aegaron_soap__json_object',
+    'delivery callback' => 'drupal_json_output' 
+  );
+
   return $items;
 }
 
@@ -271,6 +277,30 @@ function aegaron_soap_search_terms_json_object() {
     $json_terms = drupal_json_output($terms);
     return $json_terms;
   }
+}
+
+function aegaron_soap_plantitle_json_object() {
+
+  $cache_id = 'drawingsjson';
+  $cached = cache_get($cache_id, 'cache');
+  $drawings = $cached->data;
+  if (empty($drawings)) {
+    $drawings = array();
+    $i = 0;
+    $service = wsclient_service_load('dev_aegaron_soap_service');
+    $result = $service->listAllDrawings();
+
+    foreach ($result->return as $j => $item) {
+      $drawings[$i]['drawing'] = $item->drawing;
+      $drawings[$i]['place'] = $item->place;
+      $drawings[$i]['planTitle'] = $item->planTitle;
+      $i++;
+    }
+
+  }
+  cache_set($cache_id, $drawings, 'cache', CACHE_TEMPORARY);
+  $json_map = drupal_json_output($drawings);
+  return $json_map;
 }
 
 function existsInArray($str, $array) {
