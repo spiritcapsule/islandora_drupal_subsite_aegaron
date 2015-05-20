@@ -70,10 +70,14 @@ if (isset($result->return)) {
 
 ?>
 
-<script type="text/javascript">
-aegaron.mapid1 = '<?php print $drawingid; ?>';
-console.log(aegaron.mapid1);
-</script>
+<?php if (isset($drawingid)): ?>
+  <script type="text/javascript">
+  aegaron.mapid1 = '<?php print $drawingid; ?>';
+  console.log(aegaron.mapid1);
+  </script>
+<?php else: ?>
+  <?php drupal_set_message(t('No drawing with the arkid of '.$arkid),'warning'); ?>
+<?php endif; ?>
 
 <div class="<?php print $classes; ?>">
   <?php print render($title_prefix); ?>
