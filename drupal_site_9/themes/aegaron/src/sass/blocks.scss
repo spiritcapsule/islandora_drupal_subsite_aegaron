@@ -143,30 +143,6 @@ header {
     font-weight: normal;
 }
 
-body.sidebar-first #main-wrapper {
-    background-image: -webkit-gradient(
-        linear,
-        left top, 
-        right top, 
-        color-stop(0, #ccc), 
-        color-stop(24.5%, #ddd), 
-        color-stop(24.5%, #eee), 
-        color-stop(25%, #ddd), 
-        color-stop(25%, #eee), 
-        color-stop(100%, #eee)
-    );
-    background-image: -webkit-linear-gradient( left, #ccc, #ddd 24.5%, #eee 24.5%, #ddd 25%, #eee 25%, #eee 100% );
-    background-image: -moz-linear-gradient( left, #ccc, #ddd 24.5%, #eee 24.5%, #ddd 25%, #eee 25%, #eee 100% );
-    background-image: -ms-linear-gradient( left, #ccc, #ddd 24.5%, #eee 24.5%, #ddd 25%, #eee 25%, #eee 100% );
-    background-image: -o-linear-gradient( left, #ccc, #ddd 24.5%, #eee 24.5%, #ddd 25%, #eee 25%, #eee 100% );
-
-    color: #222222;
-
-    a {
-        color: #073198;
-    }
-}
-
 #main {
     #sidebar-first {
         .block {
@@ -229,23 +205,6 @@ body.sidebar-first #main-wrapper {
 body[class*='page-terms-21198-'] {
     #page-title {
         display: none;
-    }
-
-    #main-wrapper {
-
-        /* fallback */
-        background-color: $aegaron-background-med-light;
-        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from($aegaron-background-med-light), to($aegaron-background-med-light));
-        background: -webkit-linear-gradient(top, $aegaron-background-light, $aegaron-background-med-light);
-        background: -moz-linear-gradient(top, $aegaron-background-light, $aegaron-background-med-light);
-        background: -ms-linear-gradient(top, $aegaron-background-light, $aegaron-background-med-light);
-        background: -o-linear-gradient(top, $aegaron-background-light, $aegaron-background-med-light);
-
-        color: #222222;
-
-        a {
-            color: #073198;
-        }
     }
 
     .view {
@@ -323,20 +282,6 @@ body[class*='page-terms-21198-'] {
 body.page-search-terms {
 
     #main-wrapper {
-
-        /* fallback */
-        background-color: $aegaron-background-med-light;
-        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from($aegaron-background-med-light), to($aegaron-background-med-light));
-        background: -webkit-linear-gradient(top, $aegaron-background-light, $aegaron-background-med-light);
-        background: -moz-linear-gradient(top, $aegaron-background-light, $aegaron-background-med-light);
-        background: -ms-linear-gradient(top, $aegaron-background-light, $aegaron-background-med-light);
-        background: -o-linear-gradient(top, $aegaron-background-light, $aegaron-background-med-light);
-
-        color: #222222;
-
-        a {
-            color: #073198;
-        }
 
         .view {
 
