@@ -252,10 +252,14 @@ body[class*='page-terms-21198-'] {
         .supplement-images {
             margin: 15px 0;
 
-            img {
-                border: solid 10px #666666;
-                max-height: 500px;
-                margin-right: 15px;
+            .image {
+                display: inline-block;
+
+                img {
+                    border: solid 10px #666666;
+                    max-height: 500px;
+                    margin-right: 15px;
+                }
             }
         }
 
