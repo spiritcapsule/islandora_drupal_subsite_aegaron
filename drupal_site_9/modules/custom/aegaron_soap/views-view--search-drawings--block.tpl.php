@@ -64,7 +64,7 @@
 
   <ul id="searchdrawings">
     <?php foreach ($drawings as $drawing): ?>
-        <li><a href="/drawing/<?php print str_replace('/','_',$drawing->id) ?>" target="_blank">
+        <li><a href="/drawing/<?php print str_replace('/','_',$drawing->id) ?>">
           <figure>
             <span class="image">
               <img src="<?php print $drawing->thumbnailUrl ?>" alt="">
