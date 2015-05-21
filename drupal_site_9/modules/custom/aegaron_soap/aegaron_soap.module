@@ -16,7 +16,7 @@ function aegaron_soap_menu() {
 
   $items['drawings/json'] = array(
     'access callback'   => true, // available to all
-    'page callback'     => 'aegaron_soap__json_object',
+    'page callback'     => 'aegaron_soap_plantitle_json_object',
     'delivery callback' => 'drupal_json_output' 
   );
 
@@ -294,6 +294,7 @@ function aegaron_soap_plantitle_json_object() {
       $drawings[$i]['drawing'] = $item->drawing;
       $drawings[$i]['place'] = $item->place;
       $drawings[$i]['planTitle'] = $item->planTitle;
+      $drawings[$i]['view'] = $item->view;
       $i++;
     }
 
