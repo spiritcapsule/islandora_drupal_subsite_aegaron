@@ -174,10 +174,9 @@ array('Gebälk, das (n.)','21198-zz002hw0qt'),
       <div class="panel-6">
         <div class="main-image">
           <?php if (isset($images[1])): ?>
+              <img src="<?php print($images[1]['imageurl']); ?>" alt="illustration of the term" />
             <?php if (isset($images[1]['linkurl']) && $images[1]['linkurl'] != ''): ?>
-              <a href="<?php print($images[1]['linkurl']); ?>"><img src="<?php print($images[1]['imageurl']); ?>" alt="view related plan" /></a>
-            <?php else : ?>
-              <img src="<?php print($images[1]['imageurl']); ?>" alt="view related plan" />
+              <br /><a href="<?php print($images[1]['linkurl']); ?>" class="">View Context <span class="hide-accessible">for image #1</span></a>
             <?php endif; ?>
           <?php else : ?>
             <div class="missing-image">No Image Available</div>
@@ -242,11 +241,12 @@ array('Gebälk, das (n.)','21198-zz002hw0qt'),
     <div class="supplement-images">
       <?php foreach ($images as $key => $image): ?>
         <?php if ($key > 1): ?>
+          <div class="image">
+            <img src="<?php print($image['imageurl']); ?>" alt="illustration of term" />
           <?php if (isset($image['linkurl']) && $image['linkurl'] != ''): ?>
-            <a href="<?php print($image['linkurl']); ?>"><img src="<?php print($image['imageurl']); ?>" alt="view related plan" /></a>
-          <?php else : ?>
-            <img src="<?php print($image['imageurl']); ?>" alt="view related plan" />
+            <br /><a href="<?php print($image['linkurl']); ?>" class="">View Context <span class="hide-accessible">for image #<?php print($key); ?></span></a>
           <?php endif; ?>
+          </div>
         <?php endif; ?>       
       <?php endforeach; ?>
     </div>
