@@ -170,7 +170,7 @@ array('Gebälk, das (n.)','21198-zz002hw0qt'),
   <h1 class="hide-accessible"><?php print((string)$terms['preferred-en'][0]); ?></h1>
 
   <div class="container">
-    <div class="row">
+    <div class="row medium-collapse">
       <div class="panel-6">
         <div class="main-image">
           <?php if (isset($images[1])): ?>
