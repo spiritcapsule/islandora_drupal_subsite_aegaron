@@ -45,24 +45,34 @@ function map_viewer_block_view($delta = '') {
  * Pulling in js and css.
  */
 function map_viewer_files() {
-  // map_viewer css
-  drupal_add_css(drupal_get_path('module', 'map_viewer') . '/map_viewer.css');
 
   // jquery
   // we need jquery-1.11.0.min.js for map to appear.
   // TODO - make local
   drupal_add_js('http://code.jquery.com/jquery-1.11.0.min.js', 'external');
+  drupal_add_js('http://code.jquery.com/jquery-migrate-1.2.1.min.js','external');
 
   // bootstrap
   // TODO - what is this for?
   drupal_add_css('http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', 'external');
+  drupal_add_js('http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js','external');
+
+  // bootstrap toggle
+  drupal_add_css('https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css','external');
+  drupal_add_js('https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js','external');
+
+  // map_viewer css
+  drupal_add_css(drupal_get_path('module', 'map_viewer') . '/map_viewer.css');
 
   // open layers
   // TODO - make local
   drupal_add_js('http://openlayers.org/en/v3.4.0/build/ol.js', 'external');
 
-  // map_viewer header file
-  drupal_add_js(drupal_get_path('module', 'map_viewer') . '/map_viewer.header.js');
+  // map_viewer js files
+  // moved links to html.tpl.php in theme to force load after blocks.js
+  // drupal_add_js(drupal_get_path('module', 'map_viewer') . '/map_viewer.aegaron-namespace.js');
+  // drupal_add_js(drupal_get_path('module', 'map_viewer') . '/map_viewer.aegaron-drawings.js');
+  // drupal_add_js(drupal_get_path('module', 'map_viewer') . '/map_viewer.header.js');
 }
 
 /**

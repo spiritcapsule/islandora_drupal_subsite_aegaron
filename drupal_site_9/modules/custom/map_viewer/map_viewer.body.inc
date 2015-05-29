@@ -1,6 +1,10 @@
 <div id="master-map-container">	
 	<!-- map navigation bar -->
 	<div id="map-nav" class="">
+                <!-- <span id="geo-toggle" class="btn btn-info btn-small" onclick="aegaron.toggleGeo()"><span class="glyphicon glyphicon-globe"></span> Geo/Nongeo</span> -->
+                Image on map
+                <input id="geo-toggle" type="checkbox" checked data-onstyle="info" data-toggle="toggle" data-on="Yes" data-off="No" onclick="aegaron.toggleGeo()">
+                |
 		<span class="btn btn-info btn-small" onclick="aegaron.dualView(0)"><span class="glyphicon glyphicon-stop"></span> Single View</span>
 		<span class="btn btn-info btn-small" onclick="aegaron.dualView(1)"><span class="glyphicon glyphicon-stop"></span><span class="glyphicon glyphicon-stop"></span> Dual View</span>
 		
@@ -23,13 +27,9 @@
 
 		<!-- 
 			rotate instructions
-			
-			THIS IS NOT WORKING... 
-			in the new version of Open Layers + Mosaic database combination
-			NEED TO REVISIT
 		 -->
-		<!-- <p>Use <code>Alt</code>+<code>Shift</code>+drag to rotate the map.</p> -->
-		<br><br>
+		<p>Use <code>Alt</code>+<code>Shift</code>+drag to rotate the map.</p>
+                <br><br>
 	</div>
 
 	<!-- map container for single map view -->
@@ -37,11 +37,11 @@
 		<div class="mapcontainer-nav-left">
 			<div class="form-inline">
 				<div class="form-group">
-					<button class="btn btn-mini btn-info" onclick="map1.getView().setZoom(map1.getView().getZoom()+1)"><span class="glyphicon glyphicon-zoom-in"></button>
-					<button class="btn btn-mini btn-info" onclick="map1.getView().setZoom(map1.getView().getZoom()-1)"><span class="glyphicon glyphicon-zoom-out"></button>
+					<button class="btn btn-mini btn-info" onclick="aegaron.map1.getView().setZoom(aegaron.map1.getView().getZoom()+1)"><span class="glyphicon glyphicon-zoom-in"></button>
+					<button class="btn btn-mini btn-info" onclick="aegaron.map1.getView().setZoom(aegaron.map1.getView().getZoom()-1)"><span class="glyphicon glyphicon-zoom-out"></button>
 				</div>
 				<div class="form-group">
-					<select class="form-control" style="margin-bottom:0px;" onChange="aegaron.switchCompareMap('map1')" id="changecompare1">
+					<select class="form-control" style="margin-bottom:0px;" onChange="aegaron.switchCompareMap(aegaron.map1)" id="changecompare1">
 						<option value=1>-- choose a main plan --</option> 
 					</select>
 				</div>
@@ -56,11 +56,11 @@
 		<div class="mapcontainer-nav-left">
 			<div class="form-inline">
 				<div class="form-group">
-					<button class="btn btn-mini btn-info" onclick="map2.getView().setZoom(map2.getView().getZoom()+1)"><span class="glyphicon glyphicon-zoom-in"></span></button>
-					<button class="btn btn-mini btn-info" onclick="map2.getView().setZoom(map2.getView().getZoom()-1)"><span class="glyphicon glyphicon-zoom-out"></span></button>
+					<button class="btn btn-mini btn-info" onclick="aegaron.map2.getView().setZoom(aegaron.map2.getView().getZoom()+1)"><span class="glyphicon glyphicon-zoom-in"></span></button>
+					<button class="btn btn-mini btn-info" onclick="aegaron.map2.getView().setZoom(aegaron.map2.getView().getZoom()-1)"><span class="glyphicon glyphicon-zoom-out"></span></button>
 				</div>
 				<div class="form-group">
-					<select class="form-control" style="margin-bottom:0px;" onChange="aegaron.switchCompareMap('map2')" id="changecompare2">
+					<select class="form-control" style="margin-bottom:0px;" onChange="aegaron.switchCompareMap(aegaron.map2)" id="changecompare2">
 						<option value=1>-- choose a main plan --</option> 
 					</select>
 				</div>
@@ -69,13 +69,13 @@
 		<div class="mapcontainer-nav-right">
 			<div class="form-inline">
 				<div class="form-group">
-					<select class="form-control" style="margin-bottom:0px;" onChange="aegaron.switchCompareMap('map3')" id="changecompare3">
+					<select class="form-control" style="margin-bottom:0px;" onChange="aegaron.switchCompareMap(aegaron.map3)" id="changecompare3">
 						<option value=1>-- choose a second plan --</option> 
 					</select>
 				</div>
 				<div class="form-group">
-					<button class="btn btn-mini btn-info" onclick="map3.getView().setZoom(map3.getView().getZoom()+1)"><span class="glyphicon glyphicon-zoom-in"></span></button>
-					<button class="btn btn-mini btn-info" onclick="map3.getView().setZoom(map3.getView().getZoom()-1)"><span class="glyphicon glyphicon-zoom-out"></span></button>
+					<button class="btn btn-mini btn-info" onclick="aegaron.map3.getView().setZoom(aegaron.map3.getView().getZoom()+1)"><span class="glyphicon glyphicon-zoom-in"></span></button>
+					<button class="btn btn-mini btn-info" onclick="aegaron.map3.getView().setZoom(aegaron.map3.getView().getZoom()-1)"><span class="glyphicon glyphicon-zoom-out"></span></button>
 				</div>
 			</div>
 		</div>

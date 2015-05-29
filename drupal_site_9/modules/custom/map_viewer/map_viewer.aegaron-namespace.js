@@ -3,16 +3,15 @@
 var aegaron = 
 {
 	viewState: 			0, 		// 0 = single; 1 = dual
+	geo:  				true,
 	zoomLevel: 			19,
 	mapid1: 			'0011', // default mapid
 	mapid2: 			'', 	//empty by default 
 	mapCenter: 			[3660710.823399583, 2756502.4598684157], 
-	alllayers_map1: 	[], // drop down array holder for all maps (map1)
-	alllayers_map2: 	[],
-	alllayers_map3: 	[],
-	current_opacity: 	1,
+	current_opacity: 	1,	// 0 is fully transparent
 	syncmaps: 			true,
 	mosaicData: 		'',
+	mosaicData_nongeo: 		'',
 	layer1: 			'',
 	apollo_mosaic:		'',
 	map1: 				'',
@@ -20,8 +19,12 @@ var aegaron =
 	map3: 				'',
 	mapViewerHTMLFile: 	location.protocol + '//' + location.host + location.pathname,
 	// arcgisserverurl: 	'http://marinus.library.ucla.edu:6080/arcgis/rest/services/AEGARON/Georeferenced',
-	arcgisserverurl: 	'http://marinus.library.ucla.edu:6080/arcgis/rest/services/AEGARON/Aegaron_Georeference_3',
-	arcgisserver_apollo_url: 	'http://marinus.library.ucla.edu:6080/arcgis/rest/services/AEGARON/apollo',
+	// http://marinus.library.ucla.edu:6080/arcgis/services/AEGARON/Aegaron_Georeference_3
+	arcgisserver_wms_url: 			'http://marinus.library.ucla.edu:6080/arcgis/services/AEGARON/Aegaron_Georeference_3/ImageServer/WMSServer',
+	arcgisserver_nongeo_wms_url: 	'http://marinus.library.ucla.edu:6080/arcgis/services/AEGARON/nongeo/ImageServer/WMSServer',
+	arcgisserver_rest_url: 			'http://marinus.library.ucla.edu:6080/arcgis/rest/services/AEGARON/Aegaron_Georeference_3',
+	arcgisserver_nongeo_rest_url: 	'http://marinus.library.ucla.edu:6080/arcgis/rest/services/AEGARON/nongeo',
+	arcgisserver_apollo_url: 		'http://marinus.library.ucla.edu:6080/arcgis/rest/services/AEGARON/apollo',
 
 	/* 
 		satellite images as layers
