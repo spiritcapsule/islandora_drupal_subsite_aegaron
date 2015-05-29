@@ -19,9 +19,11 @@ WebBlocks.config[:src][:adapter] = ['bootstrap']
 WebBlocks.config[:src][:extensions] = ["#{rootdir}/src/extension"]
 
 # Packages compiled into WebBlocks
-WebBlocks.config[:src][:packages]  = []
-WebBlocks.config[:src][:packages] << :jquery 
-WebBlocks.config[:src][:packages] << :modernizr
-WebBlocks.config[:src][:packages] << :respond
-WebBlocks.config[:src][:packages] << :selectivizr
-WebBlocks.config[:src][:packages] << :efx
+WebBlocks.config[:build][:packages]  = []
+# WebBlocks.config[:build][:packages] << :jquery 
+WebBlocks.config[:build][:packages] << :modernizr
+WebBlocks.config[:build][:packages] << :respond
+WebBlocks.config[:build][:packages] << :selectivizr
+WebBlocks.config[:build][:packages] << :efx
+
+# WebBlocks.config[:build][:debug] = true
