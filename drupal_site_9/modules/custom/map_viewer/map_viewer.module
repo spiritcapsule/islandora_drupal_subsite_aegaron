@@ -17,6 +17,15 @@ function map_viewer_help($path, $arg) {
 }
 
 /**
+ * Implements hook_js_alter().
+ */
+function map_viewer_js_alter(&$javascript) {
+  // Swap out jQuery to use 1.11.3
+  // TODO - make local
+  $javascript ['misc/jquery.js'] = drupal_js_defaults('http://code.jquery.com/jquery-1.11.3.min.js');
+}
+
+/**
  * Implements hook_block_info().
  */
 function map_viewer_block_info() {
@@ -47,9 +56,7 @@ function map_viewer_block_view($delta = '') {
 function map_viewer_files() {
 
   // jquery
-  // we need jquery-1.11.0.min.js for map to appear.
   // TODO - make local
-  drupal_add_js('http://code.jquery.com/jquery-1.11.0.min.js', 'external');
   drupal_add_js('http://code.jquery.com/jquery-migrate-1.2.1.min.js','external');
 
   // bootstrap
@@ -70,9 +77,9 @@ function map_viewer_files() {
 
   // map_viewer js files
   // moved links to html.tpl.php in theme to force load after blocks.js
-  // drupal_add_js(drupal_get_path('module', 'map_viewer') . '/map_viewer.aegaron-namespace.js');
-  // drupal_add_js(drupal_get_path('module', 'map_viewer') . '/map_viewer.aegaron-drawings.js');
-  // drupal_add_js(drupal_get_path('module', 'map_viewer') . '/map_viewer.header.js');
+  drupal_add_js(drupal_get_path('module', 'map_viewer') . '/map_viewer.aegaron-namespace.js');
+  drupal_add_js(drupal_get_path('module', 'map_viewer') . '/map_viewer.aegaron-drawings.js');
+  drupal_add_js(drupal_get_path('module', 'map_viewer') . '/map_viewer.header.js');
 }
 
 /**
