@@ -142,7 +142,7 @@ aegaron.getAllPlansFromMosaic = function()
 		$.each(data.features,function(i,item){
 			// name is the Plan ID (eg: 0001, 0012, etc)
 			var name = item.attributes.Name;
-			var text = aegaron.getDrawingByPlanID(name).place + ': ' + aegaron.getDrawingByPlanID(name).planTitle + ' (' + aegaron.getDrawingByPlanID(name).drawing + ')';
+			var text = aegaron.getDrawingByPlanID(name).place + ': ' + aegaron.getDrawingByPlanID(name).planTitle + ', ' + aegaron.getDrawingByPlanID(name).view + ', ' + aegaron.getDrawingByPlanID(name).state  + ' (' + aegaron.getDrawingByPlanID(name).drawing + ')';
 
 			// add to the drop down choices for all 3 map divs
 			$("#changecompare1").append('<option value='+name+'>'+text+'</option>');
