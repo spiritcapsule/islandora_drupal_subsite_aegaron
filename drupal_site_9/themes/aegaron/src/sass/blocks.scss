@@ -545,3 +545,25 @@ body.page-search-terms {
         }
     }
 }
+
+body[class*='page-drawing-21198-'] {
+
+    #metadata {
+
+        h2 {
+            border-top: solid 1px #666666;
+
+            &:first-child {
+                border-top: none;
+            }
+
+            a {
+                .btn {
+                    margin-right: .5em;
+                }
+            }
+        }
+    }
+}
+
+
