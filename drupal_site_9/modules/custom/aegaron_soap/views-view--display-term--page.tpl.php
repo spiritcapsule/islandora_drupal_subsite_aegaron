@@ -27,29 +27,6 @@
  * @ingroup views_templates
  */
 
-$term_lookup = array(
-array('ambulatory temple','21198-zz002hvpv3'),
-array('pillar','21198-zz002hw4b2'),
-array('polygonal pillar','21198-zz002hwb8x'),
-array('shaft','21198-zz002hw020'),
-array('abacus','21198-zz002hvpzn'),
-array('architrave','21198-zz002hvqbt'),
-array('torus','21198-zz002hw9k3'),
-array('cavetto cornice','21198-zz002hvz85'),
-array('temple','21198-zz002hw9h2'),
-array('Tempel, der (m.)','21198-zz002hw9h2'),
-array('support','21198-zz002hw8vr'),
-array('Stütze, die (f.)','21198-zz002hw8vr'),
-array('column','21198-zz002hw12g'),
-array('Säule, die (f.)','21198-zz002hw12g'),
-array('Pfeiler, der (m.)','21198-zz002hw4b2'),
-array('capital','21198-zz002hvrgc'),
-array('Kapitell, das (n.)','21198-zz002hvrgc'),
-array('stone masonry','21198-zz002hw8r6'),
-array('entablature','21198-zz002hw0qt'),
-array('Gebälk, das (n.)','21198-zz002hw0qt'),
-);
-
   // load the service
   $service = wsclient_service_load('aegaron_soap_service');
   $queryarkid = str_replace('-','/',arg(1));
@@ -108,11 +85,6 @@ array('Gebälk, das (n.)','21198-zz002hw0qt'),
         $arkid = $parts[1];
       }
     } 
-    $local = searchForId($rel,$term_lookup);
-    if ($local) {
-      $arkid = $local;
-      $order = '';
-    }
     if (isset($arkid)) {
       $link = '/terms/'.str_replace('/','-',$arkid);
     }
@@ -150,18 +122,6 @@ array('Gebälk, das (n.)','21198-zz002hw0qt'),
     );
     $i++;
   }
-
-//  foreach ($terms as $term) {
-//    if ($term) {
-//      $extraimg = searchForISTthumb($term[0],$term_lookup);
-//      if ($extraimg) {
-//        foreach ($extraimg as $plannum) {
-//          $imageurl = 'http://digital2.library.ucla.edu/dlcontent/aegaron/nails/'.$plannum.'.jpg';
-//          array_push($images,$imageurl);
-//        }
-//      }
-//    }
-//  }
 
 ?>
 <div class="<?php print $classes; ?>">
@@ -352,31 +312,5 @@ array('Gebälk, das (n.)','21198-zz002hw0qt'),
 </div><?php /* class view */ ?>
 
 <?php
-function searchForId($str,$term_lookup) {
-   foreach ($term_lookup as $key => $val) {
-       if ($val[0] === $str) {
-           return $val[1];
-       }
-   }
-   return null;
-}
-
-function searchForISTthumb($str,$term_lookup) {
-   $imgs = array();
-   foreach ($term_lookup as $key => $val) {
-       if ($val[0] === $str) {
-           foreach ($val as $key2 => $val2) {
-               if ($key2 > 1) {
-                   array_push($imgs,$val[$key2]);
-               }
-           }
-       }
-   }
-   if ($imgs) {
-       return $imgs;
-   } else {
-       return null;
-   }
-}
 
 ?>
