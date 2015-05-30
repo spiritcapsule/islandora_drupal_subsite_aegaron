@@ -286,7 +286,6 @@ if (isset($result->return)) {
 
 <!-- content -->
     <div id="metadata" data-effect="accordion">
-      <p><em>position and styling of the metadata block is under development</em></p>
       <h2><a href="#" data-target="bldginfo">Building Info</a></h2>
       <div id="bldginfo" data-accordion="show">
         <p><img src="<?php print $thumb; ?>" alt="" /></p>
