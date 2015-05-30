@@ -215,7 +215,7 @@ function aegaron_soap_preprocess_views_view__browse_terms__page_4() {
       taxonomy_term_delete($tid);
     }
 
-  $service = wsclient_service_load('dev_aegaron_soap_service');
+  $service = wsclient_service_load('aegaron_soap_service');
   $result = $service->listAllTerms();
   $xml = new SimpleXMLElement($result->return);
 
@@ -287,7 +287,7 @@ function aegaron_soap_plantitle_json_object() {
   if (empty($drawings)) {
     $drawings = array();
     $i = 0;
-    $service = wsclient_service_load('dev_aegaron_soap_service');
+    $service = wsclient_service_load('aegaron_soap_service');
     $result = $service->listAllDrawings();
 
     foreach ($result->return as $j => $item) {

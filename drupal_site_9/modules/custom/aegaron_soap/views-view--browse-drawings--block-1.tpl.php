@@ -27,7 +27,7 @@
  * @ingroup views_templates
  */
 
-  $service = wsclient_service_load('dev_aegaron_soap_service');
+  $service = wsclient_service_load('aegaron_soap_service');
   $result = $service->listAllDrawings();
   $drawings = $result->return;
   $timeperiods = array(

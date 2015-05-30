@@ -29,7 +29,7 @@
 
   if (isset($_GET['tid'])) {
     $tid = $_GET['tid'];
-    $service = wsclient_service_load('dev_aegaron_soap_service');
+    $service = wsclient_service_load('aegaron_soap_service');
     $params = array(
       'keyword' => $tid,
     );
