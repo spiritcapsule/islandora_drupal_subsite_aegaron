@@ -26,6 +26,46 @@ function map_viewer_js_alter(&$javascript) {
 }
 
 /**
+ * Implements hook_library_alter().
+ */
+
+/****
+ * just not doing the job :(
+
+function map_viewer_library_alter(&$javascript, $module) {
+  // Update jQuery to 1.11.3.
+
+//kpr($javascript);
+
+  if ($module == 'system' && isset($javascript['jquery'])) {
+    // Verify existing version is older than the one we are updating to.
+    if (version_compare($javascript['jquery']['version'], '1.11.3', '<')) {
+      // Update the existing jQuery to 1.11.3.
+      $javascript['jquery']['version'] = '1.11.3';
+      $javascript['jquery']['js']['misc/jquery.js'] = array(
+        'type' => 'external', 
+        'group' => JS_LIBRARY,
+        'every_page' => FALSE,
+        'weight' => -20,
+        'requires_jquery' => FALSE,
+        'scope' => 'header',
+        'cache' => FALSE,
+        'defer' => FALSE,
+        'preprocess' => FALSE,
+        'version' => NULL, 
+        'external' => 'http://code.jquery.com/jquery-1.11.3.min.js', 
+      );
+      $javascript['drupal.ajax']['js'][] = array(
+        'data' => array('ajaxPageState' => array('jquery_version' => '1.11.3')),
+        'type' => 'setting',
+      );
+//kpr($javascript);
+    }
+  }
+}
+ */
+
+/**
  * Implements hook_block_info().
  */
 function map_viewer_block_info() {

@@ -133,6 +133,8 @@ array('Gebälk, das (n.)','21198-zz002hw0qt'),
   $i = 1;
   foreach ($xml->images->image as $image) {
     $imageurl = (string)$image;
+    $contentFileId = $image['contentFileId'];
+    $largeimg = 'http://digital2.library.ucla.edu/doImageResize.do?contentFileId='.$contentFileId.'&scaleFactor=1.2'.'&width=500&height=500&iframe=true';
     $linkurl = '';
     foreach ($relations as $rel) {
       if ($rel['type'] == 'plan' && $rel['order'] == $i) {
@@ -143,6 +145,8 @@ array('Gebälk, das (n.)','21198-zz002hw0qt'),
     $images[$i] = array(
       'imageurl' => $imageurl,
       'linkurl' => $linkurl,
+      'contentFileId' => $contentFileId,
+      'largeimg' => $largeimg,
     );
     $i++;
   }
@@ -174,7 +178,7 @@ array('Gebälk, das (n.)','21198-zz002hw0qt'),
       <div class="panel-6">
         <div class="main-image">
           <?php if (isset($images[1])): ?>
-              <img src="<?php print($images[1]['imageurl']); ?>" alt="illustration of the term" />
+            <a href="<?php print($images[1]['largeimg']); ?>" class="colorbox-load" title="enlarge image" rel="termgallery"><img src="<?php print($images[1]['imageurl']); ?>" alt="illustration of the term" /></a>
             <?php if (isset($images[1]['linkurl']) && $images[1]['linkurl'] != ''): ?>
               <br /><a href="<?php print($images[1]['linkurl']); ?>" class="">View Context <span class="hide-accessible">for image #1</span></a>
             <?php endif; ?>
@@ -242,7 +246,7 @@ array('Gebälk, das (n.)','21198-zz002hw0qt'),
       <?php foreach ($images as $key => $image): ?>
         <?php if ($key > 1): ?>
           <div class="image">
-            <img src="<?php print($image['imageurl']); ?>" alt="illustration of term" />
+            <a href="<?php print($image['largeimg']); ?>" class="colorbox-load" title="enlarge image" rel="termgallery"><img src="<?php print($image['imageurl']); ?>" alt="illustration of term" /></a>
           <?php if (isset($image['linkurl']) && $image['linkurl'] != ''): ?>
             <br /><a href="<?php print($image['linkurl']); ?>" class="">View Context <span class="hide-accessible">for image #<?php print($key); ?></span></a>
           <?php endif; ?>

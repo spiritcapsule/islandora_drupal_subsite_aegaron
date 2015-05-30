@@ -283,7 +283,11 @@ function aegaron_soap_plantitle_json_object() {
 
   $cache_id = 'drawingsjson';
   $cached = cache_get($cache_id, 'cache');
-  $drawings = $cached->data;
+  if (isset($cached->data)) {
+    $drawings = $cached->data;
+  } else {
+    $drawings = '';
+  }
   if (empty($drawings)) {
     $drawings = array();
     $i = 0;
