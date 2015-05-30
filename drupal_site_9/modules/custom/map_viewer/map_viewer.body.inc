@@ -1,4 +1,7 @@
-<div id="master-map-container">	
+<div class="row medium-collapse">
+<div id="metadata-container" class="panel-3">
+</div>
+<div id="master-map-container" class="panel-9">	
 	<!-- map navigation bar -->
 	<div id="map-nav" class="">
                 <!-- <span id="geo-toggle" class="btn btn-info btn-small" onclick="aegaron.toggleGeo()"><span class="glyphicon glyphicon-globe"></span> Geo/Nongeo</span> -->
@@ -103,4 +106,5 @@
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 
+</div>
 </div>

@@ -287,7 +287,7 @@ if (isset($result->return)) {
 <!-- content -->
     <div id="metadata" data-effect="accordion">
       <p><em>position and styling of the metadata block is under development</em></p>
-      <h2 data-target="bldginfo">Building Info</h2>
+      <h2><a href="#" data-target="bldginfo">Building Info</a></h2>
       <div id="bldginfo" data-accordion="show">
         <p><img src="<?php print $thumb; ?>" alt="" /></p>
         <p><strong><?php print $titletext; ?></strong></p>
@@ -297,13 +297,13 @@ if (isset($result->return)) {
         <p>Drawing Number: <?php print $drawingid; ?></p>
         <p>ID: <?php print $arkid; ?></p>
       </div>
-      <h2 data-target="drawinglog">Drawing Log</h2>
+      <h2><a href="#" data-target="drawinglog">Drawing Log</a></h2>
       <div id="drawinglog" data-accordion="show">
         <?php if ($drawinglog): ?>
           <p><a href="<?php print $drawinglog; ?>">Drawing Log (PDF)</a></p>
         <?php endif; ?>
       </div>
-      <h2 data-target="drawingfiles">Drawings</h2>
+      <h2><a href="#" data-target="drawingfiles">Drawings</a></h2>
       <div id="drawingfiles" data-accordion="show">
         <ul>
           <?php if ($a0url): ?>

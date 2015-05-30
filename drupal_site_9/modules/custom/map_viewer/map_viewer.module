@@ -80,6 +80,7 @@ function map_viewer_files() {
   drupal_add_js(drupal_get_path('module', 'map_viewer') . '/map_viewer.aegaron-namespace.js');
   drupal_add_js(drupal_get_path('module', 'map_viewer') . '/map_viewer.aegaron-drawings.js');
   drupal_add_js(drupal_get_path('module', 'map_viewer') . '/map_viewer.header.js');
+  drupal_add_js(drupal_get_path('module', 'map_viewer') . '/map_viewer.metadata.js');
 }
 
 /**
