@@ -299,6 +299,7 @@ function aegaron_soap_plantitle_json_object() {
       $drawings[$i]['place'] = $item->place;
       $drawings[$i]['planTitle'] = $item->planTitle;
       $drawings[$i]['view'] = $item->view;
+      $drawings[$i]['state'] = $item->state;
       $i++;
     }
 
