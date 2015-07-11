@@ -5,6 +5,63 @@
  */
 
 /**
+ *
+ */
+function aegaron_soap_langmap() {
+  // mapping of terms
+  static $langmap;
+
+  if (is_array($langmap)) {
+    return $langmap;
+  }
+
+  $langmap = array(
+    'Architectural Element' => array(
+      'en' => 'Architectural Element',
+      'de' => 'Architekturelemente',
+      'ar' => 'عناصر معماريه',
+    ),
+    'Building Materials' => array(
+      'en' => 'Building Materials',
+      'de' => 'Baumaterial',
+      'ar' => 'مواد بناء',
+    ),
+    'Building Techniques' => array(
+      'en' => 'Building Techniques',
+      'de' => 'Bautechnik',
+      'ar' => 'تقنية  البناء',
+    ),
+    'Building Typology' => array(
+      'en' => 'Building Typology',
+      'de' => 'Gebäudetypologie',
+      'ar' => 'تصنيف (نوع) المبنى',
+    ),
+    'Construction and Structural Design' => array(
+      'en' => 'Construction and Structural Design',
+      'de' => 'Konstruktion und Entwurf',
+      'ar' => 'تصميم عماره وبناء',
+    ),
+    'Ornaments' => array(
+      'en' => 'Ornaments',
+      'de' => 'Ornamentik',
+      'ar' => 'حليات معماريه',
+    ),
+    'Spatial Lay-out' => array(
+      'en' => 'Spatial Lay-out',
+      'de' => 'Raumstruktur',
+      'ar' => 'Spatial Lay-out (tbd)',
+    ),
+    'Technical Term' => array(
+      'en' => 'Technical Term',
+      'de' => 'technische Begriffe',
+      'ar' => 'مصطلحات معماريه',
+    ),
+  );
+
+  return $langmap;
+}
+
+/**
  * Implements hook_menu().
  */
 function aegaron_soap_menu() {
@@ -21,6 +78,141 @@ function aegaron_soap_menu() {
   );
 
   return $items;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function aegaron_soap_block_info() {
+
+  $blocks['browse_by_en'] = array(
+    'info' => t('English Term Glossary Categories'),
+    'status' => TRUE,
+    'region' => 'sidebar_first',
+    'visibility' => BLOCK_VISIBILITY_LISTED,
+    'pages' => 'browse/terms/en',
+  );
+
+  $blocks['browse_by_de'] = array(
+    'info' => t('German Term Glossary Categories'),
+    'status' => TRUE,
+    'region' => 'sidebar_first',
+    'visibility' => BLOCK_VISIBILITY_LISTED,
+    'pages' => 'browse/terms/de',
+  );
+
+  $blocks['browse_by_ar'] = array(
+    'info' => t('Arabic Term Glossary Categories'),
+    'status' => TRUE,
+    'region' => 'sidebar_first',
+    'visibility' => BLOCK_VISIBILITY_LISTED,
+    'pages' => 'browse/terms/ar',
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function aegaron_soap_block_view($delta = '') {
+  switch ($delta) {
+    case 'browse_by_en':
+      $block['subject'] = t('Browse By');
+      $block['content'] = aegaron_soap_browse_by_block_contents($delta);
+      break;
+
+    case 'browse_by_de':
+      $block['subject'] = t('Browse By');
+      $block['content'] = aegaron_soap_browse_by_block_contents($delta);
+      break;
+
+    case 'browse_by_ar':
+      $block['subject'] = t('Browse By');
+      $block['content'] = aegaron_soap_browse_by_block_contents($delta);
+      break;
+  }
+  return $block;
+}
+
+/**
+ *
+ */
+function aegaron_soap_browse_by_block_contents($which_block) {
+
+  $langmap = aegaron_soap_langmap(); 
+  $categories = array();
+  $items = array();
+
+  // load data from soap
+  $service = wsclient_service_load('aegaron_soap_service');
+
+  switch ($which_block) {
+    case 'browse_by_en':
+      $result = $service->listAllEnglishTerms();
+      break;
+
+    case 'browse_by_de':
+      $result = $service->listAllGermanTerms();
+      break;
+
+    case 'browse_by_ar':
+      $result = $service->listAllArabicTerms();
+      break;
+  }
+
+  $xmlstr = "<<<XML\n" . stripslashes($result->return) . "XML;";
+  $xml = new SimpleXMLElement($result->return);
+
+  // parse soap results to acquire categories
+  foreach ($xml->category as $category) {
+    $cat = 'classification';
+    $classification = (string)$category->attributes()->$cat;
+    $catid = 'id-'.strtolower(preg_replace('/[^a-zA-Z0-9-]+/', '-', $classification));
+
+    $categories[] = array(
+      'catid' => $catid,
+      'classification' => $classification,
+    );
+  }
+
+  // translate terms - TODO
+  foreach ($categories as $key => $item) {
+    $cat = $item['classification'];
+
+    if (array_key_exists($cat, $langmap)) {
+
+      switch ($which_block) {
+        case 'browse_by_en':
+          $categories[$key]['orig'] = $cat;
+          $categories[$key]['classification'] = $langmap[$cat]['en'];
+          break;
+
+        case 'browse_by_de':
+          $categories[$key]['orig'] = $cat;
+          $categories[$key]['classification'] = $langmap[$cat]['de'];
+          break;
+
+        case 'browse_by_ar':
+          $categories[$key]['orig'] = $cat;
+          $categories[$key]['classification'] = $langmap[$cat]['ar'];
+          break;
+      }
+    }
+  }
+
+  // build links
+  foreach ($categories as $j => $item) {
+    $items[] = array(
+      'data' => '<a href="#" data-target="' . $item['catid'] .'">' . $item['classification'] . '</a>',
+    );
+  }
+
+  $content = theme('item_list', array(
+    'items' => $items));
+
+  return $content;
+  
 }
 
 /**
@@ -98,6 +290,7 @@ function aegaron_soap_theme($existing, $type, $theme, $path) {
     'path' => drupal_get_path('module', 'aegaron_soap'),
   );
 
+  // TODO - delete old block
   $themes['views_view__browse_terms__block_1'] = array(
     'template' => 'views-view--browse-terms--block-1',
     'original hook' => 'views_view',
