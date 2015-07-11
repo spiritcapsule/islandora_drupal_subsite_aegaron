@@ -9,13 +9,13 @@
  */
 function aegaron_soap_langmap() {
   // mapping of terms
-  static $langmap;
+  static $aegaron_soap_languagemap;
 
-  if (is_array($langmap)) {
-    return $langmap;
+  if (is_array($aegaron_soap_languagemap)) {
+    return $aegaron_soap_languagemap;
   }
 
-  $langmap = array(
+  $aegaron_soap_languagemap = array(
     'Architectural Element' => array(
       'en' => 'Architectural Element',
       'de' => 'Architekturelemente',
@@ -58,7 +58,32 @@ function aegaron_soap_langmap() {
     ),
   );
 
-  return $langmap;
+  return $aegaron_soap_languagemap;
+}
+
+/**
+ * Helper function to translate a Term Glossary Category given a category and language to translate to.
+ */
+function aegaron_soap_translate_cat($cat, $lang) {
+    $translation = '';
+    $langmap = aegaron_soap_langmap();
+    if (array_key_exists($cat, $langmap)) {
+
+      switch ($lang) {
+        case 'en':
+          $translation = $langmap[$cat]['en'];
+          break;
+
+        case 'de':
+          $translation = $langmap[$cat]['de'];
+          break;
+
+        case 'ar':
+          $translation = $langmap[$cat]['ar'];
+          break;
+      }
+    }
+    return $translation;
 }
 
 /**

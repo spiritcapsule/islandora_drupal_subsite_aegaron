@@ -58,7 +58,7 @@
       $catid = 'id-'.strtolower(preg_replace('/[^a-zA-Z0-9-]+/', '-', $classification));
     ?>
     <div class="category" id="<?php print($catid); ?>">
-      <?php print($classification); ?>
+      <?php print aegaron_soap_translate_cat($classification,'de'); ?>
       <ul class="term-list">
       <?php foreach ($category->term->preferred as $j => $term): ?>
         <?php
