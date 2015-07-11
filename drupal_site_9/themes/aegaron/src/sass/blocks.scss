@@ -154,7 +154,7 @@ header {
             ul {
                 margin-left: .2rem;
 
-                li.leaf {
+                li {
                     list-style-image: none;
                     list-style-type: none;
 
@@ -163,6 +163,10 @@ header {
                     }
                 }
             }
+        }
+
+        #block-aegaron-soap-browse-by-ar {
+            direction: rtl;
         }
     }
 }
