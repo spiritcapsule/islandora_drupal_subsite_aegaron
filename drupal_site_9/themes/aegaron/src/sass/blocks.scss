@@ -116,6 +116,16 @@ header {
     a {
         color: #87C7FF;
         text-decoration: underline;
+
+        &:hover {
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        &:focus {
+            text-decoration: none;
+            color: #ffffff;
+        }
     }
 
     #main {
@@ -123,7 +133,7 @@ header {
         #content {
 
             .field-name-body .row.team {
-                margin: 0.5em 0;
+                margin: 1em 0;
             }
         }
     }
@@ -414,11 +424,17 @@ body.page-search-terms {
 }
 
 /* Search Drawings */
-.view-search-drawings {
+#main-wrapper {
 
-    a {
-        text-decoration: none;
+    .view-search-drawings {
+
+        a {
+            text-decoration: none;
+        }
     }
+}
+
+.view-search-drawings {
 
     .views-exposed-form {
         margin-bottom: 1em;
