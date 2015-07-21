@@ -181,6 +181,16 @@ header {
 
                     a {
                         color: #87c7ff;
+
+                        &:hover {
+                            text-decoration: none;
+                            color: #ffffff;
+                        }
+
+                        &:focus {
+                            text-decoration: none;
+                            color: #ffffff;
+                        }
                     }
                 }
             }
