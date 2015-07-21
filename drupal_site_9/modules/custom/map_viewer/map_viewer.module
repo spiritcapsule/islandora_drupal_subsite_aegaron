@@ -21,8 +21,17 @@ function map_viewer_help($path, $arg) {
  */
 function map_viewer_js_alter(&$javascript) {
   // Swap out jQuery to use 1.11.3
+  // The map viewer pages require newer jQuery
+  // The pages with accordion effects require newer jQuery
+  // The CKEditor breaks with newer jQuery
   // TODO - make local
+  // path: /drawing*
+  // path: /browse*
+  // path: /browse/plans
+  if (arg(0) == 'drawing' || arg(0) == 'browse' || (arg(0) == 'node' && arg(1) == '1')) {
   $javascript ['misc/jquery.js'] = drupal_js_defaults('http://code.jquery.com/jquery-1.11.3.min.js');
+//  $javascript ['misc/jquery.js']['weight'] = -20;
+  }
 }
 
 /**
