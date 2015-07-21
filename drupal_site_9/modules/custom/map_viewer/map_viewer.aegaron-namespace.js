@@ -20,9 +20,9 @@ var aegaron =
 	mapViewerHTMLFile: 	location.protocol + '//' + location.host + location.pathname,
 	// arcgisserverurl: 	'http://marinus.library.ucla.edu:6080/arcgis/rest/services/AEGARON/Georeferenced',
 	// http://marinus.library.ucla.edu:6080/arcgis/services/AEGARON/Aegaron_Georeference_4
-	arcgisserver_wms_url: 			'http://marinus.library.ucla.edu:6080/arcgis/services/AEGARON/Aegaron_Georeference_4/ImageServer/WMSServer',
+	arcgisserver_wms_url: 			'http://marinus.library.ucla.edu:6080/arcgis/services/AEGARON/Aegaron_Georeference_6/ImageServer/WMSServer',
 	arcgisserver_nongeo_wms_url: 	'http://marinus.library.ucla.edu:6080/arcgis/services/AEGARON/nongeo/ImageServer/WMSServer',
-	arcgisserver_rest_url: 			'http://marinus.library.ucla.edu:6080/arcgis/rest/services/AEGARON/Aegaron_Georeference_4',
+	arcgisserver_rest_url: 			'http://marinus.library.ucla.edu:6080/arcgis/rest/services/AEGARON/Aegaron_Georeference_6',
 	arcgisserver_nongeo_rest_url: 	'http://marinus.library.ucla.edu:6080/arcgis/rest/services/AEGARON/nongeo',
 	arcgisserver_apollo_url: 		'http://marinus.library.ucla.edu:6080/arcgis/rest/services/AEGARON/apollo',
 
