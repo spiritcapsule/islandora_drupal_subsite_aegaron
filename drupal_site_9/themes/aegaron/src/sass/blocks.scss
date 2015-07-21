@@ -115,6 +115,17 @@ header {
 
     a {
         color: #87C7FF;
+        text-decoration: underline;
+    }
+
+    #main {
+
+        #content {
+
+            .field-name-body .row.team {
+                margin: 0.5em 0;
+            }
+        }
     }
 
     #messages {
@@ -200,6 +211,17 @@ header {
             .block:last-child {
                 border-right: none;
             }
+        }
+    }
+}
+
+/* Browse Terms */
+.page-browse-terms {
+
+    #main-wrapper {
+
+        a {
+            text-decoration: none;
         }
     }
 }
@@ -291,6 +313,10 @@ body.page-search-terms {
 
     #main-wrapper {
 
+        a {
+            text-decoration: none;
+        }
+
         .view {
 
             .views-exposed-form {
@@ -359,11 +385,19 @@ body.page-search-terms {
     float: left;
     width: 45%;
     margin-right: 2em;
+
+    a {
+        text-decoration: none;
+    }
 }
 
 #block-views-browse-drawings-block-1 {
     float: left;
     width: 45%;
+
+    a {
+        text-decoration: none;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -381,6 +415,10 @@ body.page-search-terms {
 
 /* Search Drawings */
 .view-search-drawings {
+
+    a {
+        text-decoration: none;
+    }
 
     .views-exposed-form {
         margin-bottom: 1em;
