@@ -81,8 +81,8 @@
     <?php foreach ($timeperiods as $period => $drawingCount): ?>
       <?php if($drawingCount > 0 and $period != 'unknown'): ?>
         <?php $safe_period = preg_replace("/[^A-Za-z0-9]/", "", $period) ; ?>
-        <li><a href="#" data-target="<?php print 'id-'.($safe_period) ?>"><?php print($period) ?> (<?php print($drawingCount) ?>)</a>
-          <ul id="<?php print 'id-'.$safe_period ?>">
+        <li><a href="#" data-target="<?php print 'id-t-'.($safe_period) ?>"><?php print($period) ?> (<?php print($drawingCount) ?>)</a>
+          <ul id="<?php print 'id-t-'.$safe_period ?>">
             <?php foreach ($drawings as $drawing): ?>
               <?php $periods = explode("/",$drawing->period); ?>
               <?php foreach ($periods as $curperiod): ?>

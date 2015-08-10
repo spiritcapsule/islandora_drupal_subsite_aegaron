@@ -65,8 +65,8 @@
   <ul data-effect="accordion">
     <?php foreach ($places as $place => $drawingCount): ?>
       <li>
-<a href="#" data-target="<?php print 'id-'.($place) ?>"><?php print($place) ?> (<?php print($drawingCount) ?>)</a>
-        <ul id="<?php print 'id-'.$place ?>">
+<a href="#" data-target="<?php print 'id-p-'.str_replace(' ','-',$place) ?>"><?php print($place) ?> (<?php print($drawingCount) ?>)</a>
+        <ul id="<?php print 'id-p-'.str_replace(' ','-',$place) ?>">
           <?php foreach ($drawings as $drawing): ?>
             <?php if($drawing->place == $place): ?>
               <li><a href="/drawing/<?php print str_replace('/','_',$drawing->id) ?>"><?php print $drawing->place ?>, <?php print $drawing->planTitle ?>, <?php print $drawing->view ?>, <?php print $drawing->state ?>, <?php print $drawing->drawing ?></a></li>
