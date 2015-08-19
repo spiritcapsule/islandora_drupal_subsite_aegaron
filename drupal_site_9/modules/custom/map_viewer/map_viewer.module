@@ -30,7 +30,7 @@ function map_viewer_js_alter(&$javascript) {
   // path: /browse/plans
   if (arg(0) == 'drawing' || arg(0) == 'browse' || (arg(0) == 'node' && arg(1) == '1')) {
   $javascript ['misc/jquery.js'] = drupal_js_defaults('http://code.jquery.com/jquery-1.11.3.min.js');
-//  $javascript ['misc/jquery.js']['weight'] = -20;
+  $javascript ['misc/jquery.js']['weight'] = -50;
   }
 }
 
@@ -119,13 +119,16 @@ function map_viewer_files() {
 
   // map_viewer css
   drupal_add_css(drupal_get_path('module', 'map_viewer') . '/map_viewer.css');
+  drupal_add_css(drupal_get_path('module', 'map_viewer') . '/dd.css');
 
   // open layers
   // TODO - make local
-  drupal_add_js('http://openlayers.org/en/v3.4.0/build/ol.js', 'external');
+  // drupal_add_js('http://openlayers.org/en/v3.4.0/build/ol.js', 'external');
+  drupal_add_js('https://cdnjs.cloudflare.com/ajax/libs/ol3/3.4.0/ol.js', 'external');
 
   // map_viewer js files
   // moved links to html.tpl.php in theme to force load after blocks.js
+  drupal_add_js(drupal_get_path('module', 'map_viewer') . '/jquery.dd.min.js');
   drupal_add_js(drupal_get_path('module', 'map_viewer') . '/map_viewer.aegaron-namespace.js');
   drupal_add_js(drupal_get_path('module', 'map_viewer') . '/map_viewer.aegaron-drawings.js');
   drupal_add_js(drupal_get_path('module', 'map_viewer') . '/map_viewer.header.js');

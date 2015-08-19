@@ -4,47 +4,89 @@
 <div id="master-map-container" class="panel-9">	
 	<!-- map navigation bar -->
 	<div id="map-nav" class="">
-                <!-- <span id="geo-toggle" class="btn btn-info btn-small" onclick="aegaron.toggleGeo()"><span class="glyphicon glyphicon-globe"></span> Geo/Nongeo</span> -->
-                Image on map
-                <input id="geo-toggle" type="checkbox" checked data-onstyle="info" data-toggle="toggle" data-on="Yes" data-off="No" onclick="aegaron.toggleGeo()">
-                |
-		<span class="btn btn-info btn-small" onclick="aegaron.dualView(0)"><span class="glyphicon glyphicon-stop"></span> Single View</span>
-		<span class="btn btn-info btn-small" onclick="aegaron.dualView(1)"><span class="glyphicon glyphicon-stop"></span><span class="glyphicon glyphicon-stop"></span> Dual View</span>
 		
-		<!-- sync map button -->
-		<span id="sync-nav" style="display:none;">
-			|
-			<span class="btn btn-info btn-small" onclick="aegaron.toggleSyncMaps()"><span class="glyphicon glyphicon-link"></span><span id="sync-button-text">Unsync Maps</span></span>
-		</span>
+            <div style="width:100%;">
 
-		<!-- transparency slider -->
-		&nbsp; | &nbsp; 
-		<span id='control-container2'>
-			<span onclick="aegaron.setOpacityFromSliderButtons(.1)" class="btn btn-info time-control left-border-radius" style=""><span class="glyphicon glyphicon-minus-sign"></span></span>
-			<div id='control2'>
-				<span style="color: #aaa;padding-top:15px;line-height: 34px;">transparency</span>
-				<span id='handle2'></span>
+		<!-- satellite toggle-->
+		<div nowrap style="float:left;vertical-align: middle;padding: 10px;">
+			<div class="dropdown">
+				<button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span id="view-mode-button">view mode: satellite</span>
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li id="view-mode-satellite" class="disabled"><a href="#" onclick="aegaron.toggleGeo()"> with satellite</a></li>
+					<li id="view-mode-nosatellite"><a href="#" onclick="aegaron.toggleGeo()"> no satellite</a></li>
+				</ul>
 			</div>
-			<span onclick="aegaron.setOpacityFromSliderButtons(-.1)" class="btn btn-info time-control right-border-radius" style=""><span class="glyphicon glyphicon-plus-sign"></span></span>
-		</span>
+		</div>
+
+		<!-- layout mode -->
+		<div style="float:left;vertical-align: middle;padding: 10px;">
+			<div class="dropdown">
+				<button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span id="layout-mode-button">layout mode: single map</span>
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li id="layout-mode-single" class="disabled"><a href="#" onclick="aegaron.toggleLayout(0)"> single map</a></li>
+					<li id="layout-mode-dual"><a href="#" onclick="aegaron.toggleLayout(1)"> synced dual maps</a></li>
+					<li id="layout-mode-dual-unsynced"><a href="#" onclick="aegaron.toggleLayout(2)"> unsynced dual maps</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- sync maps -->
+		<div nowrap id="sync-nav" style="float:left;display:none;vertical-align: middle;padding: 10px;">
+			<div class="dropdown">
+				<button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span id="sync-mode-button">sync mode: synced</span>
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li id="sync-mode-synced" class="disabled"><a href="#" onclick="aegaron.toggleSyncMaps()"> sync maps</a></li>
+					<li id="sync-mode-unsynced"><a href="#" onclick="aegaron.toggleSyncMaps()"> unsync maps</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- rotation -->
+		<div nowrap style="float:left;vertical-align: middle;padding: 10px;">
+			<!-- <span class="input-group" style="width:200px;"> -->
+				<button class="btn" onclick="aegaron.setRotation('left')" alt="rotate left"><span class="glyphicon glyphicon-minus"><span class="hide-accessible">rotate left</span></button>
+				<input type="button" class="btn btn-default" value="rotate" onclick="aegaron.setRotation(0)">
+				<button class="btn" onclick="aegaron.setRotation('right')"><span class="glyphicon glyphicon-plus"><span class="hide-accessible">rotate right</span></span></button>
+			<!-- </span> -->
+		</div>
+
+		<!-- transparency -->
+		<div nowrap style="float:left;vertical-align: middle;padding: 10px;">
+			<!-- <span class="input-group" style="width:200px;"> -->
+				<button class="btn" onclick="aegaron.setOpacityFromSliderButtons(.1)"><span class="glyphicon glyphicon-minus"><span class="hide-accessible">less transparent</span></span></button>
+				<input type="button" class="btn btn-default" value="transparency" onclick="aegaron.setOpacityFromSliderButtons(0)">
+				<button class="btn" onclick="aegaron.setOpacityFromSliderButtons(-.1)"><span class="glyphicon glyphicon-plus"><span class="hide-accessible">more transparent</span></span></button>
+			<!-- </span> -->
+		</div>
+            </div> <!-- /.width=100% -->
+
+<!-- todo above this line  -->
 
 		<!-- 
 			rotate instructions
 		 -->
-		<p>Use <code>Alt</code>+<code>Shift</code>+drag to rotate the map.</p>
-                <br><br>
-	</div>
+		<p style="clear: both;">Use <code>Alt</code>+<code>Shift</code>+drag to rotate the map.</p>
+                <!-- <br><br> -->
+	<!-- </div> -->
+
+        </div> <!-- /#map-nav -->
 
 	<!-- map container for single map view -->
 	<div id="mapcontainer1">
 		<div class="mapcontainer-nav-left">
 			<div class="form-inline">
 				<div class="form-group">
-					<button class="btn btn-mini btn-info" onclick="aegaron.map1.getView().setZoom(aegaron.map1.getView().getZoom()+1)"><span class="glyphicon glyphicon-zoom-in"></button>
-					<button class="btn btn-mini btn-info" onclick="aegaron.map1.getView().setZoom(aegaron.map1.getView().getZoom()-1)"><span class="glyphicon glyphicon-zoom-out"></button>
+					<button class="btn btn-mini btn-info" onclick="aegaron.map1.getView().setZoom(aegaron.map1.getView().getZoom()+1)"><span class="glyphicon glyphicon-zoom-in"><span class="hide-accessible">zoom in</span></span></button>
+					<button class="btn btn-mini btn-info" onclick="aegaron.map1.getView().setZoom(aegaron.map1.getView().getZoom()-1)"><span class="glyphicon glyphicon-zoom-out"><span class="hide-accessible">zoom out</span></span></button>
 				</div>
 				<div class="form-group">
-					<select class="form-control" style="margin-bottom:0px;" onChange="aegaron.switchCompareMap(aegaron.map1)" id="changecompare1">
+					<select class="form-control changecompare" style="margin-bottom:0px; width: 280px;" id="changecompare1">
 						<option value=1>-- choose a main plan --</option> 
 					</select>
 				</div>
@@ -59,11 +101,11 @@
 		<div class="mapcontainer-nav-left">
 			<div class="form-inline">
 				<div class="form-group">
-					<button class="btn btn-mini btn-info" onclick="aegaron.map2.getView().setZoom(aegaron.map2.getView().getZoom()+1)"><span class="glyphicon glyphicon-zoom-in"></span></button>
-					<button class="btn btn-mini btn-info" onclick="aegaron.map2.getView().setZoom(aegaron.map2.getView().getZoom()-1)"><span class="glyphicon glyphicon-zoom-out"></span></button>
+					<button class="btn btn-mini btn-info" onclick="aegaron.map2.getView().setZoom(aegaron.map2.getView().getZoom()+1)"><span class="glyphicon glyphicon-zoom-in"><span class="hide-accessible">zoom in</span></span></button>
+					<button class="btn btn-mini btn-info" onclick="aegaron.map2.getView().setZoom(aegaron.map2.getView().getZoom()-1)"><span class="glyphicon glyphicon-zoom-out"><span class="hide-accessible">zoom out</span></span></button>
 				</div>
 				<div class="form-group">
-					<select class="form-control" style="margin-bottom:0px;" onChange="aegaron.switchCompareMap(aegaron.map2)" id="changecompare2">
+					<select class="form-control changecompare" style="margin-bottom:0px; width: 280px;" id="changecompare2">
 						<option value=1>-- choose a main plan --</option> 
 					</select>
 				</div>
@@ -72,13 +114,13 @@
 		<div class="mapcontainer-nav-right">
 			<div class="form-inline">
 				<div class="form-group">
-					<select class="form-control" style="margin-bottom:0px;" onChange="aegaron.switchCompareMap(aegaron.map3)" id="changecompare3">
+					<select class="form-control changecompare" style="margin-bottom:0px; width:280px;" id="changecompare3">
 						<option value=1>-- choose a second plan --</option> 
 					</select>
 				</div>
 				<div class="form-group">
-					<button class="btn btn-mini btn-info" onclick="aegaron.map3.getView().setZoom(aegaron.map3.getView().getZoom()+1)"><span class="glyphicon glyphicon-zoom-in"></span></button>
-					<button class="btn btn-mini btn-info" onclick="aegaron.map3.getView().setZoom(aegaron.map3.getView().getZoom()-1)"><span class="glyphicon glyphicon-zoom-out"></span></button>
+					<button class="btn btn-mini btn-info" onclick="aegaron.map3.getView().setZoom(aegaron.map3.getView().getZoom()+1)"><span class="glyphicon glyphicon-zoom-in"><span class="hide-accessible">zoom in</span></span></button>
+					<button class="btn btn-mini btn-info" onclick="aegaron.map3.getView().setZoom(aegaron.map3.getView().getZoom()-1)"><span class="glyphicon glyphicon-zoom-out"><span class="hide-accessible">zoom out</span></span></button>
 				</div>
 			</div>
 		</div>

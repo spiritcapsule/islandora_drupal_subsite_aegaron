@@ -1,3 +1,6 @@
+a:hover {
+    text-decoration: none;
+}
 #master-map-container{
 	position: relative;
 	padding: 10px;
@@ -94,7 +97,7 @@
 ***************************/
 
 #control-container2 {
-	position:absolute;
+	/*position:absolute;*/
 	/*right:10px;
 	top:10px;*/
 	z-index:10;
@@ -113,7 +116,7 @@
 	*/		
 	z-index:10;
 	height:34px;
-	width:200px;
+	width:150px;
 	border:1px solid #BBB;
 	/*-webkit-border-radius:3px;
 	border-radius:3px;*/
@@ -123,8 +126,8 @@
 	background:#000;
 	float: left;
 	position: absolute;
-	left:40px;
-	top:0px;
+	left:56px;
+	top:16px;
 	width:10px;
 	height:34px;
 }
@@ -162,5 +165,23 @@
 	border-top-left-radius: 3px;
 	border-bottom-left-radius: 3px;
 }
+
+.hide-accessible {
+    position: absolute; 
+    overflow: hidden; 
+    height: 1px; 
+    width: 1px;
+    padding: 0; 
+    border: 0; 
+    margin: -1px; 
+    clip: rect(1px, 1px, 1px, 1px);
+    *clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+}
+
+
+
+
+
+
 
 

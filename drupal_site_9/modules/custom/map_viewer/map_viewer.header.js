@@ -5,13 +5,31 @@
 *******************************/
 $( document ).ready(function() {
 
+/******************************
+
+	Read URL parameters (if they exist)
+	and customize the view
+
+*******************************/
+
 	// set a default map id if not provided
+	if(aegaron.getUrlVar('zoom') !== '') { aegaron.zoomLevel = aegaron.getUrlVar('zoom')};
+
 	if(aegaron.getUrlVar('mapid1') !== '') { aegaron.mapid1 = aegaron.getUrlVar('mapid1')};
+
+	if(aegaron.getUrlVar('toggleGeo') !== '') 
+	{ 
+		if(aegaron.getUrlVar('toggleGeo')=='false')
+		{
+			aegaron.toggleGeo() 
+		}
+	};
+
 	if(aegaron.getUrlVar('mapid2') !== '') {
 		// if url call includes a second map, popup a message window
 		aegaron.mapid2 = aegaron.getUrlVar('mapid2');
 		$('#loading').modal('show');
-		setTimeout(function(){aegaron.dualView(1);$('#loading').modal('hide');},1500);
+		setTimeout(function(){aegaron.toggleLayout(1);$('#loading').modal('hide');},1500);
 	};
 
 	// initialize the map
@@ -19,9 +37,6 @@ $( document ).ready(function() {
 
 	// get mosaic data
     aegaron.getAllPlansFromMosaic();
-
-    // add the transparency slider
-	aegaron.transparencySlider();
 
 	// resize (maximize) the window
 	aegaron.resize();
@@ -48,14 +63,14 @@ $( window ).resize(function() {
 *****************************************/
 aegaron.resize = function()
 {
-	var height = $(window).height()-80;
+	var height = $(window).height()-100;
 	$('#mapcontainer1-map').css('height',height);
 	$('#mapcontainer2-map1').css('height',height);
 	$('#mapcontainer2-map2').css('height',height);
 	$('#map1').css('height',height);
 	$('#map2').css('height',height);
 	$('#map3').css('height',height);
-	// map1.updateSize();
+	$('.dd-options').css('height','400px');
 
 	if(aegaron.map1){aegaron.map1.updateSize();};
 	if(aegaron.map2){aegaron.map2.updateSize();};
@@ -105,9 +120,9 @@ aegaron.initializeMaps = function()
 	aegaron.map3.bindTo('view',aegaron.map2);
 
 	// ask for image to be redrawn every time map view changes
-	// aegaron.map1.on('moveend', function(){aegaron.redrawOnMoveend()});
-	aegaron.map2.on('moveend', function(){aegaron.redrawOnMoveend()});
-	aegaron.map3.on('moveend', function(){aegaron.redrawOnMoveend()});
+	aegaron.map1.on('moveend', function(){aegaron.setUrlVars()});
+	aegaron.map2.on('moveend', function(){aegaron.setUrlVars();aegaron.redrawOnMoveend()});
+	aegaron.map3.on('moveend', function(){aegaron.setUrlVars();aegaron.redrawOnMoveend()});
 
 }
 
@@ -117,55 +132,121 @@ aegaron.initializeMaps = function()
 	layers from the Mosaic Database
 
 *****************************************/
+var ddslick1,ddslick2,ddslick3;
 aegaron.getAllPlansFromMosaic = function()
 {
+	// clear elements
+	aegaron.planIDforDDindexLookup.length = 0;
+
+	$("#changecompare1").msDropdown().data("dd").destroy()
+	$("#changecompare2").msDropdown().data("dd").destroy()
+	$("#changecompare3").msDropdown().data("dd").destroy()
+
 	$("#changecompare1").empty();
 	$("#changecompare2").empty();
 	$("#changecompare3").empty();
 
+	// get the appropriate mosaic dataset -- geo vs nongeo
 	if(aegaron.geo)
 	{
-		// url to arc server
 		var url = aegaron.arcgisserver_rest_url+'/ImageServer/query?where=1=1&outFields=*&orderByFields=Name&returnGeometry=true&outSR=102100&f=pjson';
 	}
 	else
 	{
-		// url to arc server
-		var url = aegaron.arcgisserver_nongeo_rest_url+'/ImageServer/query?where=1=1&outFields=*&orderByFields=Name&returnGeometry=true&outSR=102100&f=pjson';		
+		var url = aegaron.arcgisserver_nongeo_rest_url+'/ImageServer/query?where=1=1&outFields=*&orderByFields=Name&returnGeometry=true&outSR=102100&f=pjson';	
 	}
 
 	// ajax call
 	$.getJSON(url,function(data){
 		aegaron.mosaicData = data.features;
 
-		// loop through each mosaic
+		var index = 0;
 		$.each(data.features,function(i,item){
+
 			// name is the Plan ID (eg: 0001, 0012, etc)
 			var name = item.attributes.Name;
-			var text = aegaron.getDrawingByPlanID(name).place + ': ' + aegaron.getDrawingByPlanID(name).planTitle + ', ' + aegaron.getDrawingByPlanID(name).view + ', ' + aegaron.getDrawingByPlanID(name).state  + ' (' + aegaron.getDrawingByPlanID(name).drawing + ')';
+			aegaron.planIDforDDindexLookup.push(name);
+			var title = aegaron.getDrawingByPlanID(name).place + ' ' + name;
+			var thumb = aegaron.getDrawingByPlanID(name).thumbnailUrl;
+			var text = aegaron.getDrawingByPlanID(name).drawing+ ' ' +aegaron.getDrawingByPlanID(name).planTitle+ '<br>' + aegaron.getDrawingByPlanID(name).state;
+			var OBJECTID = item.attributes.OBJECTID;
+
+			map1selected = '';
+			map3selected = '';
+			if(name == aegaron.mapid1){map1selected = 'selected'}
+			if(name == aegaron.mapid2){map3selected = 'selected'}
 
 			// add to the drop down choices for all 3 map divs
-			$("#changecompare1").append('<option value='+name+'>'+text+'</option>');
-			$("#changecompare2").append('<option value='+name+'>'+text+'</option>');
-			$("#changecompare3").append('<option value='+name+'>'+text+'</option>');
+			$("#changecompare1").append('<option '+map1selected+' value='+name+' data-imagecss="dd-image" data-image="http://digital2.library.ucla.edu/dlcontent/aegaron/nails/'+name+'.jpg" data-description="'+text+'">'+title+'</option>');
+			$("#changecompare2").append('<option '+map1selected+' value='+name+' data-imagecss="dd-image" data-image="http://digital2.library.ucla.edu/dlcontent/aegaron/nails/'+name+'.jpg" data-description="'+text+'">'+title+'</option>');
+			$("#changecompare3").append('<option '+map3selected+' value='+name+' data-imagecss="dd-image" data-image="http://digital2.library.ucla.edu/dlcontent/aegaron/nails/'+name+'.jpg" data-description="'+text+'">'+title+'</option>');
+
 		});
+		
+		// Sort dropdowns alphabetically
+		aegaron.sortDropdown("#changecompare1");
+		aegaron.sortDropdown("#changecompare2");
+		aegaron.sortDropdown("#changecompare3");
 
-		// set the drop down values
-		$('#changecompare1').val(aegaron.mapid1);
-		$('#changecompare2').val(aegaron.mapid1);
-		$('#changecompare3').val(aegaron.mapid2);
+		// Add images to the dropdown	
+		if(aegaron.viewState == 0)
+		{
+			$("#changecompare1").msDropdown({visibleRows:6});
+			$('#changecompare1').on('change', function() {
+				aegaron.switchCompareMapDD(aegaron.map1,this.value);
+			});
 
-		// initiate the default map
-		aegaron.switchCompareMap(aegaron.map1);
+			$('#changecompare1').val(aegaron.mapid1).trigger('change')
+			
+			// $('#changecompare1').hover(
+			// 	function(){
+			// 		$(this).css('opacity',1)
+			// 	},
+			// 	function(){
+			// 		$(this).css('opacity',0.5)
+			// 	}
+			// )
+		}
+		else
+		{
+			$("#changecompare2").msDropdown({visibleRows:4});
+			$('#changecompare2').on('change', function() {
+				aegaron.switchCompareMapDD(aegaron.map2,this.value);
+			});
+
+			$("#changecompare3").msDropdown({visibleRows:4});
+			$('#changecompare3').on('change', function() {
+				aegaron.switchCompareMapDD(aegaron.map3,this.value);
+			});
+		}
+
+		aegaron.resize();
+		// add alt tags to the image
+		$(".dd-image").attr('alt','')
 	})
 }
 
 /****************************************
 
-	Populate drop downs
+	Sort drop downs
 
 *****************************************/
+aegaron.sortDropdown = function(selectID)
+{
+	var sel = $(selectID);
+	var opts_list = sel.find('option');
+	opts_list.sort(function(a, b) { return $(a).text().toLowerCase() > $(b).text().toLowerCase() ? 1 : -1; });
+	sel.html('').append(opts_list);
+}
 
+/****************************************
+
+	Match drawing plans from DL with 
+	what we have in ArcGIS Server
+		*If no match is found
+		 Display as "--"
+
+*****************************************/
 aegaron.getDrawingByPlanID = function(planID)
 {
 	// var drawing = $.grep(aegaron.drawings, function(e){ return e.drawing == planID; });	
@@ -208,6 +289,17 @@ aegaron.mapid2objectid = function(mapid)
 	}
 }
 
+aegaron.getInfoByMapID = function(mapid)
+{
+	for (var i=0; i < aegaron.mosaicData.length; i++) 
+	{
+		if (aegaron.mosaicData[i].attributes.Name === mapid)
+		{
+			return aegaron.mosaicData[i];
+		}
+	}
+}
+
 // get bounding box for given mapid
 aegaron.getExtentByMapID = function(mapid)
 {
@@ -229,7 +321,6 @@ aegaron.getExtentByMapID = function(mapid)
 // function to draw and redraw map(s) on request
 function redrawLayer(mapdivid)
 {
-
 	// only redraw map2 and map3 if viewState = 1
 	if(aegaron.viewState == 0 && mapdivid == 'map2') { return false; };
 	if(aegaron.viewState == 0 && mapdivid == 'map3') { return false; };
@@ -238,25 +329,13 @@ function redrawLayer(mapdivid)
 	// remove any existing overlays
 	if(mapdivid.getLayers().getArray().length > 1)
 	{
-		// todo: redo this to loop through array count!!
-		mapdivid.removeLayer(mapdivid.getLayers().getArray()[0]);
-		mapdivid.removeLayer(mapdivid.getLayers().getArray()[0]);
-		mapdivid.removeLayer(mapdivid.getLayers().getArray()[0]);
-		mapdivid.removeLayer(mapdivid.getLayers().getArray()[0]);
+		$.each(mapdivid.getLayers().getArray(),function(i,val){
+			mapdivid.removeLayer(mapdivid.getLayers().getArray()[0]);
+		})
 	}
 
 	// get the bounding box of current map
 	var thisbbox = mapdivid.getView().calculateExtent(mapdivid.getSize());
-
-	var polygon = [
-		[
-			[thisbbox[0],thisbbox[1]],
-			[thisbbox[2],thisbbox[1]],
-			[thisbbox[2],thisbbox[3]],
-			[thisbbox[0],thisbbox[3]],
-			[thisbbox[0],thisbbox[1]]
-		]
-	];
 
 	// get the pixel size of the div
 	// make sure to compensate for retina displays (window.devicePixelRatio)
@@ -267,11 +346,15 @@ function redrawLayer(mapdivid)
 	{
 		// get the objectID for this mapid
 		var objectID = aegaron.mapid2objectid(aegaron.mapid1);
+		// 8 or 16 bit?
+		var PlanIDasNum = Number(aegaron.mapid1);
 	}
 	else
 	{
 		// get the objectID for this mapid
 		var objectID = aegaron.mapid2objectid(aegaron.mapid2);
+		// 8 or 16 bit?
+		var PlanIDasNum = Number(aegaron.mapid1);
 	}
 
 	if(objectID!==undefined)
@@ -285,6 +368,7 @@ function redrawLayer(mapdivid)
 		{
 			var url = aegaron.arcgisserver_nongeo_wms_url;
 		}
+
 		// create the plan overlay from the WMS map service
 		aegaron.layer1 = new ol.layer.Image({
 			extent: aegaron.getRotationSafeImage(thisbbox),
@@ -364,6 +448,27 @@ aegaron.getRotationSafeImage = function(bbox)
 	return [newx1,newy1,newx2,newy2]
 }
 
+aegaron.setRotation = function(direction)
+{
+	if(direction === 'left')
+	{
+		aegaron.rotation = aegaron.rotation-5;
+		aegaron.rotation_radians = aegaron.rotation*(Math.PI/180)
+		aegaron.map1.getView().setRotation(aegaron.rotation_radians);
+	}
+	else if (direction === 'right')
+	{
+		aegaron.rotation = aegaron.rotation+5;
+		aegaron.rotation_radians = aegaron.rotation*(Math.PI/180)
+		aegaron.map1.getView().setRotation(aegaron.rotation_radians);
+	}
+	else
+	{
+		aegaron.rotation = 0;
+		aegaron.map1.getView().setRotation(aegaron.rotation);
+	}
+}
+
 /****************************************
 
 	Satellite basemap selection function
@@ -371,101 +476,21 @@ aegaron.getRotationSafeImage = function(bbox)
 *****************************************/
 aegaron.getApolloSatelliteByCenterLatLng = function(center)
 {
-	if(	center[0]>aegaron.apollo.philae.extent.xmin && 
-		center[0]<aegaron.apollo.philae.extent.xmax && 
-		center[1]>aegaron.apollo.philae.extent.ymin && 
-		center[1]<aegaron.apollo.philae.extent.ymax)
+	var rastertouse;
+	$.each(aegaron.satellite_list,function(i,val){
+		if(	center[0]>aegaron.apollo[val].extent.XMin && 
+			center[0]<aegaron.apollo[val].extent.XMax && 
+			center[1]>aegaron.apollo[val].extent.YMin && 
+			center[1]<aegaron.apollo[val].extent.YMax)
+		{
+			rastertouse = val;
+		}
+
+	})
+	
+	if(rastertouse)
 	{
-		return aegaron.apollo.philae.layer;
-	}
-	else if(
-		center[0]>aegaron.apollo.amarna.extent.xmin && 
-		center[0]<aegaron.apollo.amarna.extent.xmax && 
-		center[1]>aegaron.apollo.amarna.extent.ymin && 
-		center[1]<aegaron.apollo.amarna.extent.ymax)
-	{
-		return aegaron.apollo.amarna.layer;
-	}
-	else if
-	(
-		center[0]>aegaron.apollo.BentPyramid.extent.xmin && 
-		center[0]<aegaron.apollo.BentPyramid.extent.xmax && 
-		center[1]>aegaron.apollo.BentPyramid.extent.ymin && 
-		center[1]<aegaron.apollo.BentPyramid.extent.ymax)
-	{
-		return aegaron.apollo.BentPyramid.layer;
-	}
-	else if
-	(
-		center[0]>aegaron.apollo.KaHouseofPepil.extent.xmin && 
-		center[0]<aegaron.apollo.KaHouseofPepil.extent.xmax && 
-		center[1]>aegaron.apollo.KaHouseofPepil.extent.ymin && 
-		center[1]<aegaron.apollo.KaHouseofPepil.extent.ymax)
-	{
-		return aegaron.apollo.KaHouseofPepil.layer;
-	}
-	else if
-	(
-		center[0]>aegaron.apollo.MastabaMereruka.extent.xmin && 
-		center[0]<aegaron.apollo.MastabaMereruka.extent.xmax && 
-		center[1]>aegaron.apollo.MastabaMereruka.extent.ymin && 
-		center[1]<aegaron.apollo.MastabaMereruka.extent.ymax)
-	{
-		return aegaron.apollo.MastabaMereruka.layer;
-	}
-	else if
-	(
-		center[0]>aegaron.apollo.MedinetMadi.extent.xmin && 
-		center[0]<aegaron.apollo.MedinetMadi.extent.xmax && 
-		center[1]>aegaron.apollo.MedinetMadi.extent.ymin && 
-		center[1]<aegaron.apollo.MedinetMadi.extent.ymax)
-	{
-		return aegaron.apollo.MedinetMadi.layer;
-	}
-	else if
-	(
-		center[0]>aegaron.apollo.RoyalNecropolis.extent.xmin && 
-		center[0]<aegaron.apollo.RoyalNecropolis.extent.xmax && 
-		center[1]>aegaron.apollo.RoyalNecropolis.extent.ymin && 
-		center[1]<aegaron.apollo.RoyalNecropolis.extent.ymax)
-	{
-		return aegaron.apollo.RoyalNecropolis.layer;
-	}
-	else if
-	(
-		center[0]>aegaron.apollo.Sety.extent.xmin && 
-		center[0]<aegaron.apollo.Sety.extent.xmax && 
-		center[1]>aegaron.apollo.Sety.extent.ymin && 
-		center[1]<aegaron.apollo.Sety.extent.ymax)
-	{
-		return aegaron.apollo.Sety.layer;
-	}
-	else if
-	(
-		center[0]>aegaron.apollo.TempleofQasr.extent.xmin && 
-		center[0]<aegaron.apollo.TempleofQasr.extent.xmax && 
-		center[1]>aegaron.apollo.TempleofQasr.extent.ymin && 
-		center[1]<aegaron.apollo.TempleofQasr.extent.ymax)
-	{
-		return aegaron.apollo.TempleofQasr.layer;
-	}
-	else if
-	(
-		center[0]>aegaron.apollo.TombIII.extent.xmin && 
-		center[0]<aegaron.apollo.TombIII.extent.xmax && 
-		center[1]>aegaron.apollo.TombIII.extent.ymin && 
-		center[1]<aegaron.apollo.TombIII.extent.ymax)
-	{
-		return aegaron.apollo.TombIII.layer;
-	}
-	else if
-	(
-		center[0]>aegaron.apollo.Uronart.extent.xmin && 
-		center[0]<aegaron.apollo.Uronart.extent.xmax && 
-		center[1]>aegaron.apollo.Uronart.extent.ymin && 
-		center[1]<aegaron.apollo.Uronart.extent.ymax)
-	{
-		return aegaron.apollo.Uronart.layer;
+		return aegaron.apollo[rastertouse].layer;
 	}
 }
 
@@ -474,49 +499,107 @@ aegaron.getApolloSatelliteByCenterLatLng = function(center)
 	View mode functions
 
 *****************************************/
+// switch between geo and nongeo
 aegaron.toggleGeo = function()
 {
 	if(aegaron.geo)
 	{
+		console.log('switching to no satellite')
 		aegaron.geo = false;
+		$('#view-mode-nosatellite').addClass('disabled');
+		$('#view-mode-satellite').removeClass('disabled');
+		$('#view-mode-button').html('view mode: no satellite');
 	}
 	else
 	{
+		console.log('switching to satellite')
 		aegaron.geo = true;
+		$('#view-mode-satellite').addClass('disabled');
+		$('#view-mode-nosatellite').removeClass('disabled');
+		$('#view-mode-button').html('view mode: satellite');
 	}
 	aegaron.getAllPlansFromMosaic();
 }
 
 // toggle view modes (single/dual)
-aegaron.dualView = function(view)
+aegaron.toggleLayout = function(view)
 {
-	if (view == 0)
+	console.log('toggling')
+	if (view == 0) //single map
 	{
 		$('#mapcontainer2').hide();
 		$('#mapcontainer1').show();
 		$('#sync-nav').hide();
-		// $('#map-nav').show();
+		
+		// update the map to mirror map2
+		$('#changecompare1').val(aegaron.mapid1).trigger('change')
+
+		$('#layout-mode-single').addClass('disabled');
+		$('#layout-mode-dual').removeClass('disabled');
+		$('#layout-mode-dual-unsynced').removeClass('disabled');
+		$('#layout-mode-button').html('layout mode: single map');
+
 		aegaron.map1.updateSize();
 		aegaron.viewState = 0;
 
 	}
-	else if (view == 1)
+	else if (view == 1) //synced dual map
 	{
+		// update the map to mirror map2
+		$('#changecompare2').val(aegaron.mapid1).trigger('change')
+
 		$('#mapcontainer1').hide();
 		$('#mapcontainer2').show();
 		$('#changecompare2').val(aegaron.mapid1);
-		$('#sync-nav').show();
+
+
+		$("#changecompare2").msDropdown({visibleRows:4});
+		$('#changecompare2').on('change', function() {
+			aegaron.switchCompareMapDD(aegaron.map2,this.value);
+		});
+
+		$("#changecompare3").msDropdown({visibleRows:4});
+		$('#changecompare3').on('change', function() {
+			aegaron.switchCompareMapDD(aegaron.map3,this.value);
+		});
+
+		$('#layout-mode-single').removeClass('disabled');
+		$('#layout-mode-dual').addClass('disabled');
+		$('#layout-mode-dual-unsynced').removeClass('disabled');
+		$('#layout-mode-button').html('layout mode: synced dual maps');
 		aegaron.map2.updateSize();
 		aegaron.map3.updateSize();
 		aegaron.resize();
 		aegaron.viewState = 1;
+		aegaron.toggleSyncMaps(1);
 	}
+	else if (view == 2) //unsynced dual map
+	{
+		// update the map to mirror map2
+		$('#changecompare2').val(aegaron.mapid1).trigger('change')
+
+		$('#mapcontainer1').hide();
+		$('#mapcontainer2').show();
+		$('#changecompare2').val(aegaron.mapid1);
+		
+		$('#layout-mode-dual').removeClass('disabled');
+		$('#layout-mode-single').removeClass('disabled');
+		$('#layout-mode-dual-unsynced').addClass('disabled');
+		$('#layout-mode-button').html('layout mode: unsynced dual maps');
+		aegaron.map2.updateSize();
+		aegaron.map3.updateSize();
+		aegaron.resize();
+		aegaron.viewState = 2;
+		aegaron.toggleSyncMaps(0);
+	}
+	// add alt tags to the image
+	$(".dd-image").attr('alt','')
 }
 
 // toggle syncing of dual maps
-aegaron.toggleSyncMaps = function()
+aegaron.toggleSyncMaps = function(syncmode)
 {
-	if(aegaron.syncmaps)
+	if(syncmode == 0)
 	{
 		aegaron.map3.unbindAll();
 		var oldView = aegaron.map3.getView();
@@ -526,12 +609,23 @@ aegaron.toggleSyncMaps = function()
 			rotation: oldView.getRotation()
 		}));
 		$('#sync-button-text').html('Sync maps')
+
+		$('#sync-mode-unsynced').addClass('disabled');
+		$('#sync-mode-synced').removeClass('disabled');
+		$('#sync-mode-button').html('sync mode: unsynced');
+
+
 		aegaron.syncmaps = false;
 	}
-	else
+	else if (syncmode == 1)
 	{
 		aegaron.map3.bindTo('view',aegaron.map2);
 		$('#sync-button-text').html('Unsync maps')
+
+		$('#sync-mode-synced').addClass('disabled');
+		$('#sync-mode-unsynced').removeClass('disabled');
+		$('#sync-mode-button').html('sync mode: synced');
+
 		aegaron.syncmaps = true;
 	}
 
@@ -552,7 +646,7 @@ aegaron.getUrlVar = function(key)
 // set URL parameters
 aegaron.setUrlVars=function(evt)
 {
-	var urlvars = aegaron.mapViewerHTMLFile+'?mapid1='+aegaron.mapid1+'&mapid2='+aegaron.mapid2+'&center='+aegaron.map1.getView().getCenter()+'&zoom='+aegaron.map1.getView().getZoom();
+	var urlvars = aegaron.mapViewerHTMLFile+'?mapid1='+aegaron.mapid1+'&mapid2='+aegaron.mapid2+'&center='+aegaron.map1.getView().getCenter()+'&zoom='+aegaron.map1.getView().getZoom()+'&toggleGeo='+aegaron.geo;
 	history.pushState(null, "A new title!", urlvars);
 }
 
@@ -562,52 +656,63 @@ aegaron.setUrlVars=function(evt)
 	map chosen
 
 *****************************************/ 
-aegaron.switchCompareMap=function(map)
+aegaron.switchCompareMapDD=function(map,data)
 {
-console.log(map);
-console.log(aegaron.map1);
-console.log(aegaron.map2);
-console.log(aegaron.map3);
-
 	if(map === aegaron.map1)
 	{
-		var compareID = $('#changecompare1').val();
+		var compareID = data;
 		aegaron.mapid1 = compareID;
 		aegaron.setUrlVars();
-		$('#changecompare2').val(compareID);
+
+		var index = $.inArray(compareID,aegaron.planIDforDDindexLookup);
 
 		// zoom to extent of new map
-		var thisExtent = aegaron.getExtentByMapID(aegaron.mapid1);
+		// only if dual view
+		if(aegaron.viewState == 0)
+		{
+			// if(ddslick2){ $('#changecompare2').ddslick('select', {index: index }); }
+			// $('#changecompare2').val(index).trigger('change')
+			var thisExtent = aegaron.getExtentByMapID(aegaron.mapid1);
+			aegaron.map1.getView().fitExtent(thisExtent,aegaron.map1.getSize());
 
-		aegaron.map1.getView().fitExtent(thisExtent,aegaron.map1.getSize());
-
-		redrawLayer(aegaron.map1);
-
+			redrawLayer(aegaron.map1);
+		}
 	}
 	else if (map === aegaron.map2)
 	{
-		var compareID = $('#changecompare2').val();
+		var compareID = data;
 		aegaron.mapid1 = compareID;
 		aegaron.setUrlVars();
-		$('#changecompare1').val(compareID);
+
+		var index = $.inArray(compareID,aegaron.planIDforDDindexLookup);
 
 		// zoom to extent of new map
-		var thisExtent = aegaron.getExtentByMapID(aegaron.mapid1);
-		aegaron.map1.getView().fitExtent(thisExtent,aegaron.map1.getSize());
-		aegaron.map2.getView().fitExtent(thisExtent,aegaron.map2.getSize());
+		// only if dual view
+		if(aegaron.viewState >= 1)
+		{
+			// if(ddslick1){ $('#changecompare1').ddslick('select', {index: index }); }
+			// $('#changecompare1').val(index).trigger('change')
+			var thisExtent = aegaron.getExtentByMapID(aegaron.mapid1);
+			aegaron.map1.getView().fitExtent(thisExtent,aegaron.map1.getSize());
+			aegaron.map2.getView().fitExtent(thisExtent,aegaron.map2.getSize());
 
-		redrawLayer(aegaron.map2);
+			redrawLayer(aegaron.map2);
+		}
 	}
 	else if (map === aegaron.map3)
 	{
-		var compareID = $('#changecompare3').val();
+		var compareID = data;
 		aegaron.mapid2 = compareID;
-		aegaron.setUrlVars();
-		// // zoom to extent of new map
-		// var thisExtent = aegaron.getExtentByMapID(mapid1);
-		// map1.getView().fitExtent(thisExtent,map1.getSize());
 
-		redrawLayer(aegaron.map3);
+		// // zoom to extent of new map
+		if(aegaron.viewState >= 1)
+		{
+			aegaron.setUrlVars();
+			var thisExtent = aegaron.getExtentByMapID(aegaron.mapid2);
+			aegaron.map3.getView().fitExtent(thisExtent,aegaron.map3.getSize());
+
+			redrawLayer(aegaron.map3);
+		}
 	}
 }
 
@@ -616,47 +721,13 @@ console.log(aegaron.map3);
 	Transparency functions for overlay
 
 *****************************************/
-// transparency slider for overlay
-aegaron.transparencySlider = function()
-{
-	var handle = document.getElementById('handle2'),
-		start,
-		startLeft;
-
-	document.onmousemove = function(e) {
-
-		if (!start) return;
-		// Adjust control
-		handle.style.left = Math.max(0, Math.min(190, startLeft + parseInt(e.clientX, 10) - start)) + 40 + 'px';
-		// Adjust opacity
-		var opacity = 1 - ((handle.offsetLeft-40) / 190);
-
-		aegaron.current_opacity = opacity;
-
-		aegaron.map1.getLayers().getArray()[1].setOpacity(opacity)
-		aegaron.map2.getLayers().getArray()[1].setOpacity(opacity)
-		aegaron.map3.getLayers().getArray()[1].setOpacity(opacity)
-	}
-
-	handle.onmousedown = function(e) {
-		// Record initial positions
-		start = parseInt(e.clientX, 0);
-		startLeft = handle.offsetLeft - 40;
-		return false;
-	}
-
-	document.onmouseup = function(e) {
-		start = null;
-	}
-}
-
 aegaron.setOpacityFromSliderButtons = function(val)
 {
 	var this_opacity = aegaron.current_opacity + val;
 	aegaron.setOpacity(this_opacity);	
 }
 
-aegaron.setOpacity = function(val)
+aegaron.setOpacity = function(val) 
 {
 	var this_opacity = val;
 	if(this_opacity>=1){ this_opacity = 1};
@@ -664,11 +735,14 @@ aegaron.setOpacity = function(val)
 
 	aegaron.current_opacity = this_opacity;
 	// set the slider postion too
-	var handleposition = 190-(this_opacity*190)+40+'px';
+	var handleposition = 156-(this_opacity*190)+40+'px';
 
-	handle2.style.left=handleposition;
+	// handle2.style.left=handleposition;
 
-	aegaron.map1.getLayers().getArray()[1].setOpacity(this_opacity)
-	aegaron.map2.getLayers().getArray()[1].setOpacity(this_opacity)
-	aegaron.map3.getLayers().getArray()[1].setOpacity(this_opacity)
+	if(aegaron.map1.getLayers().getArray().length>0)
+		aegaron.map1.getLayers().getArray()[1].setOpacity(this_opacity)
+	if(aegaron.map2.getLayers().getArray().length>0)
+		aegaron.map2.getLayers().getArray()[1].setOpacity(this_opacity)
+	if(aegaron.map3.getLayers().getArray().length>0)
+		aegaron.map3.getLayers().getArray()[1].setOpacity(this_opacity)
 }
