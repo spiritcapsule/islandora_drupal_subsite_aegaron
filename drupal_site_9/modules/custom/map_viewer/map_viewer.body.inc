@@ -8,7 +8,7 @@
             <div style="width:100%;">
 
 		<!-- satellite toggle-->
-		<div nowrap style="float:left;vertical-align: middle;padding: 10px;">
+		<div id="satellite-toggle" nowrap style="float:left;vertical-align: middle;padding: 10px;">
 			<div class="dropdown">
 				<button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span id="view-mode-button">view mode: satellite</span>
 					<span class="caret"></span>
@@ -21,7 +21,7 @@
 		</div>
 
 		<!-- layout mode -->
-		<div style="float:left;vertical-align: middle;padding: 10px;">
+		<div id="layout-mode" style="float:left;vertical-align: middle;padding: 10px;">
 			<div class="dropdown">
 				<button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span id="layout-mode-button">layout mode: single map</span>
 					<span class="caret"></span>
@@ -48,20 +48,20 @@
 		</div>
 
 		<!-- rotation -->
-		<div nowrap style="float:left;vertical-align: middle;padding: 10px;">
+		<div id="rotation" nowrap style="float:left;vertical-align: middle;padding: 10px;">
 			<!-- <span class="input-group" style="width:200px;"> -->
-				<button class="btn" onclick="aegaron.setRotation('left')" alt="rotate left"><span class="glyphicon glyphicon-minus"><span class="hide-accessible">rotate left</span></button>
+				<button class="btn btn-small" onclick="aegaron.setRotation('left')" alt="rotate left"><span class="glyphicon glyphicon-minus"><span class="hide-accessible">rotate left</span></button>
 				<input type="button" class="btn btn-default" value="rotate" onclick="aegaron.setRotation(0)">
-				<button class="btn" onclick="aegaron.setRotation('right')"><span class="glyphicon glyphicon-plus"><span class="hide-accessible">rotate right</span></span></button>
+				<button class="btn btn-small" onclick="aegaron.setRotation('right')"><span class="glyphicon glyphicon-plus"><span class="hide-accessible">rotate right</span></span></button>
 			<!-- </span> -->
 		</div>
 
 		<!-- transparency -->
-		<div nowrap style="float:left;vertical-align: middle;padding: 10px;">
+		<div id="transparency" nowrap style="float:left;vertical-align: middle;padding: 10px;">
 			<!-- <span class="input-group" style="width:200px;"> -->
-				<button class="btn" onclick="aegaron.setOpacityFromSliderButtons(.1)"><span class="glyphicon glyphicon-minus"><span class="hide-accessible">less transparent</span></span></button>
+				<button class="btn btn-small" onclick="aegaron.setOpacityFromSliderButtons(.1)"><span class="glyphicon glyphicon-minus"><span class="hide-accessible">less transparent</span></span></button>
 				<input type="button" class="btn btn-default" value="transparency" onclick="aegaron.setOpacityFromSliderButtons(0)">
-				<button class="btn" onclick="aegaron.setOpacityFromSliderButtons(-.1)"><span class="glyphicon glyphicon-plus"><span class="hide-accessible">more transparent</span></span></button>
+				<button class="btn btn-small" onclick="aegaron.setOpacityFromSliderButtons(-.1)"><span class="glyphicon glyphicon-plus"><span class="hide-accessible">more transparent</span></span></button>
 			<!-- </span> -->
 		</div>
             </div> <!-- /.width=100% -->

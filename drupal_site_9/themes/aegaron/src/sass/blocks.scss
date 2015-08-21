@@ -633,6 +633,33 @@ body[class*='page-drawing-21198-'] {
             }
         }
     }
+
+    #master-map-container {
+
+        #map-nav {
+            button.btn:hover, button.btn:focus, input.btn:hover, input.btn:focus {
+                background-color: #ac573e;
+                background-image: none;
+                color: #fff;
+                text-shadow: none;
+            }
+
+            button.btn-small {
+                background-color: #bbb;
+            }
+
+            .open .dropdown-menu {
+                li a {
+                    color: #000;
+                    text-decoration: none;
+                }
+
+                li.disabled a {
+                    color: #666;
+                }
+            }
+        }
+    }
 }
 
 
