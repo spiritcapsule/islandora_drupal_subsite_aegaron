@@ -50,18 +50,18 @@
 		<!-- rotation -->
 		<div id="rotation" nowrap style="float:left;vertical-align: middle;padding: 10px;">
 			<!-- <span class="input-group" style="width:200px;"> -->
-				<button class="btn btn-small" onclick="aegaron.setRotation('left')" alt="rotate left"><span class="glyphicon glyphicon-minus"><span class="hide-accessible">rotate left</span></button>
+				<button class="btn btn-sm" onclick="aegaron.setRotation('left')" alt="rotate left"><span class="glyphicon glyphicon-minus"><span class="hide-accessible">rotate left</span></button>
 				<input type="button" class="btn btn-default" value="rotate" onclick="aegaron.setRotation(0)">
-				<button class="btn btn-small" onclick="aegaron.setRotation('right')"><span class="glyphicon glyphicon-plus"><span class="hide-accessible">rotate right</span></span></button>
+				<button class="btn btn-sm" onclick="aegaron.setRotation('right')"><span class="glyphicon glyphicon-plus"><span class="hide-accessible">rotate right</span></span></button>
 			<!-- </span> -->
 		</div>
 
 		<!-- transparency -->
 		<div id="transparency" nowrap style="float:left;vertical-align: middle;padding: 10px;">
 			<!-- <span class="input-group" style="width:200px;"> -->
-				<button class="btn btn-small" onclick="aegaron.setOpacityFromSliderButtons(.1)"><span class="glyphicon glyphicon-minus"><span class="hide-accessible">less transparent</span></span></button>
+				<button class="btn btn-sm" onclick="aegaron.setOpacityFromSliderButtons(.1)"><span class="glyphicon glyphicon-minus"><span class="hide-accessible">less transparent</span></span></button>
 				<input type="button" class="btn btn-default" value="transparency" onclick="aegaron.setOpacityFromSliderButtons(0)">
-				<button class="btn btn-small" onclick="aegaron.setOpacityFromSliderButtons(-.1)"><span class="glyphicon glyphicon-plus"><span class="hide-accessible">more transparent</span></span></button>
+				<button class="btn btn-sm" onclick="aegaron.setOpacityFromSliderButtons(-.1)"><span class="glyphicon glyphicon-plus"><span class="hide-accessible">more transparent</span></span></button>
 			<!-- </span> -->
 		</div>
             </div> <!-- /.width=100% -->
