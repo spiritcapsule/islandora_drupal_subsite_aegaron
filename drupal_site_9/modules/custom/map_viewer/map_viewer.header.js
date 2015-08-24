@@ -177,9 +177,9 @@ aegaron.getAllPlansFromMosaic = function()
 			if(name == aegaron.mapid2){map3selected = 'selected'}
 
 			// add to the drop down choices for all 3 map divs
-			$("#changecompare1").append('<option '+map1selected+' value='+name+' data-imagecss="dd-image" data-image="http://digital2.library.ucla.edu/dlcontent/aegaron/nails/'+name+'.jpg" data-description="'+text+'">'+title+'</option>');
-			$("#changecompare2").append('<option '+map1selected+' value='+name+' data-imagecss="dd-image" data-image="http://digital2.library.ucla.edu/dlcontent/aegaron/nails/'+name+'.jpg" data-description="'+text+'">'+title+'</option>');
-			$("#changecompare3").append('<option '+map3selected+' value='+name+' data-imagecss="dd-image" data-image="http://digital2.library.ucla.edu/dlcontent/aegaron/nails/'+name+'.jpg" data-description="'+text+'">'+title+'</option>');
+			$("#changecompare1").append('<option '+map1selected+' value='+name+' data-imagecss="dd-image" data-image="'+thumb+'" data-description="'+text+'">'+title+'</option>');
+			$("#changecompare2").append('<option '+map1selected+' value='+name+' data-imagecss="dd-image" data-image="'+thumb+'" data-description="'+text+'">'+title+'</option>');
+			$("#changecompare3").append('<option '+map3selected+' value='+name+' data-imagecss="dd-image" data-image="'+thumb+'" data-description="'+text+'">'+title+'</option>');
 
 		});
 		
@@ -581,6 +581,16 @@ aegaron.toggleLayout = function(view)
 		$('#mapcontainer1').hide();
 		$('#mapcontainer2').show();
 		$('#changecompare2').val(aegaron.mapid1);
+
+                $("#changecompare2").msDropdown({visibleRows:4});
+                $('#changecompare2').on('change', function() {
+                	aegaron.switchCompareMapDD(aegaron.map2,this.value);
+                });
+
+                $("#changecompare3").msDropdown({visibleRows:4});
+                $('#changecompare3').on('change', function() {
+                	aegaron.switchCompareMapDD(aegaron.map3,this.value);
+                });
 		
 		$('#layout-mode-dual').removeClass('disabled');
 		$('#layout-mode-single').removeClass('disabled');
