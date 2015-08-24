@@ -49,7 +49,7 @@ function aegaron_soap_langmap() {
     'Spatial Lay-out' => array(
       'en' => 'Spatial Lay-out',
       'de' => 'Raumstruktur',
-      'ar' => 'Spatial Lay-out (tbd)',
+      'ar' => 'تخطيط للمساحه المعماريه',
     ),
     'Technical Term' => array(
       'en' => 'Technical Term',
