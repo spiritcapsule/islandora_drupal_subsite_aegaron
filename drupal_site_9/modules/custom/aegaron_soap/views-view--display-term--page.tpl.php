@@ -172,13 +172,13 @@
           </td>
         </tr>
         <tr>
-          <td>
+          <td lang="de">
             <?php foreach ($terms['preferred-de'] as $key => $term): ?>
               <?php echo ($key != 0 ? '<br/>' : ''); ?>
               <?php print($term); ?>
             <?php endforeach; ?>
           </td>
-          <td>
+          <td lang="de">
             <?php foreach ($terms['alternate-de'] as $key => $term): ?>
               <?php echo ($key != 0 ? '<br/>' : ''); ?>
               <?php print($term); ?>
@@ -228,11 +228,19 @@
                   if ($i > 1) {
                     echo (', ');
                   }
+                  if (isset($relationship['lang']) && $relationship['lang'] == 'ar') {
+                    echo ('<span lang="ar" dir="rtl">');
+                  } elseif (isset($relationship['lang']) && $relationship['lang'] == 'de') {
+                    echo ('<span lang="de">');
+                  } else {
+                    echo ('<span>');
+                  }
                   if (isset($relationship['link']) && $relationship['link'] != '') {
                     echo ('<a href="'.$relationship['link'].'">'.$relationship['rel'].'</a>');
                   } else {
                     echo ($relationship['rel']);
                   }
+                  echo ('</span>');
                   $count_of_terms++;
                   $i++;
                 }
