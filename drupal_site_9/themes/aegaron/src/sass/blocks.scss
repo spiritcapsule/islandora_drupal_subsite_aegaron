@@ -401,7 +401,7 @@ body.page-search-terms {
 }
 
 /* Browse Drawings */
-#block-views-browse-drawings-block {
+#block-aegaron-soap-browse-drawings-by-site {
     float: left;
     width: 45%;
     margin-right: 2em;
@@ -411,7 +411,7 @@ body.page-search-terms {
     }
 }
 
-#block-views-browse-drawings-block-1 {
+#block-aegaron-soap-browse-drawings-by-timeperiod {
     float: left;
     width: 45%;
 
@@ -421,13 +421,13 @@ body.page-search-terms {
 }
 
 @media screen and (max-width: 600px) {
-    #block-views-browse-drawings-block {
+    #block-aegaron-soap-browse-drawings-by-site {
         float: none;
         width: 100%;
         margin-right: 0;
     }
 
-    #block-views-browse-drawings-block-1 {
+    #block-aegaron-soap-browse-drawings-by-timeperiod {
         float: none;
         width: 100%;
     }    
