@@ -112,6 +112,36 @@ function aegaron_soap_menu() {
     'page callback'	=> 'aegaron_soap_display_term_page'
   );
 
+  $items['browse/terms/en'] = array(
+    'title'		=> 'Browse - English',
+    'access callback'	=> true,
+    'page callback'	=> 'aegaron_soap_browse_terms_en_page'
+  );
+
+  $items['browse/terms/de'] = array(
+    'title'		=> 'Browse - Deutsch',
+    'access callback'	=> true,
+    'page callback'	=> 'aegaron_soap_browse_terms_de_page'
+  );
+
+  $items['browse/terms/ar'] = array(
+    'title'		=> 'Browse - ﻋﺮﺑﻲ',
+    'access callback'	=> true,
+    'page callback'	=> 'aegaron_soap_browse_terms_ar_page'
+  );
+
+  $items['browse/terms'] = array(
+    'title'		=> 'Browse Terms',
+    'access callback'	=> true,
+    'page callback'	=> 'aegaron_soap_browse_terms_page',
+  );
+
+  $items['browse/terms/cache'] = array(
+    'title'		=> 'Browse Terms - Cache Reset',
+    'access callback'	=> true,
+    'page callback'	=> 'aegaron_soap_browse_terms_cache_page',
+  );
+
   return $items;
 }
 
@@ -269,85 +299,6 @@ function aegaron_soap_views_query_alter(&$view, &$query) {
  */
 function aegaron_soap_theme($existing, $type, $theme, $path) {
 
-  $themes['views_view__browse_terms__page'] = array(
-    'template' => 'views-view--browse-terms--page',
-    'original hook' => 'views_view',
-    'preprocess functions' => array(
-      'template_preprocess',
-      'template_preprocess_views_view',
-    ),
-    'arguments' => array('view' => NULL),
-    'path' => drupal_get_path('module', 'aegaron_soap'),
-  );
-
-  $themes['views_view__browse_terms__page_1'] = array(
-    'template' => 'views-view--browse-terms--page-1',
-    'original hook' => 'views_view',
-    'preprocess functions' => array(
-      'template_preprocess',
-      'template_preprocess_views_view',
-    ),
-    'arguments' => array('view' => NULL),
-    'path' => drupal_get_path('module', 'aegaron_soap'),
-  );
-
-  $themes['views_view__browse_terms__page_2'] = array(
-    'template' => 'views-view--browse-terms--page-2',
-    'original hook' => 'views_view',
-    'preprocess functions' => array(
-      'template_preprocess',
-      'template_preprocess_views_view',
-    ),
-    'arguments' => array('view' => NULL),
-    'path' => drupal_get_path('module', 'aegaron_soap'),
-  );
-
-  $themes['views_view__browse_terms__page_3'] = array(
-    'template' => 'views-view--browse-terms--page-3',
-    'original hook' => 'views_view',
-    'preprocess functions' => array(
-      'template_preprocess',
-      'template_preprocess_views_view',
-    ),
-    'arguments' => array('view' => NULL),
-    'path' => drupal_get_path('module', 'aegaron_soap'),
-  );
-
-  $themes['views_view__browse_terms__page_4'] = array(
-    'template' => 'views-view--browse-terms--page-4',
-    'original hook' => 'views_view',
-    'preprocess functions' => array(
-      'template_preprocess',
-      'template_preprocess_views_view',
-      'aegaron_soap_preprocess_views_view__browse_terms__page_4',
-    ),
-    'arguments' => array('view' => NULL),
-    'path' => drupal_get_path('module', 'aegaron_soap'),
-  );
-
-  // TODO - delete old block
-  $themes['views_view__browse_terms__block_1'] = array(
-    'template' => 'views-view--browse-terms--block-1',
-    'original hook' => 'views_view',
-    'preprocess functions' => array(
-      'template_preprocess',
-      'template_preprocess_views_view',
-    ),
-    'arguments' => array('view' => NULL),
-    'path' => drupal_get_path('module', 'aegaron_soap'),
-  );
-
-  //$themes['views_view__display_term__page'] = array(
-  //  'template' => 'views-view--display-term--page',
-  //  'original hook' => 'views_view',
-  //  'preprocess functions' => array(
-  //    'template_preprocess',
-  //    'template_preprocess_views_view',
-  //  ),
-  //  'arguments' => array('view' => NULL),
-  //  'path' => drupal_get_path('module', 'aegaron_soap'),
-  //);
-
   $themes['views_view__search_terms__page'] = array(
     'template' => 'views-view--search-terms--page',
     'original hook' => 'views_view',
@@ -404,23 +355,36 @@ function aegaron_soap_theme($existing, $type, $theme, $path) {
     'path' => drupal_get_path('module', 'aegaron_soap'),
   );
 
-  //$themes['views_view__detail_drawing__page'] = array(
-  //  'template' => 'views-view--detail-drawing--page',
-  //  'original hook' => 'views_view',
-  //  'preprocess functions' => array(
-  //    'template_preprocess',
-  //    'template_preprocess_views_view',
-  //  ),
-  //  'arguments' => array('view' => NULL),
-  //  'path' => drupal_get_path('module', 'aegaron_soap'),
-  //);
-
   $themes['detail_drawing_page'] = array(
     'template' => 'detail-drawing-page',
   );
 
   $themes['display_term_page'] = array(
     'template' => 'display-term-page',
+  );
+
+  $themes['browse_terms_page'] = array(
+    'template' => 'browse-terms-page',
+  );
+
+  $themes['browse_terms_en_page'] = array(
+    'template' => 'browse-terms-en-page',
+  );
+
+  $themes['browse_terms_de_page'] = array(
+    'template' => 'browse-terms-de-page',
+  );
+
+  $themes['browse_terms_ar_page'] = array(
+    'template' => 'browse-terms-ar-page',
+  );
+
+  $themes['browse_terms_cache_page'] = array(
+    'template' => 'browse-terms-cache-page',
+    'preprocess functions' => array(
+      'template_preprocess',
+      'aegaron_soap_preprocess_browse_terms_cache',
+    ),
   );
 
   return $themes;
@@ -444,7 +408,7 @@ function aegaron_soap_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
-function aegaron_soap_preprocess_views_view__browse_terms__page_4() {
+function aegaron_soap_preprocess_browse_terms_cache() {
 
    $flushquery = db_query('SELECT t.tid FROM {taxonomy_term_data} t WHERE t.vid = 2')->fetchCol();
     foreach ($flushquery as $tid) {
@@ -506,6 +470,26 @@ function aegaron_soap_detail_drawing_page() {
 
 function aegaron_soap_display_term_page() {
   return theme('display_term_page');
+}
+
+function aegaron_soap_browse_terms_page() {
+  return theme('browse_terms_page');
+}
+
+function aegaron_soap_browse_terms_en_page() {
+  return theme('browse_terms_en_page');
+}
+
+function aegaron_soap_browse_terms_de_page() {
+  return theme('browse_terms_de_page');
+}
+
+function aegaron_soap_browse_terms_ar_page() {
+  return theme('browse_terms_ar_page');
+}
+
+function aegaron_soap_browse_terms_cache_page() {
+  return theme('browse_terms_cache_page');
 }
 
 function aegaron_soap_search_terms_json_object() {
