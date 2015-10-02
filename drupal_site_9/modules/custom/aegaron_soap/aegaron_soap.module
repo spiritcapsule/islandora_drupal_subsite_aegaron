@@ -174,6 +174,22 @@ function aegaron_soap_block_info() {
     'pages' => 'browse/terms/ar',
   );
 
+  $blocks['browse_drawings_by_site'] = array(
+    'info' => t('Browse Drawings by Site'),
+    'status' => TRUE,
+    'region' => 'content',
+    'visibility' => BLOCK_VISIBILITY_LISTED,
+    'pages' => 'browse/plans',
+  );
+
+  $blocks['browse_drawings_by_timeperiod'] = array(
+    'info' => t('Browse Drawings by Time Period'),
+    'status' => TRUE,
+    'region' => 'content',
+    'visibility' => BLOCK_VISIBILITY_LISTED,
+    'pages' => 'browse/plans',
+  );
+
   return $blocks;
 }
 
@@ -195,6 +211,16 @@ function aegaron_soap_block_view($delta = '') {
     case 'browse_by_ar':
       $block['subject'] = t('Browse By');
       $block['content'] = aegaron_soap_browse_by_block_contents($delta);
+      break;
+
+    case 'browse_drawings_by_site':
+      $block['subject'] = t('By Site');
+      $block['content'] = theme('browse_drawings_by_site_block');
+      break;
+
+    case 'browse_drawings_by_timeperiod':
+      $block['subject'] = t('By Time Period');
+      $block['content'] = theme('browse_drawings_by_timeperiod_block');
       break;
   }
   return $block;
@@ -311,28 +337,6 @@ function aegaron_soap_theme($existing, $type, $theme, $path) {
     'path' => drupal_get_path('module', 'aegaron_soap'),
   );
 
-  $themes['views_view__browse_drawings__block'] = array(
-    'template' => 'views-view--browse-drawings--block',
-    'original hook' => 'views_view',
-    'preprocess functions' => array(
-      'template_preprocess',
-      'template_preprocess_views_view',
-    ),
-    'arguments' => array('view' => NULL),
-    'path' => drupal_get_path('module', 'aegaron_soap'),
-  );
-
-  $themes['views_view__browse_drawings__block_1'] = array(
-    'template' => 'views-view--browse-drawings--block-1',
-    'original hook' => 'views_view',
-    'preprocess functions' => array(
-      'template_preprocess',
-      'template_preprocess_views_view',
-    ),
-    'arguments' => array('view' => NULL),
-    'path' => drupal_get_path('module', 'aegaron_soap'),
-  );
-
   $themes['views_view__search_drawings__block'] = array(
     'template' => 'views-view--search-drawings--block',
     'original hook' => 'views_view',
@@ -385,6 +389,14 @@ function aegaron_soap_theme($existing, $type, $theme, $path) {
       'template_preprocess',
       'aegaron_soap_preprocess_browse_terms_cache',
     ),
+  );
+
+  $themes['browse_drawings_by_site_block'] = array(
+    'template' => 'browse-drawings-by-site-block',
+  );
+
+  $themes['browse_drawings_by_timeperiod_block'] = array(
+    'template' => 'browse-drawings-by-timeperiod-block',
   );
 
   return $themes;
