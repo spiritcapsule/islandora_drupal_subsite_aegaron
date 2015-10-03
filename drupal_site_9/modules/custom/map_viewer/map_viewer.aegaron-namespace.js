@@ -22,10 +22,10 @@ var aegaron =
 	mapViewerHTMLFile: 	location.protocol + '//' + location.host + location.pathname,
 	arcgisserver_wms_url: 			'http://marinus.library.ucla.edu:6080/arcgis/services/AEGARON/Aegaron_Georeference_13/ImageServer/WMSServer',
 	// arcgisserver_wms_url_16bit: 	'http://marinus.library.ucla.edu:6080/arcgis/services/AEGARON/Aegaron_Georeference_16bit/ImageServer/WMSServer',
-	arcgisserver_nongeo_wms_url: 	'http://marinus.library.ucla.edu:6080/arcgis/services/AEGARON/nongeo4/ImageServer/WMSServer',
+	arcgisserver_nongeo_wms_url: 	'http://marinus.library.ucla.edu:6080/arcgis/services/AEGARON/nongeo6/ImageServer/WMSServer',
 	arcgisserver_rest_url: 			'http://marinus.library.ucla.edu:6080/arcgis/rest/services/AEGARON/Aegaron_Georeference_13',
 	// arcgisserver_rest_url: 			'http://marinus.library.ucla.edu:6080/arcgis/rest/services/AEGARON/Aegaron_Georeference_16bit',
-	arcgisserver_nongeo_rest_url: 	'http://marinus.library.ucla.edu:6080/arcgis/rest/services/AEGARON/nongeo4',
+	arcgisserver_nongeo_rest_url: 	'http://marinus.library.ucla.edu:6080/arcgis/rest/services/AEGARON/nongeo6',
 	arcgisserver_apollo_url: 		'http://marinus.library.ucla.edu:6080/arcgis/rest/services/AEGARON/apollo',
 	satellite_list: 				['Abydos','Amarna','Assuit','Beni_Hassan','BentPyramid','Deir_el_Bersheh','KaHouseofPepil','MastabaMereruka','MedinetMadi','Meir','Philae','Qasr_el_Sagha','Qaw_el_Kebir','Qubbet_el_Hawa','RoyalNecropolis','Sety','TempleofQasr','TombIII','Uronart'],
 	/* 
@@ -57,7 +57,7 @@ var aegaron =
 			layer: 	new ol.layer.Tile({
 						mapid: 1,
 						source: new ol.source.XYZ({
-							url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/Amarna/ImageServer/tile/{z}/{y}/{x}',
+							url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/Amarna2/ImageServer/tile/{z}/{y}/{x}',
 							maxZoom: 23
 						}),
 						visible: true
@@ -91,7 +91,7 @@ var aegaron =
 			layer: 	new ol.layer.Tile({
 						mapid: 1,
 						source: new ol.source.XYZ({
-							url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/Beni_Hassan/ImageServer/tile/{z}/{y}/{x}',
+							url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/Beni_Hassan2/ImageServer/tile/{z}/{y}/{x}',
 							maxZoom: 23
 						}),
 						visible: true
@@ -107,7 +107,7 @@ var aegaron =
 			layer: new ol.layer.Tile({
 				mapid: 1,
 				source: new ol.source.XYZ({
-					url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/BentPyramid/ImageServer/tile/{z}/{y}/{x}',
+					url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/BentPyramid2/ImageServer/tile/{z}/{y}/{x}',
 					maxZoom: 23
 				}),
 				visible: true
@@ -123,7 +123,7 @@ var aegaron =
 			layer: new ol.layer.Tile({
 				mapid: 1,
 				source: new ol.source.XYZ({
-					url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/Deir_el_Bersheh/ImageServer/tile/{z}/{y}/{x}',
+					url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/Deir_el_Bersheh2/ImageServer/tile/{z}/{y}/{x}',
 					maxZoom: 23
 				}),
 				visible: true
@@ -172,7 +172,7 @@ var aegaron =
 			layer: new ol.layer.Tile({
 				mapid: 1,
 				source: new ol.source.XYZ({
-					url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/MedinetMadi/ImageServer/tile/{z}/{y}/{x}',
+					url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/MedinetMadi2/ImageServer/tile/{z}/{y}/{x}',
 					maxZoom: 23
 				}),
 				visible: true
@@ -274,7 +274,7 @@ var aegaron =
 			layer: new ol.layer.Tile({
 				mapid: 1,
 				source: new ol.source.XYZ({
-					url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/RoyalNecropolis/ImageServer/tile/{z}/{y}/{x}',
+					url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/RoyalNecropolis22/ImageServer/tile/{z}/{y}/{x}',
 					maxZoom: 23
 				}),
 				visible: true
@@ -291,7 +291,7 @@ var aegaron =
 			layer: new ol.layer.Tile({
 				mapid: 1,
 				source: new ol.source.XYZ({
-					url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/Sety/ImageServer/tile/{z}/{y}/{x}',
+					url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/Sety2/ImageServer/tile/{z}/{y}/{x}',
 					maxZoom: 23
 				}),
 				visible: true
@@ -342,7 +342,7 @@ var aegaron =
 			layer: new ol.layer.Tile({
 				mapid: 1,
 				source: new ol.source.XYZ({
-					url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/Uronart/ImageServer/tile/{z}/{y}/{x}',
+					url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/Uronart3/ImageServer/tile/{z}/{y}/{x}',
 					maxZoom: 23
 				}),
 				visible: true
