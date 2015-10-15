@@ -32,22 +32,21 @@ aegaron.init = function() {
 		setTimeout(function(){aegaron.toggleLayout(1);$('#loading').modal('hide');},1500);
 	};
 
-        // if this is a section, toggle to nongeo viewer
-
-        var thisview = aegaron.getDrawingByPlanID(aegaron.mapid1).view.toLowerCase();
-        if(thisview.search('section')>-1||thisview.search('elevation')>-1||thisview.search('detail')>-1)
-        {
-                if(aegaron.geo)
-                {
-                        aegaron.toggleGeo();
-                }
-        }
+	// if this is a section, toggle to nongeo viewer
+	var thisview = aegaron.getDrawingByPlanID(aegaron.mapid1).view.toLowerCase();
+	if(thisview.search('section')>-1||thisview.search('elevation')>-1||thisview.search('detail')>-1)
+	{
+		if(aegaron.geo)
+		{
+			aegaron.toggleGeo();
+		}
+	}
 
 	// initialize the map
 	aegaron.initializeMaps();
 
 	// get mosaic data
-    aegaron.getAllPlansFromMosaic();
+	aegaron.getAllPlansFromMosaic();
 
 	// resize (maximize) the window
 	aegaron.resize();
@@ -157,8 +156,6 @@ aegaron.getAllPlansFromMosaic = function()
 	$("#changecompare2").empty();
 	$("#changecompare3").empty();
 
-        // if this is a section, toggle to nongeo viewer
-        // var view = aegaron.getDrawingByPlanID(aegaron.mapid1).view;
 
 	// get the appropriate mosaic dataset -- geo vs nongeo
 	if(aegaron.geo)
@@ -396,6 +393,8 @@ function redrawLayer(mapdivid)
 		// geo or nongeo?
 		if(aegaron.geo)
 		{
+			// add satellite base
+			aegaron.addSatelliteBaseMap(mapdivid);
 			var url = aegaron.arcgisserver_wms_url;
 		}
 		else
@@ -431,6 +430,23 @@ function redrawLayer(mapdivid)
 		// set the opacity
 		aegaron.layer1.setOpacity(aegaron.current_opacity);
 	}
+}
+
+aegaron.addSatelliteBaseMap = function(mapdivid)
+{
+	aegaron.satellite = new ol.layer.Tile({
+		visible: true,
+		preload: Infinity,
+		source: new ol.source.BingMaps({
+			key: 'Al3miDEvqOTQBtMvkY3vShhB3v1SDO3189Ni6RPF5NAraYTTKiLpmMjXgPqITabO',
+			imagerySet: 'Aerial',
+			// use maxZoom 19 to see stretched tiles instead of the BingMaps
+			// "no photos at this zoom level" tiles
+			maxZoom: 19
+		})
+	});
+	// add the plan overlay
+	mapdivid.getLayers().setAt(0, aegaron.satellite);
 }
 
 /****************************************
@@ -616,16 +632,16 @@ aegaron.toggleLayout = function(view)
 		$('#mapcontainer2').show();
 		$('#changecompare2').val(aegaron.mapid1);
 
-                $("#changecompare2").msDropdown({visibleRows:4});
-                $('#changecompare2').on('change', function() {
-                	aegaron.switchCompareMapDD(aegaron.map2,this.value);
-                });
+		$("#changecompare2").msDropdown({visibleRows:4});
+		$('#changecompare2').on('change', function() {
+			aegaron.switchCompareMapDD(aegaron.map2,this.value);
+		});
 
-                $("#changecompare3").msDropdown({visibleRows:4});
-                $('#changecompare3').on('change', function() {
-                	aegaron.switchCompareMapDD(aegaron.map3,this.value);
-                });
-		
+		$("#changecompare3").msDropdown({visibleRows:4});
+		$('#changecompare3').on('change', function() {
+			aegaron.switchCompareMapDD(aegaron.map3,this.value);
+		});
+
 		$('#layout-mode-dual').removeClass('disabled');
 		$('#layout-mode-single').removeClass('disabled');
 		$('#layout-mode-dual-unsynced').addClass('disabled');
@@ -715,10 +731,9 @@ aegaron.switchCompareMapDD=function(map,data)
 		// if requested map does not exist (maybe it is section that has not been georeferenced)
 		if(index < 0)
 		{
-			alert('The plan you selected is not available in satellite mode. Select a different plan to view in Satellite mode.')
+			alert('The plan you selected is not available in satellite mode. Choose "view mode: no satellite" or select a different plan to view in Satellite mode')
 			// aegaron.toggleGeo();
 		}
-
 		// zoom to extent of new map
 		// only if dual view
 		if(aegaron.viewState == 0)
@@ -790,44 +805,45 @@ aegaron.setOpacity = function(val)
 	// set the slider postion too
 	var handleposition = 156-(this_opacity*190)+40+'px';
 
-	// handle2.style.left=handleposition;
+	// different layer needs to be made opaque depending on satellite mode
+	if(aegaron.geo) { layertomakeopaque = 2} else { layertomakeopaque = 0};
 
 	if(aegaron.map1.getLayers().getArray().length>0)
-		aegaron.map1.getLayers().getArray()[1].setOpacity(this_opacity)
+		aegaron.map1.getLayers().getArray()[layertomakeopaque].setOpacity(this_opacity)
 	if(aegaron.map2.getLayers().getArray().length>0)
-		aegaron.map2.getLayers().getArray()[1].setOpacity(this_opacity)
+		aegaron.map2.getLayers().getArray()[layertomakeopaque].setOpacity(this_opacity)
 	if(aegaron.map3.getLayers().getArray().length>0)
-		aegaron.map3.getLayers().getArray()[1].setOpacity(this_opacity)
+		aegaron.map3.getLayers().getArray()[layertomakeopaque].setOpacity(this_opacity)
 }
 
 aegaron.compareArc2DLCSFeed = function()
 {
-        var drawingsarray = [];
-        var counter = 1;
-        $.each(aegaron.drawings,function(i,val){
+	var drawingsarray = [];
+	var counter = 1;
+	$.each(aegaron.drawings,function(i,val){
 
-                drawingsarray.push(val.drawing)
-                if($.inArray(val.drawing,aegaron.planIDforDDindexLookup)==-1)
-                {
-                        // are you a section?
-                        var thisview = aegaron.getDrawingByPlanID(val.drawing).view.toLowerCase();
-                        if(thisview.search('section')>-1||thisview.search('elevation')>-1||thisview.search('detail')>-1)
-                        {
-                                // console.log(counter+'. '+val.drawing + ' exists in DLCS but not in arc SECTION')
-                        }
-                        else
-                        {
-                                console.log(counter+'. '+val.drawing + ' exists in DLCS but not in arc (' + thisview + ')')
-                                counter++;
-                        }
-                }
-        })
-        $.each(aegaron.planIDforDDindexLookup,function(i,val){
-                // console.log(val.drawing)
-                if($.inArray(val,drawingsarray)==-1)
-                {
-                        console.log('<span style="color:red">'+val + ' exists in ARC but not in DLCS</span>')
-                }
-        })
+		drawingsarray.push(val.drawing)
+		if($.inArray(val.drawing,aegaron.planIDforDDindexLookup)==-1)
+		{
+			// are you a section?
+			var thisview = aegaron.getDrawingByPlanID(val.drawing).view.toLowerCase();
+			if(thisview.search('section')>-1||thisview.search('elevation')>-1||thisview.search('detail')>-1)
+			{
+				// console.log(counter+'. '+val.drawing + ' exists in DLCS but not in arc SECTION')
+			}
+			else
+			{
+				console.log(counter+'. '+val.drawing + ' exists in DLCS but not in arc (' + thisview + ')')
+				counter++;
+			}
+		}
+	})
+	$.each(aegaron.planIDforDDindexLookup,function(i,val){
+		// console.log(val.drawing)
+		if($.inArray(val,drawingsarray)==-1)
+		{
+			console.log(val + ' exists in ARC but not in DLCS')
+		}
+	})
 }
 

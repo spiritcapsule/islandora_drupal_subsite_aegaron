@@ -189,7 +189,7 @@ var aegaron =
 			layer: new ol.layer.Tile({
 				mapid: 1,
 				source: new ol.source.XYZ({
-					url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/Meir/ImageServer/tile/{z}/{y}/{x}',
+					url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/Meir3/ImageServer/tile/{z}/{y}/{x}',
 					maxZoom: 23
 				}),
 				visible: true
@@ -207,7 +207,7 @@ var aegaron =
 			layer: 	new ol.layer.Tile({
 						mapid: 1,
 						source: new ol.source.XYZ({
-							url: 'http://whippet.ats.ucla.edu/arcgis/rest/services/aegaron_satellite/Philae/ImageServer/tile/{z}/{y}/{x}',
+							url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/Philae/ImageServer/tile/{z}/{y}/{x}',
 							maxZoom: 23
 						}),
 						visible: true
@@ -224,7 +224,7 @@ var aegaron =
 			layer: 	new ol.layer.Tile({
 						mapid: 1,
 						source: new ol.source.XYZ({
-							url: 'http://whippet.ats.ucla.edu/arcgis/rest/services/aegaron_satellite/Qasr_el_Sagha/ImageServer/tile/{z}/{y}/{x}',
+							url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/Qasr_el_Sagha/ImageServer/tile/{z}/{y}/{x}',
 							maxZoom: 23
 						}),
 						visible: true
@@ -241,7 +241,7 @@ var aegaron =
 			layer: 	new ol.layer.Tile({
 						mapid: 1,
 						source: new ol.source.XYZ({
-							url: 'http://whippet.ats.ucla.edu/arcgis/rest/services/aegaron_satellite/Qaw_el_Kebir/ImageServer/tile/{z}/{y}/{x}',
+							url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/Qaw_el_Kebir/ImageServer/tile/{z}/{y}/{x}',
 							maxZoom: 23
 						}),
 						visible: true
@@ -258,7 +258,7 @@ var aegaron =
 			layer: 	new ol.layer.Tile({
 						mapid: 1,
 						source: new ol.source.XYZ({
-							url: 'http://whippet.ats.ucla.edu/arcgis/rest/services/aegaron_satellite/Qubbet_el_Hawa/ImageServer/tile/{z}/{y}/{x}',
+							url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/Qubbet_el_Hawa/ImageServer/tile/{z}/{y}/{x}',
 							maxZoom: 23
 						}),
 						visible: true
@@ -274,7 +274,7 @@ var aegaron =
 			layer: new ol.layer.Tile({
 				mapid: 1,
 				source: new ol.source.XYZ({
-					url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/RoyalNecropolis22/ImageServer/tile/{z}/{y}/{x}',
+					url: 'http://marinus.library.ucla.edu:6080/arcgis/rest/services/Apollo/RoyalNecropolis2/ImageServer/tile/{z}/{y}/{x}',
 					maxZoom: 23
 				}),
 				visible: true
