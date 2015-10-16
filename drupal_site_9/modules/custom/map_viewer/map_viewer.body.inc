@@ -14,8 +14,8 @@
 					<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu" role="menu">
-					<li id="view-mode-satellite" class="disabled"><a href="#" onclick="aegaron.toggleGeo()"> with satellite</a></li>
-					<li id="view-mode-nosatellite"><a href="#" onclick="aegaron.toggleGeo()"> no satellite</a></li>
+					<li id="view-mode-satellite" class="disabled"><a href="#" onclick="aegaron.toggleGeo(true)"> with satellite</a></li>
+					<li id="view-mode-nosatellite"><a href="#" onclick="aegaron.toggleGeo(true)"> no satellite</a></li>
 				</ul>
 			</div>
 		</div>

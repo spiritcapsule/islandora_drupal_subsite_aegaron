@@ -21,6 +21,7 @@ aegaron.init = function() {
 	{ 
 		if(aegaron.getUrlVar('toggleGeo')=='false')
 		{
+			console.log('toggling geo from url call...')
 			aegaron.toggleGeo() 
 		}
 	};
@@ -38,6 +39,7 @@ aegaron.init = function() {
 	{
 		if(aegaron.geo)
 		{
+			console.log('this is a section, therefore toggling to nongeo...')
 			aegaron.toggleGeo();
 		}
 	}
@@ -46,14 +48,15 @@ aegaron.init = function() {
 	aegaron.initializeMaps();
 
 	// get mosaic data
-	aegaron.getAllPlansFromMosaic();
+    aegaron.getAllPlansFromMosaic();
 
 	// resize (maximize) the window
 	aegaron.resize();
 
 	// enable geo toggle
 	$('#geo-toggle').change(function() {
-		aegaron.toggleGeo();
+		console.log('toggling geo from dropdown...')
+		aegaron.toggleGeo(true);
 	})
 }
 
@@ -97,7 +100,6 @@ aegaron.initializeMaps = function()
 	// create map1 (single view)
 	aegaron.map1 = new ol.Map({
 		target: 'map1',
-		// layers: aegaron.alllayers_map1,
 		view: new ol.View({
 			center: aegaron.mapCenter, 
 			zoom: aegaron.zoomLevel
@@ -107,7 +109,6 @@ aegaron.initializeMaps = function()
 	// create map2 (left map for dual view)
 	aegaron.map2 = new ol.Map({
 		target: 'map2',
-		// layers: aegaron.alllayers_map2,
 		view: new ol.View({
 			center: aegaron.map1.getView().getCenter(),
 			zoom: aegaron.zoomLevel
@@ -117,7 +118,6 @@ aegaron.initializeMaps = function()
 	// create map3 (right map for dual view)
 	aegaron.map3 = new ol.Map({
 		target: 'map3',
-		// layers: aegaron.alllayers_map3,
 		view: new ol.View({
 			center: aegaron.mapCenter, 
 			zoom: aegaron.zoomLevel
@@ -142,7 +142,6 @@ aegaron.initializeMaps = function()
 	layers from the Mosaic Database
 
 *****************************************/
-var ddslick1,ddslick2,ddslick3;
 aegaron.getAllPlansFromMosaic = function()
 {
 	// clear elements
@@ -156,17 +155,16 @@ aegaron.getAllPlansFromMosaic = function()
 	$("#changecompare2").empty();
 	$("#changecompare3").empty();
 
-
 	// get the appropriate mosaic dataset -- geo vs nongeo
 	if(aegaron.geo)
 	{
-		console.log('getting geo plans from marinus...')
+		console.log('getting URL for geo plans on marinus...')
 		var pretitle = 'geo '
 		var url = aegaron.arcgisserver_rest_url+'/ImageServer/query?where=1=1&outFields=*&orderByFields=Name&returnGeometry=true&outSR=102100&f=pjson';
 	}
 	else
 	{
-		console.log('getting nongeo plans from marinus...')
+		console.log('getting URL for nongeo plans on marinus...')
 		var pretitle = 'nongeo '
 		var url = aegaron.arcgisserver_nongeo_rest_url+'/ImageServer/query?where=1=1&outFields=*&orderByFields=Name&returnGeometry=true&outSR=102100&f=pjson';	
 	}
@@ -175,10 +173,9 @@ aegaron.getAllPlansFromMosaic = function()
 	$.getJSON(url,function(data){
 		aegaron.mosaicData = data.features;
 
-		console.log('getting options data.....')
+		console.log('getting JSON data from Marinus.....')
 
 		// generate the first dropdown option
-		// $("#changecompare3").append('<option selected value="--">--choose a plan--</option>');
 		$("#changecompare1").append('<option selected value="--" data-imagecss="dd-image" data-image="" data-description="If you are in synced layout mode, choose a plan that is in the same location.">Select a plan to compare</option>');
 		$("#changecompare2").append('<option selected value="--" data-imagecss="dd-image" data-image="" data-description="If you are in synced layout mode, choose a plan that is in the same location.">Select a plan to compare</option>');
 		$("#changecompare3").append('<option selected value="--" data-imagecss="dd-image" data-image="" data-description="If you are in synced layout mode, choose a plan that is in the same location.">Select a plan to compare</option>');
@@ -199,19 +196,13 @@ aegaron.getAllPlansFromMosaic = function()
 			if(name == aegaron.mapid1){map1selected = 'selected'}
 			if(name == aegaron.mapid2){map3selected = 'selected'}
 
-			if(map3selected == '')
-			{
-				// $('#changecompare3').val('--').trigger('change')
-			}
-
-
 			// add to the drop down choices for all 3 map divs
 			$("#changecompare1").append('<option '+map1selected+' value='+name+' data-imagecss="dd-image" data-image="'+thumb+'" data-description="'+text+'">'+title+'</option>');
 			$("#changecompare2").append('<option '+map1selected+' value='+name+' data-imagecss="dd-image" data-image="'+thumb+'" data-description="'+text+'">'+title+'</option>');
 			$("#changecompare3").append('<option '+map3selected+' value='+name+' data-imagecss="dd-image" data-image="'+thumb+'" data-description="'+text+'">'+title+'</option>');
 
 		});
-		
+		 
 		// Sort dropdowns alphabetically
 		aegaron.sortDropdown("#changecompare1");
 		aegaron.sortDropdown("#changecompare2");
@@ -226,15 +217,6 @@ aegaron.getAllPlansFromMosaic = function()
 			});
 
 			$('#changecompare1').val(aegaron.mapid1).trigger('change')
-			
-			// $('#changecompare1').hover(
-			// 	function(){
-			// 		$(this).css('opacity',1)
-			// 	},
-			// 	function(){
-			// 		$(this).css('opacity',0.5)
-			// 	}
-			// )
 		}
 		else
 		{
@@ -248,7 +230,7 @@ aegaron.getAllPlansFromMosaic = function()
 			$('#changecompare3').on('change', function() {
 				aegaron.switchCompareMapDD(aegaron.map3,this.value);
 			});
-			$('#changecompare3').val(aegaron.mapid1).trigger('change')
+			// $('#changecompare3').val(aegaron.mapid2).trigger('change')
 		}
 
 		aegaron.resize();
@@ -550,8 +532,9 @@ aegaron.getApolloSatelliteByCenterLatLng = function(center)
 
 *****************************************/
 // switch between geo and nongeo
-aegaron.toggleGeo = function()
+aegaron.toggleGeo = function(reset)
 {
+	console.log('toggling geo...')
 	if(aegaron.geo)
 	{
 		console.log('switching to no satellite')
@@ -568,13 +551,17 @@ aegaron.toggleGeo = function()
 		$('#view-mode-nosatellite').removeClass('disabled');
 		$('#view-mode-button').html('view mode: satellite');
 	}
-	aegaron.getAllPlansFromMosaic();
+	if(reset)
+	{
+		console.log('resetting all plans...')
+		aegaron.getAllPlansFromMosaic();
+	}
 }
 
 // toggle view modes (single/dual)
 aegaron.toggleLayout = function(view)
 {
-	console.log('toggling')
+	console.log('toggling layout...')
 	if (view == 0) //single map
 	{
 		$('#mapcontainer2').hide();
@@ -595,20 +582,21 @@ aegaron.toggleLayout = function(view)
 	}
 	else if (view == 1) //synced dual map
 	{
+		console.log('switching to synced dual map...')
 		// update the map to mirror map2
 		$('#changecompare2').val(aegaron.mapid1).trigger('change')
+		$('#changecompare3').val(aegaron.mapid2).trigger('change')
 
 		$('#mapcontainer1').hide();
 		$('#mapcontainer2').show();
 		$('#changecompare2').val(aegaron.mapid1);
 
-
-		$("#changecompare2").msDropdown({visibleRows:4});
+		$("#changecompare2").msDropdown({visibleRows:6});
 		$('#changecompare2').on('change', function() {
 			aegaron.switchCompareMapDD(aegaron.map2,this.value);
 		});
 
-		$("#changecompare3").msDropdown({visibleRows:4});
+		$("#changecompare3").msDropdown({visibleRows:6});
 		$('#changecompare3').on('change', function() {
 			aegaron.switchCompareMapDD(aegaron.map3,this.value);
 		});
@@ -627,11 +615,12 @@ aegaron.toggleLayout = function(view)
 	{
 		// update the map to mirror map2
 		$('#changecompare2').val(aegaron.mapid1).trigger('change')
+		$('#changecompare3').val(aegaron.mapid2).trigger('change')
 
 		$('#mapcontainer1').hide();
 		$('#mapcontainer2').show();
 		$('#changecompare2').val(aegaron.mapid1);
-
+		
 		$("#changecompare2").msDropdown({visibleRows:4});
 		$('#changecompare2').on('change', function() {
 			aegaron.switchCompareMapDD(aegaron.map2,this.value);
@@ -718,7 +707,7 @@ aegaron.setUrlVars=function(evt)
 *****************************************/ 
 aegaron.switchCompareMapDD=function(map,data)
 {
-	console.log('switching map...')
+	console.log('switching map from dropdown...')
 	if(map === aegaron.map1)
 	{
 		var compareID = data;
@@ -726,20 +715,17 @@ aegaron.switchCompareMapDD=function(map,data)
 		aegaron.setUrlVars();
 
 		var index = $.inArray(compareID,aegaron.planIDforDDindexLookup);
-		console.log('switched index: ' +index)
+		// console.log('switched index: ' +index)
 
 		// if requested map does not exist (maybe it is section that has not been georeferenced)
 		if(index < 0)
 		{
 			alert('The plan you selected is not available in satellite mode. Choose "view mode: no satellite" or select a different plan to view in Satellite mode')
-			// aegaron.toggleGeo();
 		}
 		// zoom to extent of new map
 		// only if dual view
 		if(aegaron.viewState == 0)
 		{
-			// if(ddslick2){ $('#changecompare2').ddslick('select', {index: index }); }
-			// $('#changecompare2').val(index).trigger('change')
 			var thisExtent = aegaron.getExtentByMapID(aegaron.mapid1);
 			aegaron.map1.getView().fitExtent(thisExtent,aegaron.map1.getSize());
 
@@ -758,8 +744,6 @@ aegaron.switchCompareMapDD=function(map,data)
 		// only if dual view
 		if(aegaron.viewState >= 1)
 		{
-			// if(ddslick1){ $('#changecompare1').ddslick('select', {index: index }); }
-			// $('#changecompare1').val(index).trigger('change')
 			var thisExtent = aegaron.getExtentByMapID(aegaron.mapid1);
 			aegaron.map1.getView().fitExtent(thisExtent,aegaron.map1.getSize());
 			aegaron.map2.getView().fitExtent(thisExtent,aegaron.map2.getSize());
@@ -846,4 +830,3 @@ aegaron.compareArc2DLCSFeed = function()
 		}
 	})
 }
-
